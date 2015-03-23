@@ -5,7 +5,7 @@ import android.content.Context;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.crypto.storage.SMSSecureAxolotlStore;
 import org.smssecure.smssecure.jobs.CleanPreKeysJob;
-import org.whispersystems.libaxolotl.state.SignedPreKeyStore;
+import org.smssecure.libaxolotl.state.SignedPreKeyStore;
 
 import dagger.Module;
 import dagger.Provides;

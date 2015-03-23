@@ -33,8 +33,8 @@ import org.smssecure.smssecure.crypto.MasterSecretUtil;
 import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.IdentityKey;
-import org.whispersystems.libaxolotl.InvalidMessageException;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.InvalidMessageException;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -17,11 +17,11 @@ import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.sms.IncomingGroupMessage;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.util.Base64;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.messages.TextSecureAttachment;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
-import org.whispersystems.textsecure.api.messages.TextSecureGroup;
-import org.whispersystems.textsecure.api.messages.TextSecureMessage;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.messages.TextSecureAttachment;
+import org.smssecure.textsecure.api.messages.TextSecureEnvelope;
+import org.smssecure.textsecure.api.messages.TextSecureGroup;
+import org.smssecure.textsecure.api.messages.TextSecureMessage;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.smssecure.smssecure.database.GroupDatabase.GroupRecord;
-import static org.whispersystems.textsecure.internal.push.PushMessageProtos.PushMessageContent.AttachmentPointer;
-import static org.whispersystems.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
+import static org.smssecure.textsecure.internal.push.PushMessageProtos.PushMessageContent.AttachmentPointer;
+import static org.smssecure.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
 
 public class GroupMessageProcessor {
 

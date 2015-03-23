@@ -7,9 +7,9 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.GroupUtil;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.messages.TextSecureAttachment;
-import org.whispersystems.textsecure.api.messages.TextSecureGroup;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.messages.TextSecureAttachment;
+import org.smssecure.textsecure.api.messages.TextSecureGroup;
 
 import java.util.List;
 

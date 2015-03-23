@@ -3,8 +3,8 @@ package org.smssecure.smssecure.push;
 import android.content.Context;
 
 import org.smssecure.smssecure.R;
-import org.whispersystems.textsecure.api.push.TrustStore;
-import org.whispersystems.textsecure.internal.push.PushServiceSocket;
+import org.smssecure.textsecure.api.push.TrustStore;
+import org.smssecure.textsecure.internal.push.PushServiceSocket;
 
 import java.io.InputStream;
 

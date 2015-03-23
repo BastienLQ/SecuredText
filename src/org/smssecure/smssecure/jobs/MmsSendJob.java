@@ -26,9 +26,9 @@ import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.TelephonyUtil;
 import org.smssecure.smssecure.util.SmilUtil;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.jobqueue.requirements.NetworkRequirement;
-import org.whispersystems.libaxolotl.NoSessionException;
+import org.smssecure.jobqueue.JobParameters;
+import org.smssecure.jobqueue.requirements.NetworkRequirement;
+import org.smssecure.libaxolotl.NoSessionException;
 
 import java.io.IOException;
 import java.util.Arrays;

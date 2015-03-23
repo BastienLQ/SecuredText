@@ -5,9 +5,9 @@ import android.os.Parcelable;
 import android.telephony.SmsMessage;
 
 import org.smssecure.smssecure.util.GroupUtil;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.messages.TextSecureGroup;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.messages.TextSecureGroup;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
 
 import java.util.List;
 

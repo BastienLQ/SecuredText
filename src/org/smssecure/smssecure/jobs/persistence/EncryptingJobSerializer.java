@@ -3,11 +3,11 @@ package org.smssecure.smssecure.jobs.persistence;
 import org.smssecure.smssecure.crypto.MasterCipher;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.util.ParcelUtil;
-import org.whispersystems.jobqueue.EncryptionKeys;
-import org.whispersystems.jobqueue.Job;
-import org.whispersystems.jobqueue.persistence.JavaJobSerializer;
-import org.whispersystems.jobqueue.persistence.JobSerializer;
-import org.whispersystems.libaxolotl.InvalidMessageException;
+import org.smssecure.jobqueue.EncryptionKeys;
+import org.smssecure.jobqueue.Job;
+import org.smssecure.jobqueue.persistence.JavaJobSerializer;
+import org.smssecure.jobqueue.persistence.JobSerializer;
+import org.smssecure.libaxolotl.InvalidMessageException;
 
 import java.io.IOException;
 

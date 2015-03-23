@@ -4,10 +4,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.smssecure.smssecure.SMSSecureTestCase;
 import org.smssecure.smssecure.crypto.MasterSecret;
-import org.whispersystems.textsecure.api.TextSecureMessageSender;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
-import org.whispersystems.textsecure.api.push.exceptions.NotFoundException;
-import org.whispersystems.textsecure.api.push.exceptions.PushNetworkException;
+import org.smssecure.textsecure.api.TextSecureMessageSender;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
+import org.smssecure.textsecure.api.push.exceptions.NotFoundException;
+import org.smssecure.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 

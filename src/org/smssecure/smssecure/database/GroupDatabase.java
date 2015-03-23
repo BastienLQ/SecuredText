@@ -18,7 +18,7 @@ import org.smssecure.smssecure.util.BitmapUtil;
 import org.smssecure.smssecure.util.GroupUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.textsecure.api.messages.TextSecureAttachmentPointer;
+import org.smssecure.textsecure.api.messages.TextSecureAttachmentPointer;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

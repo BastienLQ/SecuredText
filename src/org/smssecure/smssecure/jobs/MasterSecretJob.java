@@ -4,7 +4,7 @@ import android.content.Context;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.service.KeyCachingService;
-import org.whispersystems.jobqueue.JobParameters;
+import org.smssecure.jobqueue.JobParameters;
 
 public abstract class MasterSecretJob extends ContextJob {
 

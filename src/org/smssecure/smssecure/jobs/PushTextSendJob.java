@@ -19,12 +19,12 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.transport.InsecureFallbackApprovalException;
 import org.smssecure.smssecure.transport.RetryLaterException;
 import org.smssecure.smssecure.transport.SecureFallbackApprovalException;
-import org.whispersystems.textsecure.api.TextSecureMessageSender;
-import org.whispersystems.textsecure.api.crypto.UntrustedIdentityException;
-import org.whispersystems.textsecure.api.messages.TextSecureMessage;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
-import org.whispersystems.textsecure.api.push.exceptions.UnregisteredUserException;
-import org.whispersystems.textsecure.api.util.InvalidNumberException;
+import org.smssecure.textsecure.api.TextSecureMessageSender;
+import org.smssecure.textsecure.api.crypto.UntrustedIdentityException;
+import org.smssecure.textsecure.api.messages.TextSecureMessage;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
+import org.smssecure.textsecure.api.push.exceptions.UnregisteredUserException;
+import org.smssecure.textsecure.api.util.InvalidNumberException;
 
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
 package org.smssecure.smssecure.sms;
 
-import static org.whispersystems.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
+import static org.smssecure.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
 
 public class IncomingGroupMessage extends IncomingTextMessage {
 

@@ -42,8 +42,8 @@ import org.smssecure.smssecure.util.ParcelUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.VersionTracker;
-import org.whispersystems.jobqueue.EncryptionKeys;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
+import org.smssecure.jobqueue.EncryptionKeys;
+import org.smssecure.textsecure.api.messages.TextSecureEnvelope;
 
 import java.io.File;
 import java.util.SortedSet;

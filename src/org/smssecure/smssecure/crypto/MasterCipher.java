@@ -21,9 +21,9 @@ import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Hex;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.ecc.Curve;
-import org.whispersystems.libaxolotl.ecc.ECPrivateKey;
+import org.smssecure.libaxolotl.InvalidMessageException;
+import org.smssecure.libaxolotl.ecc.Curve;
+import org.smssecure.libaxolotl.ecc.ECPrivateKey;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -83,12 +83,12 @@ public class MasterCipher {
   }
 
   public ECPrivateKey decryptKey(byte[] key)
-      throws org.whispersystems.libaxolotl.InvalidKeyException
+      throws org.smssecure.libaxolotl.InvalidKeyException
   {
     try {
       return Curve.decodePrivatePoint(decryptBytes(key));
     } catch (InvalidMessageException ime) {
-      throw new org.whispersystems.libaxolotl.InvalidKeyException(ime);
+      throw new org.smssecure.libaxolotl.InvalidKeyException(ime);
     }
   }
 

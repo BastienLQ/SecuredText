@@ -20,11 +20,11 @@ import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.service.MessageRetrievalService;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.TextSecureAccountManager;
-import org.whispersystems.textsecure.api.TextSecureMessageReceiver;
-import org.whispersystems.textsecure.api.TextSecureMessageSender;
-import org.whispersystems.textsecure.api.util.CredentialsProvider;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.TextSecureAccountManager;
+import org.smssecure.textsecure.api.TextSecureMessageReceiver;
+import org.smssecure.textsecure.api.TextSecureMessageSender;
+import org.smssecure.textsecure.api.util.CredentialsProvider;
 
 import dagger.Module;
 import dagger.Provides;

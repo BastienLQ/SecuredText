@@ -23,12 +23,12 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
-import org.whispersystems.libaxolotl.IdentityKey;
-import org.whispersystems.libaxolotl.IdentityKeyPair;
-import org.whispersystems.libaxolotl.InvalidKeyException;
-import org.whispersystems.libaxolotl.ecc.Curve;
-import org.whispersystems.libaxolotl.ecc.ECKeyPair;
-import org.whispersystems.libaxolotl.ecc.ECPrivateKey;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.IdentityKeyPair;
+import org.smssecure.libaxolotl.InvalidKeyException;
+import org.smssecure.libaxolotl.ecc.Curve;
+import org.smssecure.libaxolotl.ecc.ECKeyPair;
+import org.smssecure.libaxolotl.ecc.ECPrivateKey;
 
 import java.io.IOException;
 

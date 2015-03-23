@@ -39,7 +39,7 @@ import org.smssecure.smssecure.database.ApnDatabase;
 import org.smssecure.smssecure.util.TelephonyUtil;
 import org.smssecure.smssecure.util.Conversions;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.util.guava.Optional;
+import org.smssecure.libaxolotl.util.guava.Optional;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

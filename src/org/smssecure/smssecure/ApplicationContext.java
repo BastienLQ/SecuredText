@@ -27,11 +27,11 @@ import org.smssecure.smssecure.jobs.persistence.EncryptingJobSerializer;
 import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirementProvider;
 import org.smssecure.smssecure.jobs.requirements.ServiceRequirementProvider;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.JobManager;
-import org.whispersystems.jobqueue.dependencies.DependencyInjector;
-import org.whispersystems.jobqueue.requirements.NetworkRequirementProvider;
-import org.whispersystems.libaxolotl.logging.AxolotlLoggerProvider;
-import org.whispersystems.libaxolotl.util.AndroidAxolotlLogger;
+import org.smssecure.jobqueue.JobManager;
+import org.smssecure.jobqueue.dependencies.DependencyInjector;
+import org.smssecure.jobqueue.requirements.NetworkRequirementProvider;
+import org.smssecure.libaxolotl.logging.AxolotlLoggerProvider;
+import org.smssecure.libaxolotl.util.AndroidAxolotlLogger;
 
 import java.security.Security;
 

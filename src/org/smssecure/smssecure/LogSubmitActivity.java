@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import org.whispersystems.libpastelog.SubmitLogFragment;
+import org.smssecure.libpastelog.SubmitLogFragment;
 
 /**
  * Activity for submitting logcat logs to a pastebin service.

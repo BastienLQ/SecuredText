@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import org.smssecure.smssecure.service.KeyCachingService;
-import org.whispersystems.jobqueue.requirements.RequirementListener;
-import org.whispersystems.jobqueue.requirements.RequirementProvider;
+import org.smssecure.jobqueue.requirements.RequirementListener;
+import org.smssecure.jobqueue.requirements.RequirementProvider;
 
 public class MasterSecretRequirementProvider implements RequirementProvider {
 
