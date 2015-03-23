@@ -9,9 +9,9 @@ import org.smssecure.smssecure.database.NotInDirectoryException;
 import org.smssecure.smssecure.database.SMSSecureDirectory;
 import org.smssecure.smssecure.push.SMSSecureCommunicationFactory;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.whispersystems.textsecure.api.TextSecureAccountManager;
-import org.whispersystems.textsecure.api.push.ContactTokenDetails;
-import org.whispersystems.textsecure.api.util.InvalidNumberException;
+import org.securesms.textsecure.api.TextSecureAccountManager;
+import org.securesms.textsecure.api.push.ContactTokenDetails;
+import org.securesms.textsecure.api.util.InvalidNumberException;
 
 import java.io.IOException;
 import java.util.List;

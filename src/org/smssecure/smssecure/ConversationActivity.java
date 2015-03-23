@@ -103,8 +103,8 @@ import org.smssecure.smssecure.util.MemoryCleaner;
 import org.smssecure.smssecure.util.ResUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.util.guava.Optional;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.util.guava.Optional;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -113,7 +113,7 @@ import java.util.List;
 
 import static org.smssecure.smssecure.database.GroupDatabase.GroupRecord;
 import static org.smssecure.smssecure.recipients.Recipient.RecipientModifiedListener;
-import static org.whispersystems.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
+import static org.securesms.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
 
 /**
  * Activity for displaying a message thread, as well as

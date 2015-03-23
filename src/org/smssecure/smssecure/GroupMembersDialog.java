@@ -12,7 +12,7 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.GroupUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.textsecure.api.util.InvalidNumberException;
+import org.securesms.textsecure.api.util.InvalidNumberException;
 
 import java.io.IOException;
 import java.util.LinkedList;

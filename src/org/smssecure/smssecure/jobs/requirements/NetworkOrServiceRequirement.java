@@ -2,9 +2,9 @@ package org.smssecure.smssecure.jobs.requirements;
 
 import android.content.Context;
 
-import org.whispersystems.jobqueue.dependencies.ContextDependent;
-import org.whispersystems.jobqueue.requirements.NetworkRequirement;
-import org.whispersystems.jobqueue.requirements.Requirement;
+import org.securesms.jobqueue.dependencies.ContextDependent;
+import org.securesms.jobqueue.requirements.NetworkRequirement;
+import org.securesms.jobqueue.requirements.Requirement;
 
 public class NetworkOrServiceRequirement implements Requirement, ContextDependent {
 

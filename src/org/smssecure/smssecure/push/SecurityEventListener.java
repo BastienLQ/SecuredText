@@ -6,8 +6,8 @@ import org.smssecure.smssecure.crypto.SecurityEvent;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.whispersystems.textsecure.api.TextSecureMessageSender;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
+import org.securesms.textsecure.api.TextSecureMessageSender;
+import org.securesms.textsecure.api.push.TextSecureAddress;
 
 public class SecurityEventListener implements TextSecureMessageSender.EventListener {
 

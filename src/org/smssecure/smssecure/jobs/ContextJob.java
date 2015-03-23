@@ -2,9 +2,9 @@ package org.smssecure.smssecure.jobs;
 
 import android.content.Context;
 
-import org.whispersystems.jobqueue.Job;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.jobqueue.dependencies.ContextDependent;
+import org.securesms.jobqueue.Job;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.jobqueue.dependencies.ContextDependent;
 
 public abstract class ContextJob extends Job implements ContextDependent {
 

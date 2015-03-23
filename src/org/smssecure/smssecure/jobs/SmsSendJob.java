@@ -27,8 +27,8 @@ import org.smssecure.smssecure.transport.InsecureFallbackApprovalException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.libaxolotl.NoSessionException;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.libaxolotl.NoSessionException;
 
 import java.util.ArrayList;
 

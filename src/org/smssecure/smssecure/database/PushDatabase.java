@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
+import org.securesms.textsecure.api.messages.TextSecureEnvelope;
 
 import java.io.IOException;
 

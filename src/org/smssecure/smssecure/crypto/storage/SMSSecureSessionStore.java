@@ -8,12 +8,12 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.util.Conversions;
-import org.whispersystems.libaxolotl.AxolotlAddress;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.state.SessionRecord;
-import org.whispersystems.libaxolotl.state.SessionState;
-import org.whispersystems.libaxolotl.state.SessionStore;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
+import org.securesms.libaxolotl.AxolotlAddress;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.state.SessionRecord;
+import org.securesms.libaxolotl.state.SessionState;
+import org.securesms.libaxolotl.state.SessionStore;
+import org.securesms.textsecure.api.push.TextSecureAddress;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +24,7 @@ import java.nio.channels.FileChannel;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.whispersystems.libaxolotl.state.StorageProtos.SessionStructure;
+import static org.securesms.libaxolotl.state.StorageProtos.SessionStructure;
 
 public class SMSSecureSessionStore implements SessionStore {
 

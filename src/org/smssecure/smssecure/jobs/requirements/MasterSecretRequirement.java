@@ -3,8 +3,8 @@ package org.smssecure.smssecure.jobs.requirements;
 import android.content.Context;
 
 import org.smssecure.smssecure.service.KeyCachingService;
-import org.whispersystems.jobqueue.dependencies.ContextDependent;
-import org.whispersystems.jobqueue.requirements.Requirement;
+import org.securesms.jobqueue.dependencies.ContextDependent;
+import org.securesms.jobqueue.requirements.Requirement;
 
 public class MasterSecretRequirement implements Requirement, ContextDependent {
 

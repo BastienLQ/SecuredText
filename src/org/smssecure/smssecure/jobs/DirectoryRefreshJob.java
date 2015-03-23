@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.PowerManager;
 
 import org.smssecure.smssecure.util.DirectoryHelper;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.jobqueue.requirements.NetworkRequirement;
-import org.whispersystems.textsecure.api.push.exceptions.PushNetworkException;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.jobqueue.requirements.NetworkRequirement;
+import org.securesms.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 

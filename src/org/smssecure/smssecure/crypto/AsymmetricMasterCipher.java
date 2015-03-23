@@ -19,12 +19,12 @@ package org.smssecure.smssecure.crypto;
 
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.InvalidKeyException;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.ecc.Curve;
-import org.whispersystems.libaxolotl.ecc.ECKeyPair;
-import org.whispersystems.libaxolotl.ecc.ECPrivateKey;
-import org.whispersystems.libaxolotl.ecc.ECPublicKey;
+import org.securesms.libaxolotl.InvalidKeyException;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.ecc.Curve;
+import org.securesms.libaxolotl.ecc.ECKeyPair;
+import org.securesms.libaxolotl.ecc.ECPrivateKey;
+import org.securesms.libaxolotl.ecc.ECPublicKey;
 import org.smssecure.smssecure.util.Conversions;
 
 import java.io.IOException;

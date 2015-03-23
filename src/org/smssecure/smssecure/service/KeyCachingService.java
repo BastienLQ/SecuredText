@@ -44,7 +44,7 @@ import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.ParcelUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.EncryptionKeys;
+import org.securesms.jobqueue.EncryptionKeys;
 
 import java.util.concurrent.TimeUnit;
 

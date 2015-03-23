@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.smssecure.smssecure.util.Base64;
-import org.whispersystems.libaxolotl.IdentityKey;
-import org.whispersystems.libaxolotl.InvalidKeyException;
+import org.securesms.libaxolotl.IdentityKey;
+import org.securesms.libaxolotl.InvalidKeyException;
 
 import java.io.IOException;
 

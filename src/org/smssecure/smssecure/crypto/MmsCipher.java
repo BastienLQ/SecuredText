@@ -8,17 +8,17 @@ import org.smssecure.smssecure.protocol.WirePrefix;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libaxolotl.AxolotlAddress;
-import org.whispersystems.libaxolotl.DuplicateMessageException;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.LegacyMessageException;
-import org.whispersystems.libaxolotl.NoSessionException;
-import org.whispersystems.libaxolotl.SessionCipher;
-import org.whispersystems.libaxolotl.protocol.CiphertextMessage;
-import org.whispersystems.libaxolotl.protocol.WhisperMessage;
-import org.whispersystems.libaxolotl.state.AxolotlStore;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
+import org.securesms.libaxolotl.AxolotlAddress;
+import org.securesms.libaxolotl.DuplicateMessageException;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.LegacyMessageException;
+import org.securesms.libaxolotl.NoSessionException;
+import org.securesms.libaxolotl.SessionCipher;
+import org.securesms.libaxolotl.protocol.CiphertextMessage;
+import org.securesms.libaxolotl.protocol.WhisperMessage;
+import org.securesms.libaxolotl.state.AxolotlStore;
+import org.securesms.libaxolotl.util.guava.Optional;
+import org.securesms.textsecure.api.push.TextSecureAddress;
 
 import java.io.IOException;
 

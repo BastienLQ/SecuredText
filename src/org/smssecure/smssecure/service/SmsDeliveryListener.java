@@ -8,7 +8,7 @@ import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.jobs.SmsSentJob;
-import org.whispersystems.jobqueue.JobManager;
+import org.securesms.jobqueue.JobManager;
 
 public class SmsDeliveryListener extends BroadcastReceiver {
 

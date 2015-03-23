@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 
 import org.smssecure.smssecure.crypto.storage.SMSSecureSessionStore;
 import org.smssecure.smssecure.recipients.Recipient;
-import org.whispersystems.libaxolotl.AxolotlAddress;
-import org.whispersystems.libaxolotl.state.SessionStore;
-import org.whispersystems.textsecure.api.push.TextSecureAddress;
+import org.securesms.libaxolotl.AxolotlAddress;
+import org.securesms.libaxolotl.state.SessionStore;
+import org.securesms.textsecure.api.push.TextSecureAddress;
 
 public class SessionUtil {
 

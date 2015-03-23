@@ -9,9 +9,9 @@ import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.util.Log;
 
-import org.whispersystems.textsecure.api.push.ContactTokenDetails;
-import org.whispersystems.textsecure.api.util.InvalidNumberException;
-import org.whispersystems.textsecure.api.util.PhoneNumberFormatter;
+import org.securesms.textsecure.api.push.ContactTokenDetails;
+import org.securesms.textsecure.api.util.InvalidNumberException;
+import org.securesms.textsecure.api.util.PhoneNumberFormatter;
 
 import java.util.ArrayList;
 import java.util.Collection;

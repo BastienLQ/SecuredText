@@ -58,10 +58,10 @@ import org.smssecure.smssecure.util.LRUCache;
 import org.smssecure.smssecure.util.ListenableFutureTask;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.whispersystems.jobqueue.JobManager;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.util.InvalidNumberException;
+import org.securesms.jobqueue.JobManager;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.util.guava.Optional;
+import org.securesms.textsecure.api.util.InvalidNumberException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -53,7 +53,7 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.util.SpanUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
+import org.securesms.textsecure.api.messages.TextSecureEnvelope;
 
 import java.io.IOException;
 import java.util.List;

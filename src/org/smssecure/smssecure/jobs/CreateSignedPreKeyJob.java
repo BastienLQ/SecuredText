@@ -9,13 +9,13 @@ import org.smssecure.smssecure.crypto.PreKeyUtil;
 import org.smssecure.smssecure.dependencies.InjectableType;
 import org.smssecure.smssecure.util.ParcelUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.EncryptionKeys;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.jobqueue.requirements.NetworkRequirement;
-import org.whispersystems.libaxolotl.IdentityKeyPair;
-import org.whispersystems.libaxolotl.state.SignedPreKeyRecord;
-import org.whispersystems.textsecure.api.TextSecureAccountManager;
-import org.whispersystems.textsecure.api.push.exceptions.PushNetworkException;
+import org.securesms.jobqueue.EncryptionKeys;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.jobqueue.requirements.NetworkRequirement;
+import org.securesms.libaxolotl.IdentityKeyPair;
+import org.securesms.libaxolotl.state.SignedPreKeyRecord;
+import org.securesms.textsecure.api.TextSecureAccountManager;
+import org.securesms.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 

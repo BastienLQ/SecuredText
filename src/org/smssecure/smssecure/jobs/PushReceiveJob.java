@@ -6,13 +6,13 @@ import android.util.Log;
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.JobManager;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.libaxolotl.InvalidVersionException;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
+import org.securesms.jobqueue.JobManager;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.libaxolotl.InvalidVersionException;
+import org.securesms.textsecure.api.messages.TextSecureEnvelope;
 import org.smssecure.smssecure.database.SMSSecureDirectory;
 import org.smssecure.smssecure.database.NotInDirectoryException;
-import org.whispersystems.textsecure.api.push.ContactTokenDetails;
+import org.securesms.textsecure.api.push.ContactTokenDetails;
 
 import java.io.IOException;
 

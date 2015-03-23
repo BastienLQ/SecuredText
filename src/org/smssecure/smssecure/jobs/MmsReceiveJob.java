@@ -7,7 +7,7 @@ import android.util.Pair;
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.database.MmsDatabase;
-import org.whispersystems.jobqueue.JobParameters;
+import org.securesms.jobqueue.JobParameters;
 
 import ws.com.google.android.mms.pdu.GenericPdu;
 import ws.com.google.android.mms.pdu.NotificationInd;

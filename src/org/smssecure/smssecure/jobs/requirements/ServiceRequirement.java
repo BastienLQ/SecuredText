@@ -10,8 +10,8 @@ import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.sms.TelephonyServiceState;
-import org.whispersystems.jobqueue.dependencies.ContextDependent;
-import org.whispersystems.jobqueue.requirements.Requirement;
+import org.securesms.jobqueue.dependencies.ContextDependent;
+import org.securesms.jobqueue.requirements.Requirement;
 
 public class ServiceRequirement implements Requirement, ContextDependent {
 

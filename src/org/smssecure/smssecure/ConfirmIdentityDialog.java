@@ -30,8 +30,8 @@ import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.util.Base64;
-import org.whispersystems.textsecure.api.messages.TextSecureEnvelope;
-import org.whispersystems.textsecure.internal.push.PushMessageProtos;
+import org.securesms.textsecure.api.messages.TextSecureEnvelope;
+import org.securesms.textsecure.internal.push.PushMessageProtos;
 
 import java.io.IOException;
 

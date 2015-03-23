@@ -30,7 +30,7 @@ import org.smssecure.smssecure.database.model.SmsMessageRecord;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
 import org.smssecure.smssecure.util.LRUCache;
-import org.whispersystems.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.InvalidMessageException;
 import org.smssecure.smssecure.crypto.MasterCipher;
 import org.smssecure.smssecure.crypto.MasterSecret;
 

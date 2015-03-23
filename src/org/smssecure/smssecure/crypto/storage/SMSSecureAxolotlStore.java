@@ -3,18 +3,18 @@ package org.smssecure.smssecure.crypto.storage;
 import android.content.Context;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
-import org.whispersystems.libaxolotl.AxolotlAddress;
-import org.whispersystems.libaxolotl.IdentityKey;
-import org.whispersystems.libaxolotl.IdentityKeyPair;
-import org.whispersystems.libaxolotl.InvalidKeyIdException;
-import org.whispersystems.libaxolotl.state.AxolotlStore;
-import org.whispersystems.libaxolotl.state.IdentityKeyStore;
-import org.whispersystems.libaxolotl.state.PreKeyRecord;
-import org.whispersystems.libaxolotl.state.PreKeyStore;
-import org.whispersystems.libaxolotl.state.SessionRecord;
-import org.whispersystems.libaxolotl.state.SessionStore;
-import org.whispersystems.libaxolotl.state.SignedPreKeyRecord;
-import org.whispersystems.libaxolotl.state.SignedPreKeyStore;
+import org.securesms.libaxolotl.AxolotlAddress;
+import org.securesms.libaxolotl.IdentityKey;
+import org.securesms.libaxolotl.IdentityKeyPair;
+import org.securesms.libaxolotl.InvalidKeyIdException;
+import org.securesms.libaxolotl.state.AxolotlStore;
+import org.securesms.libaxolotl.state.IdentityKeyStore;
+import org.securesms.libaxolotl.state.PreKeyRecord;
+import org.securesms.libaxolotl.state.PreKeyStore;
+import org.securesms.libaxolotl.state.SessionRecord;
+import org.securesms.libaxolotl.state.SessionStore;
+import org.securesms.libaxolotl.state.SignedPreKeyRecord;
+import org.securesms.libaxolotl.state.SignedPreKeyStore;
 
 import java.util.List;
 

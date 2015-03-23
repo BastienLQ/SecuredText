@@ -10,12 +10,12 @@ import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.TextSecureAccountManager;
-import org.whispersystems.textsecure.api.TextSecureMessageReceiver;
-import org.whispersystems.textsecure.api.TextSecureMessageSender;
+import org.securesms.libaxolotl.util.guava.Optional;
+import org.securesms.textsecure.api.TextSecureAccountManager;
+import org.securesms.textsecure.api.TextSecureMessageReceiver;
+import org.securesms.textsecure.api.TextSecureMessageSender;
 
-import static org.whispersystems.textsecure.api.TextSecureMessageSender.EventListener;
+import static org.securesms.textsecure.api.TextSecureMessageSender.EventListener;
 
 public class SMSSecureCommunicationFactory {
 

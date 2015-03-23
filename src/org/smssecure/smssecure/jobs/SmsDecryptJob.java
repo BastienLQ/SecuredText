@@ -25,16 +25,16 @@ import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingKeyExchangeMessage;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.whispersystems.jobqueue.JobParameters;
-import org.whispersystems.libaxolotl.DuplicateMessageException;
-import org.whispersystems.libaxolotl.InvalidMessageException;
-import org.whispersystems.libaxolotl.InvalidVersionException;
-import org.whispersystems.libaxolotl.LegacyMessageException;
-import org.whispersystems.libaxolotl.NoSessionException;
-import org.whispersystems.libaxolotl.StaleKeyExchangeException;
-import org.whispersystems.libaxolotl.UntrustedIdentityException;
-import org.whispersystems.libaxolotl.util.guava.Optional;
-import org.whispersystems.textsecure.api.messages.TextSecureGroup;
+import org.securesms.jobqueue.JobParameters;
+import org.securesms.libaxolotl.DuplicateMessageException;
+import org.securesms.libaxolotl.InvalidMessageException;
+import org.securesms.libaxolotl.InvalidVersionException;
+import org.securesms.libaxolotl.LegacyMessageException;
+import org.securesms.libaxolotl.NoSessionException;
+import org.securesms.libaxolotl.StaleKeyExchangeException;
+import org.securesms.libaxolotl.UntrustedIdentityException;
+import org.securesms.libaxolotl.util.guava.Optional;
+import org.securesms.textsecure.api.messages.TextSecureGroup;
 
 import java.io.IOException;
 
