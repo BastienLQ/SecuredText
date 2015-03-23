@@ -30,11 +30,11 @@ import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicTheme;
 import org.smssecure.smssecure.util.MemoryCleaner;
-import org.securesms.libaxolotl.AxolotlAddress;
-import org.securesms.libaxolotl.IdentityKey;
-import org.securesms.libaxolotl.state.SessionRecord;
-import org.securesms.libaxolotl.state.SessionStore;
-import org.securesms.textsecure.api.push.TextSecureAddress;
+import org.smssecure.libaxolotl.AxolotlAddress;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.state.SessionRecord;
+import org.smssecure.libaxolotl.state.SessionStore;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
 
 /**
  * Activity for verifying identity keys.

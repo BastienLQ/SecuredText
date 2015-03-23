@@ -19,7 +19,7 @@ package org.smssecure.smssecure;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.securesms.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.IdentityKey;
 import org.smssecure.smssecure.crypto.IdentityKeyParcelable;
 
 /**

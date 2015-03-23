@@ -66,7 +66,7 @@ import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.SMSSecureDirectory;
 import org.smssecure.smssecure.database.NotInDirectoryException;
-import org.securesms.textsecure.api.util.InvalidNumberException;
+import org.smssecure.textsecure.api.util.InvalidNumberException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -82,7 +82,7 @@ import java.util.Set;
 import ws.com.google.android.mms.MmsException;
 
 import static org.smssecure.smssecure.contacts.ContactAccessor.ContactData;
-import static org.securesms.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
+import static org.smssecure.textsecure.internal.push.PushMessageProtos.PushMessageContent.GroupContext;
 
 /**
  * Activity to create and update groups

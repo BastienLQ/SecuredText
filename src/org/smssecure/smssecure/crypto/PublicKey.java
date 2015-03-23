@@ -21,9 +21,9 @@ import android.util.Log;
 
 import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.Util;
-import org.securesms.libaxolotl.InvalidKeyException;
-import org.securesms.libaxolotl.ecc.Curve;
-import org.securesms.libaxolotl.ecc.ECPublicKey;
+import org.smssecure.libaxolotl.InvalidKeyException;
+import org.smssecure.libaxolotl.ecc.Curve;
+import org.smssecure.libaxolotl.ecc.ECPublicKey;
 import org.smssecure.smssecure.util.Conversions;
 
 import java.security.MessageDigest;

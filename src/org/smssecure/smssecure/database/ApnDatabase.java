@@ -27,7 +27,7 @@ import org.smssecure.smssecure.mms.ApnUnavailableException;
 import org.smssecure.smssecure.mms.MmsConnection.Apn;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.securesms.libaxolotl.util.guava.Optional;
+import org.smssecure.libaxolotl.util.guava.Optional;
 
 import java.io.File;
 import java.io.FileOutputStream;

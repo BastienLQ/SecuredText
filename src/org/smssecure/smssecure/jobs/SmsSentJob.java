@@ -16,8 +16,8 @@ import org.smssecure.smssecure.database.model.SmsMessageRecord;
 import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirement;
 import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.service.SmsDeliveryListener;
-import org.securesms.jobqueue.JobParameters;
-import org.securesms.libaxolotl.state.SessionStore;
+import org.smssecure.jobqueue.JobParameters;
+import org.smssecure.libaxolotl.state.SessionStore;
 
 public class SmsSentJob extends MasterSecretJob {
 

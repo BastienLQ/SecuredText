@@ -30,15 +30,15 @@ import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingKeyExchangeMessage;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.ResUtil;
-import org.securesms.libaxolotl.AxolotlAddress;
-import org.securesms.libaxolotl.SessionBuilder;
-import org.securesms.libaxolotl.protocol.KeyExchangeMessage;
-import org.securesms.libaxolotl.state.IdentityKeyStore;
-import org.securesms.libaxolotl.state.PreKeyStore;
-import org.securesms.libaxolotl.state.SessionRecord;
-import org.securesms.libaxolotl.state.SessionStore;
-import org.securesms.libaxolotl.state.SignedPreKeyStore;
-import org.securesms.textsecure.api.push.TextSecureAddress;
+import org.smssecure.libaxolotl.AxolotlAddress;
+import org.smssecure.libaxolotl.SessionBuilder;
+import org.smssecure.libaxolotl.protocol.KeyExchangeMessage;
+import org.smssecure.libaxolotl.state.IdentityKeyStore;
+import org.smssecure.libaxolotl.state.PreKeyStore;
+import org.smssecure.libaxolotl.state.SessionRecord;
+import org.smssecure.libaxolotl.state.SessionStore;
+import org.smssecure.libaxolotl.state.SignedPreKeyStore;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
 
 public class KeyExchangeInitiator {
 

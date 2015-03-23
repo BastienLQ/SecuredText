@@ -34,8 +34,8 @@ import android.widget.EditText;
 
 import org.smssecure.smssecure.BuildConfig;
 import org.smssecure.smssecure.SMSSecureExpiredException;
-import org.securesms.textsecure.api.util.InvalidNumberException;
-import org.securesms.textsecure.api.util.PhoneNumberFormatter;
+import org.smssecure.textsecure.api.util.InvalidNumberException;
+import org.smssecure.textsecure.api.util.PhoneNumberFormatter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

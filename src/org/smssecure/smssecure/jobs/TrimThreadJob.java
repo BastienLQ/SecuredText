@@ -21,8 +21,8 @@ import android.util.Log;
 
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.securesms.jobqueue.Job;
-import org.securesms.jobqueue.JobParameters;
+import org.smssecure.jobqueue.Job;
+import org.smssecure.jobqueue.JobParameters;
 
 public class TrimThreadJob extends Job {
 

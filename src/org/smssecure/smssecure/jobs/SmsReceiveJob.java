@@ -14,8 +14,8 @@ import org.smssecure.smssecure.protocol.WirePrefix;
 import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.MultipartSmsMessageHandler;
-import org.securesms.jobqueue.JobParameters;
-import org.securesms.libaxolotl.util.guava.Optional;
+import org.smssecure.jobqueue.JobParameters;
+import org.smssecure.libaxolotl.util.guava.Optional;
 
 import java.util.LinkedList;
 import java.util.List;

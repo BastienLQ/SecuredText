@@ -5,12 +5,12 @@ import android.test.AndroidTestCase;
 import org.smssecure.smssecure.SMSSecureTestCase;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.dependencies.AxolotlStorageModule;
-import org.securesms.libaxolotl.ecc.Curve;
-import org.securesms.libaxolotl.state.SignedPreKeyRecord;
-import org.securesms.libaxolotl.state.SignedPreKeyStore;
-import org.securesms.textsecure.api.TextSecureAccountManager;
-import org.securesms.textsecure.api.push.SignedPreKeyEntity;
-import org.securesms.textsecure.api.push.exceptions.PushNetworkException;
+import org.smssecure.libaxolotl.ecc.Curve;
+import org.smssecure.libaxolotl.state.SignedPreKeyRecord;
+import org.smssecure.libaxolotl.state.SignedPreKeyStore;
+import org.smssecure.textsecure.api.TextSecureAccountManager;
+import org.smssecure.textsecure.api.push.SignedPreKeyEntity;
+import org.smssecure.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 import java.util.LinkedList;

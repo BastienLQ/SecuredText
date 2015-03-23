@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
-import org.securesms.textsecure.api.messages.TextSecureEnvelope;
+import org.smssecure.textsecure.api.messages.TextSecureEnvelope;
 
 import java.io.IOException;
 

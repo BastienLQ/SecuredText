@@ -7,9 +7,9 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
-import org.securesms.libaxolotl.IdentityKey;
-import org.securesms.libaxolotl.IdentityKeyPair;
-import org.securesms.libaxolotl.state.IdentityKeyStore;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.IdentityKeyPair;
+import org.smssecure.libaxolotl.state.IdentityKeyStore;
 
 public class SMSSecureIdentityKeyStore implements IdentityKeyStore {
 

@@ -14,7 +14,7 @@ import org.smssecure.smssecure.util.SMSSecurePreferences;
 
 public class DirectoryRefreshListener extends BroadcastReceiver {
 
-  private static final String REFRESH_EVENT = "org.securesms.whisperpush.DIRECTORY_REFRESH";
+  private static final String REFRESH_EVENT = "org.smssecure.whisperpush.DIRECTORY_REFRESH";
   private static final String BOOT_EVENT    = "android.intent.action.BOOT_COMPLETED";
 
   private static final long   INTERVAL      = 12 * 60 * 60 * 1000; // 12 hours.

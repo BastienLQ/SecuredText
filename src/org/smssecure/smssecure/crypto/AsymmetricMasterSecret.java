@@ -17,8 +17,8 @@
  */
 package org.smssecure.smssecure.crypto;
 
-import org.securesms.libaxolotl.ecc.ECPrivateKey;
-import org.securesms.libaxolotl.ecc.ECPublicKey;
+import org.smssecure.libaxolotl.ecc.ECPrivateKey;
+import org.smssecure.libaxolotl.ecc.ECPublicKey;
 
 /**
  * When a user first initializes SMSSecure, a few secrets

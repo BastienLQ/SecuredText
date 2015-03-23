@@ -19,8 +19,8 @@ package org.smssecure.smssecure.crypto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.securesms.libaxolotl.IdentityKey;
-import org.securesms.libaxolotl.InvalidKeyException;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.InvalidKeyException;
 
 public class IdentityKeyParcelable implements Parcelable {
 

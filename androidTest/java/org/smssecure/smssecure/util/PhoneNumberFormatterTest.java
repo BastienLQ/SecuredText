@@ -5,8 +5,8 @@ import android.test.AndroidTestCase;
 import junit.framework.AssertionFailedError;
 
 import org.smssecure.smssecure.SMSSecureTestCase;
-import org.securesms.textsecure.api.util.InvalidNumberException;
-import org.securesms.textsecure.api.util.PhoneNumberFormatter;
+import org.smssecure.textsecure.api.util.InvalidNumberException;
+import org.smssecure.textsecure.api.util.PhoneNumberFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

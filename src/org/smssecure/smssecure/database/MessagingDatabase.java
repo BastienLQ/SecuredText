@@ -12,7 +12,7 @@ import org.smssecure.smssecure.database.documents.Document;
 import org.smssecure.smssecure.database.documents.IdentityKeyMismatch;
 import org.smssecure.smssecure.database.documents.IdentityKeyMismatchList;
 import org.smssecure.smssecure.util.JsonUtils;
-import org.securesms.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.IdentityKey;
 
 import java.io.IOException;
 import java.util.ArrayList;

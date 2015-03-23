@@ -41,11 +41,11 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.GroupUtil;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
-import org.securesms.jobqueue.JobManager;
-import org.securesms.libaxolotl.util.guava.Optional;
-import org.securesms.textsecure.api.TextSecureAccountManager;
-import org.securesms.textsecure.api.push.ContactTokenDetails;
-import org.securesms.textsecure.api.util.InvalidNumberException;
+import org.smssecure.jobqueue.JobManager;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.TextSecureAccountManager;
+import org.smssecure.textsecure.api.push.ContactTokenDetails;
+import org.smssecure.textsecure.api.util.InvalidNumberException;
 
 import java.io.IOException;
 

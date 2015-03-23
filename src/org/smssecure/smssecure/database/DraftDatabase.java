@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.smssecure.smssecure.R;
-import org.securesms.libaxolotl.InvalidMessageException;
+import org.smssecure.libaxolotl.InvalidMessageException;
 import org.smssecure.smssecure.crypto.MasterCipher;
 
 import java.util.LinkedList;

@@ -11,7 +11,7 @@ import org.smssecure.smssecure.mms.MediaConstraints;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.MediaUtil;
 import org.smssecure.smssecure.util.Util;
-import org.securesms.jobqueue.JobParameters;
+import org.smssecure.jobqueue.JobParameters;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

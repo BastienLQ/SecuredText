@@ -5,13 +5,13 @@ import android.util.Log;
 
 
 import org.smssecure.smssecure.dependencies.InjectableType;
-import org.securesms.jobqueue.JobParameters;
-import org.securesms.jobqueue.requirements.NetworkRequirement;
-import org.securesms.libaxolotl.util.guava.Optional;
-import org.securesms.textsecure.api.TextSecureMessageSender;
-import org.securesms.textsecure.api.push.TextSecureAddress;
-import org.securesms.textsecure.api.push.exceptions.NonSuccessfulResponseCodeException;
-import org.securesms.textsecure.api.push.exceptions.PushNetworkException;
+import org.smssecure.jobqueue.JobParameters;
+import org.smssecure.jobqueue.requirements.NetworkRequirement;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.TextSecureMessageSender;
+import org.smssecure.textsecure.api.push.TextSecureAddress;
+import org.smssecure.textsecure.api.push.exceptions.NonSuccessfulResponseCodeException;
+import org.smssecure.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 

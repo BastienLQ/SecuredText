@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.PowerManager;
 
 import org.smssecure.smssecure.util.DirectoryHelper;
-import org.securesms.jobqueue.JobParameters;
-import org.securesms.jobqueue.requirements.NetworkRequirement;
-import org.securesms.textsecure.api.push.exceptions.PushNetworkException;
+import org.smssecure.jobqueue.JobParameters;
+import org.smssecure.jobqueue.requirements.NetworkRequirement;
+import org.smssecure.textsecure.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
 

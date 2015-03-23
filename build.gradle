@@ -18,13 +18,13 @@ repositories {
         url "https://repo1.maven.org/maven2/"
     }
     maven {
-        url "https://raw.github.com/securesms/maven/master/preferencefragment/releases/"
+        url "https://raw.github.com/smssecure/maven/master/preferencefragment/releases/"
     }
     maven {
-        url "https://raw.github.com/securesms/maven/master/smil/releases/"
+        url "https://raw.github.com/smssecure/maven/master/smil/releases/"
     }
     maven {
-        url "https://raw.github.com/securesms/maven/master/shortcutbadger/releases/"
+        url "https://raw.github.com/smssecure/maven/master/shortcutbadger/releases/"
     }
     jcenter()
     mavenLocal()
@@ -54,9 +54,9 @@ dependencies {
     compile 'com.madgag.spongycastle:prov:1.51.0.0'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 
-    compile 'org.securesms:jobmanager:0.11.0'
-    compile 'org.securesms:libpastelog:1.0.6'
-    compile 'org.securesms:textsecure-android:1.2.3'
+    compile 'org.smssecure:jobmanager:0.11.0'
+    compile 'org.smssecure:libpastelog:1.0.6'
+    compile 'org.smssecure:textsecure-android:1.2.3'
 
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
@@ -92,24 +92,24 @@ dependencyVerification {
             'com.squareup.dagger:dagger:789aca24537022e49f91fc6444078d9de8f1dd99e1bfb090f18491b186967883',
             'com.doomonafireball.betterpickers:library:132ecd685c95a99e7377c4e27bfadbb2d7ed0bea995944060cd62d4369fdaf3d',
             'com.madgag.spongycastle:prov:b8c3fec3a59aac1aa04ccf4dad7179351e54ef7672f53f508151b614c131398a',
-            'org.securesms:jobmanager:ea9cb943c4892fb90c1eea1be30efeb85cefca213d52c788419553b58d0ed70d',
-            'org.securesms:libpastelog:550d33c565380d90f4c671e7b8ed5f3a6da55a9fda468373177106b2eb5220b2',
-            'org.securesms:textsecure-android:61dcfbca6efa966bb914e28ba3073cb5e86e9831bf8d1c9d5dfd631c029f28ff',
+            'org.smssecure:jobmanager:ea9cb943c4892fb90c1eea1be30efeb85cefca213d52c788419553b58d0ed70d',
+            'org.smssecure:libpastelog:550d33c565380d90f4c671e7b8ed5f3a6da55a9fda468373177106b2eb5220b2',
+            'org.smssecure:textsecure-android:61dcfbca6efa966bb914e28ba3073cb5e86e9831bf8d1c9d5dfd631c029f28ff',
             'com.android.support:support-annotations:fdee2354787ef66b268e75958de3f7f6c4f8f325510a6dac9f49c929f83a63de',
             'com.nineoldandroids:library:68025a14e3e7673d6ad2f95e4b46d78d7d068343aa99256b686fe59de1b3163a',
             'javax.inject:javax.inject:91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff',
             'com.madgag.spongycastle:core:8d6240b974b0aca4d3da9c7dd44d42339d8a374358aca5fc98e50a995764511f',
-            'org.securesms:textsecure-java:3d44e75251686f82358d58559235d5cee88513f9eae5cbb01175e1b1c07fec05',
-            'org.securesms:axolotl-android:40d3db5004a84749a73f68d2f0d01b2ae35a73c54df96d8c6c6723b96efb6fc0',
+            'org.smssecure:textsecure-java:3d44e75251686f82358d58559235d5cee88513f9eae5cbb01175e1b1c07fec05',
+            'org.smssecure:axolotl-android:40d3db5004a84749a73f68d2f0d01b2ae35a73c54df96d8c6c6723b96efb6fc0',
             'com.googlecode.libphonenumber:libphonenumber:eba17eae81dd622ea89a00a3a8c025b2f25d342e0d9644c5b62e16f15687c3ab',
             'com.google.protobuf:protobuf-java:e0c1c64575c005601725e7c6a02cebf9e1285e888f756b2a1d73ffa8d725cc74',
             'com.fasterxml.jackson.core:jackson-databind:835097bcdd11f5bc8a08378c70d4c8054dfa4b911691cc2752063c75534d198d',
-            'org.securesms:axolotl-java:6daee739b89d8d7101de6d98f77132fee48495c6ea647d880e77def842f999ea',
-            'org.securesms:curve25519-android:3c29a4131a69b0d16baaa3d707678deb39602c3a3ffd75805ce7f9db252e5d0d',
+            'org.smssecure:axolotl-java:6daee739b89d8d7101de6d98f77132fee48495c6ea647d880e77def842f999ea',
+            'org.smssecure:curve25519-android:3c29a4131a69b0d16baaa3d707678deb39602c3a3ffd75805ce7f9db252e5d0d',
             'com.squareup.okio:okio:5e1098bd3fdee4c3347f5ab815b40ba851e4ab1b348c5e49a5b0362f0ce6e978',
             'com.fasterxml.jackson.core:jackson-annotations:0ca408c24202a7626ec8b861e99d85eca5e38b73311dd6dd12e3e9deecc3fe94',
             'com.fasterxml.jackson.core:jackson-core:cbf4604784b4de226262845447a1ad3bb38a6728cebe86562e2c5afada8be2c0',
-            'org.securesms:curve25519-java:9ccef8f5aba05d9942336f023c589d6278b4f9135bdc34a7bade1f4e7ad65fa3',
+            'org.smssecure:curve25519-java:9ccef8f5aba05d9942336f023c589d6278b4f9135bdc34a7bade1f4e7ad65fa3',
             'com.android.support:support-v4:703572d3015a088cc5604b7e38885af3d307c829d0c5ceaf8654ff41c71cd160',
     ]
 }

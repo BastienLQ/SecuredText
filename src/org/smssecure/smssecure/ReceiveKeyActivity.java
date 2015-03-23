@@ -47,17 +47,17 @@ import org.smssecure.smssecure.sms.IncomingPreKeyBundleMessage;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.MemoryCleaner;
-import org.securesms.libaxolotl.IdentityKey;
-import org.securesms.libaxolotl.InvalidKeyException;
-import org.securesms.libaxolotl.InvalidMessageException;
-import org.securesms.libaxolotl.InvalidVersionException;
-import org.securesms.libaxolotl.LegacyMessageException;
-import org.securesms.libaxolotl.protocol.KeyExchangeMessage;
-import org.securesms.libaxolotl.protocol.PreKeyWhisperMessage;
-import org.securesms.libaxolotl.state.IdentityKeyStore;
-import org.securesms.libaxolotl.util.guava.Optional;
-import org.securesms.textsecure.api.messages.TextSecureEnvelope;
-import org.securesms.textsecure.api.messages.TextSecureGroup;
+import org.smssecure.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.InvalidKeyException;
+import org.smssecure.libaxolotl.InvalidMessageException;
+import org.smssecure.libaxolotl.InvalidVersionException;
+import org.smssecure.libaxolotl.LegacyMessageException;
+import org.smssecure.libaxolotl.protocol.KeyExchangeMessage;
+import org.smssecure.libaxolotl.protocol.PreKeyWhisperMessage;
+import org.smssecure.libaxolotl.state.IdentityKeyStore;
+import org.smssecure.libaxolotl.util.guava.Optional;
+import org.smssecure.textsecure.api.messages.TextSecureEnvelope;
+import org.smssecure.textsecure.api.messages.TextSecureGroup;
 
 import java.io.IOException;
 

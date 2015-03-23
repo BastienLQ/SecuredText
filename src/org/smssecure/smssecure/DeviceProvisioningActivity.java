@@ -21,12 +21,12 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.push.SMSSecureCommunicationFactory;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.ProgressDialogAsyncTask;
-import org.securesms.libaxolotl.IdentityKeyPair;
-import org.securesms.libaxolotl.InvalidKeyException;
-import org.securesms.libaxolotl.ecc.Curve;
-import org.securesms.libaxolotl.ecc.ECPublicKey;
-import org.securesms.textsecure.api.TextSecureAccountManager;
-import org.securesms.textsecure.api.push.exceptions.NotFoundException;
+import org.smssecure.libaxolotl.IdentityKeyPair;
+import org.smssecure.libaxolotl.InvalidKeyException;
+import org.smssecure.libaxolotl.ecc.Curve;
+import org.smssecure.libaxolotl.ecc.ECPublicKey;
+import org.smssecure.textsecure.api.TextSecureAccountManager;
+import org.smssecure.textsecure.api.push.exceptions.NotFoundException;
 
 import java.io.IOException;
 

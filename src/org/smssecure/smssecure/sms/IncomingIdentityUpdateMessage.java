@@ -1,7 +1,7 @@
 package org.smssecure.smssecure.sms;
 
 import org.smssecure.smssecure.util.Base64;
-import org.securesms.libaxolotl.IdentityKey;
+import org.smssecure.libaxolotl.IdentityKey;
 
 public class IncomingIdentityUpdateMessage extends IncomingKeyExchangeMessage {
 
