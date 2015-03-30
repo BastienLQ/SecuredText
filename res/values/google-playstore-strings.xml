@@ -18,7 +18,7 @@
 	<string name="PlaystoreDescription_para_0100">SMSSecure Private Messenger</string>
 	<string name="PlaystoreDescription_para_0200">SMSSecure is a messaging app that allows you to take back your privacy while easily communicating with friends.</string>
 
-	<string name="PlaystoreDescription_para_0300">Using SMSSecure, you can communicate instantly while avoiding SMS fees, create groups so that you can chat in real time with all your friends at once, and share media or attachments all with complete privacy. The server never has access to any of your communication and never stores any of your data.</string>
+	<string name="PlaystoreDescription_para_0300">Using SMSSecure, you can communicate using SMS privately, there is no server that has access to any of your communication or your data.</string>
 
 	<string name="PlaystoreDescription_para_0400">* Private. SMSSecure uses an advanced end to end encryption protocol that provides privacy for every message every time.</string>
 	<string name="PlaystoreDescription_para_0500">* Open Source. SMSSecure is Free and Open Source, enabling anyone to verify its security by auditing the code. SMSSecure is the only private messenger that uses open source peer-reviewed cryptographic protocols to keep your messages safe.</string>
