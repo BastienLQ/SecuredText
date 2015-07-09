@@ -35,16 +35,14 @@ public abstract class BubbleContainer extends RelativeLayout {
   @SuppressWarnings("unused")
   private static final String TAG = BubbleContainer.class.getSimpleName();
 
-  public static final int TRANSPORT_STATE_PUSH_SENT    = 0;
-  public static final int TRANSPORT_STATE_SMS_SENT     = 1;
-  public static final int TRANSPORT_STATE_SMS_PENDING  = 2;
-  public static final int TRANSPORT_STATE_PUSH_PENDING = 3;
+  public static final int TRANSPORT_STATE_SMS_SENT    = 1;
+  public static final int TRANSPORT_STATE_SMS_PENDING = 2;
 
   public static final int MEDIA_STATE_NO_MEDIA    = 0;
   public static final int MEDIA_STATE_CAPTIONLESS = 1;
   public static final int MEDIA_STATE_CAPTIONED   = 2;
 
-  @IntDef({TRANSPORT_STATE_PUSH_SENT, TRANSPORT_STATE_PUSH_PENDING, TRANSPORT_STATE_SMS_SENT, TRANSPORT_STATE_SMS_PENDING})
+  @IntDef({TRANSPORT_STATE_SMS_SENT, TRANSPORT_STATE_SMS_PENDING})
   public @interface TransportState {}
 
   @IntDef({MEDIA_STATE_NO_MEDIA, MEDIA_STATE_CAPTIONLESS, MEDIA_STATE_CAPTIONED})
@@ -163,6 +161,6 @@ public abstract class BubbleContainer extends RelativeLayout {
   }
 
   private boolean isPending(@TransportState int transportState) {
-    return transportState == TRANSPORT_STATE_PUSH_PENDING || transportState == TRANSPORT_STATE_SMS_PENDING;
+    return transportState == TRANSPORT_STATE_SMS_PENDING;
   }
 }

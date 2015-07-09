@@ -45,10 +45,8 @@ public class OutgoingBubbleContainer extends BubbleContainer {
                                                                   R.attr.triangle_tick_outgoing_pending_push};
 
   private static final SparseIntArray TRANSPORT_STYLE_MAP = new SparseIntArray(TRANSPORT_STYLE_ATTRIBUTES.length) {{
-    put(TRANSPORT_STATE_PUSH_SENT, 0);
     put(TRANSPORT_STATE_SMS_SENT, 1);
     put(TRANSPORT_STATE_SMS_PENDING, 2);
-    put(TRANSPORT_STATE_PUSH_PENDING, 3);
   }};
 
   private TypedArray styledDrawables;

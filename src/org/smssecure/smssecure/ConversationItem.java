@@ -182,8 +182,6 @@ public class ConversationItem extends LinearLayout {
         messageRecord.isPendingInsecureSmsFallback())
     {
       transportationState = BubbleContainer.TRANSPORT_STATE_SMS_PENDING;
-    } else if (messageRecord.isPush()) {
-      transportationState = BubbleContainer.TRANSPORT_STATE_PUSH_SENT;
     } else {
       transportationState = BubbleContainer.TRANSPORT_STATE_SMS_SENT;
     }
