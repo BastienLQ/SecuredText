@@ -35,8 +35,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ws.com.google.android.mms.MmsException;
+import ws.com.google.android.mms.pdu.EncodedStringValue;
 import ws.com.google.android.mms.pdu.MultimediaMessagePdu;
 import ws.com.google.android.mms.pdu.NotificationInd;
+import ws.com.google.android.mms.pdu.PduHeaders;
 import ws.com.google.android.mms.pdu.RetrieveConf;
 
 public class MmsDownloadJob extends MasterSecretJob {
@@ -156,7 +158,14 @@ public class MmsDownloadJob extends MasterSecretJob {
     if (retrieved.getSubject() != null && WirePrefix.isEncryptedMmsSubject(retrieved.getSubject().getString())) {
       MmsCipher            mmsCipher          = new MmsCipher(new SMSSecureAxolotlStore(context, masterSecret));
       MultimediaMessagePdu plaintextPdu       = mmsCipher.decrypt(context, retrieved);
-      RetrieveConf         plaintextRetrieved = new RetrieveConf(plaintextPdu.getPduHeaders(), plaintextPdu.getBody());
+      PduHeaders incomingHeaders = retrieved.getPduHeaders();
+      if(plaintextPdu.getPduHeaders() != null) {
+        if(plaintextPdu.getPduHeaders().getEncodedStringValue(PduHeaders.SUBJECT) != null)
+          incomingHeaders.setEncodedStringValue(plaintextPdu.getPduHeaders().getEncodedStringValue(PduHeaders.SUBJECT) , PduHeaders.SUBJECT);
+        else
+          incomingHeaders.setEncodedStringValue(new EncodedStringValue(""), PduHeaders.SUBJECT);
+      }
+      RetrieveConf         plaintextRetrieved = new RetrieveConf(incomingHeaders, plaintextPdu.getBody());
       IncomingMediaMessage plaintextMessage   = new IncomingMediaMessage(plaintextRetrieved);
 
       messageAndThreadId = database.insertSecureDecryptedMessageInbox(masterSecret, plaintextMessage,

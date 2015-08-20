@@ -34,6 +34,13 @@ public class IncomingMediaMessage {
     this.push    = false;
   }
 
+  public IncomingMediaMessage(RetrieveConf retrieved, PduHeaders originalHeaders) {
+    this.headers = originalHeaders;
+    this.body    = retrieved.getBody();
+    this.groupId = null;
+    this.push    = false;
+  }
+
   public IncomingMediaMessage(MasterSecret masterSecret,
                               String from,
                               String to,
