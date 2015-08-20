@@ -456,6 +456,11 @@
   <string name="preferences__submit_debug_log">Отправлять лог отладки</string>
   <string name="preferences__support_wifi_calling">Режим совместимости с WiFi-звонками</string>
   <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Включите, если ваше устройство отправляет и принимает SMS/MMS через WiFi (и если WiFi-звонки включены)</string>
+  <string name="preferences__mms_size">размер ММС</string>
+  <string name="preferences__mms_limit_image">уменьшить ММС фото</string>
+  <string name="preferences__mms_limit_image_disc">Отключите для отправки большого изображения в случае если разрешено провайдером (>1MB)</string>
+  <string name="preferences__mms_size_disc">Укажите максимальную величину ММС</string>
+  <string name="preferences__mms_size_format">кБ</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->

@@ -640,6 +640,11 @@
     <string name="preferences__enable_this_option_if_your_keyboard_supports_emojis">Enable this option if your keyboard supports Emojis.</string>
     <string name="preferences__show_sent_time">Show sent time</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Show sent time instead of received time for incoming messages</string>
+    <string name="preferences__mms_size">MMS size limit</string>
+    <string name="preferences__mms_limit_image">MMS image resizing</string>
+    <string name="preferences__mms_limit_image_disc">Turn off if your carrier allows to send big pictures (>1MB)</string>
+    <string name="preferences__mms_size_disc">Limit your MMS message size to your carriers needs</string>
+    <string name="preferences__mms_size_format">kB</string>
 
     <!-- **************************************** -->
     <!-- menus -->

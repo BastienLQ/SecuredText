@@ -245,6 +245,7 @@ Bericht ontvangen met een onbekende identiteitssleutel. Klik om te verwerken en 
   <string name="MmsMessageRecord_decrypting_mms_please_wait">MMS ontsleutelen, een moment...</string>
   <string name="MmsMessageRecord_bad_encrypted_mms_message">Verkeerd versleuteld MMS-bericht...</string>
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">MMS-bericht versleuteld voor niet bestaande sessie...</string>
+
   <!--MuteDialog-->
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">Bezig met importeren</string>
@@ -483,6 +484,11 @@ Importeer een niet-versleutelde back-up voor \'SMS Back-up En Herstellen\'.</str
   <string name="preferences__about">Over SMSSecure</string>
   <string name="preferences__about_version">Versie %s</string>
   <string name="preferences__about_build_id">Build ID: %s</string>
+  <string name="preferences__mms_size">MMS grootte</string>
+  <string name="preferences__mms_limit_image">MMS foto\'s verkleinen</string>
+  <string name="preferences__mms_limit_image_disc">Schakel uit wanneer je grote foto\'s wilt versturen en je provider dit toelaat (>1MB)</string>
+  <string name="preferences__mms_size_disc">Stel hier je maximale grootte in van een MMS bericht</string>
+  <string name="preferences__mms_size_format">kB</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->

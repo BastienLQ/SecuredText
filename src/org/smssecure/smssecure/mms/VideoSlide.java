@@ -76,7 +76,7 @@ public class VideoSlide extends Slide {
         cursor.close();
     }
 
-    assertMediaSize(context, uri, MmsMediaConstraints.MAX_MESSAGE_SIZE);
+    assertMediaSize(context, uri, MmsMediaConstraints.getMaxMmsPref());
     part.setDataUri(uri);
     part.setContentId((System.currentTimeMillis()+"").getBytes());
     part.setName(("Video" + System.currentTimeMillis()).getBytes());
