@@ -1,6 +1,6 @@
 [main]
 host = https://www.transifex.com
-lang_map = he:iw,id:in
+lang_map = he:iw,id:in,zh_CN:zh-rCN,zh_TW:zh-rTW
 
 
 [smssecure.strings]
