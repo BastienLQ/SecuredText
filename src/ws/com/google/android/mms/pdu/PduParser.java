@@ -778,7 +778,7 @@ public class PduParser {
             int partHeaderLen = headerLength - (startPos - endPos);
             if (partHeaderLen > 0) {
                 if (false == parsePartHeaders(pduDataStream, part, partHeaderLen)) {
-                    // Parse part header faild.
+                    // Parse part header failed.
                     return null;
                 }
             } else if (partHeaderLen < 0) {
@@ -1617,6 +1617,16 @@ public class PduParser {
                             tempPos = pduDataStream.available();
                             lastLen = length - (startPos - tempPos);
                         }
+                        break;
+                    case PduPart.P_FILENAME:
+                        // filename
+                        byte[] filename = parseWapString(pduDataStream, TYPE_TEXT_STRING);
+                        if (null != filename) {
+                            // filnam
+                            Log.w("PduParser", "has Filename: "+new String(filename));
+                            part.setFilename(filename);
+                        }
+
                         break;
                     default:
                         if (LOCAL_LOGV) {

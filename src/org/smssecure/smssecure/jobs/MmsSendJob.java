@@ -26,6 +26,7 @@ import org.smssecure.smssecure.transport.InsecureFallbackApprovalException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.NumberUtil;
+import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.SmilUtil;
 import org.smssecure.smssecure.util.TelephonyUtil;
 import org.whispersystems.jobqueue.JobParameters;
@@ -107,6 +108,7 @@ public class MmsSendJob extends SendJob {
   private byte[] getPduBytes(MasterSecret masterSecret, SendReq message)
       throws IOException, UndeliverableMessageException, InsecureFallbackApprovalException
   {
+
     String number = TelephonyUtil.getManager(context).getLine1Number();
 
     message = getResolvedMessage(masterSecret, message, MediaConstraints.MMS_CONSTRAINTS, true);

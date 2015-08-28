@@ -14,8 +14,8 @@
                         android:title="@string/preferences__pref_all_mms_title" />
 
     <Preference android:key="pref_set_default"
-                android:title="@string/preferences__make_default_sms_app"
-                android:summary="@string/preferences__make_textsecure_the_default_sms_mms_app" />
+                        android:title="@string/preferences__make_default_sms_app"
+                        android:summary="@string/preferences__make_textsecure_the_default_sms_mms_app" />
 
     <org.smssecure.smssecure.components.SwitchPreferenceCompat
                         android:key="pref_show_sent_time"

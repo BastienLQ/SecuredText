@@ -63,8 +63,10 @@ import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.DateUtils;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
+import org.smssecure.smssecure.util.SaveAttachmentTask;
 import org.smssecure.smssecure.util.TelephonyUtil;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 
@@ -462,7 +464,30 @@ public class ConversationItem extends LinearLayout implements Recipient.Recipien
     public void onClick(final View v, final Slide slide) {
       if (!batchSelected.isEmpty()) {
         selectionClickListener.onItemClick(null, ConversationItem.this, -1, -1);
-      } else if (MediaPreviewActivity.isContentTypeSupported(slide.getContentType()) &&
+      } else
+      if(slide.hasFile()){
+        AlertDialogWrapper.Builder builder = new AlertDialogWrapper.Builder(context);
+        builder.setTitle(R.string.ConversationItem_view_secure_media_question);
+        builder.setIconAttribute(R.attr.dialog_alert_icon);
+        builder.setCancelable(true);
+        builder.setMessage(R.string.ConversationItem_this_media_has_been_stored_in_an_encrypted_database_external_viewer_warning);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int which) {
+            String receivedFileName = slide.getPart().getFilename() != null ? new String(slide.getPart().getFilename()) : null;
+            SaveAttachmentTask saveTask = new SaveAttachmentTask(context, masterSecret);
+            long receiveDate;
+            try{
+              receiveDate = slide.getPart() != null && slide.getPart().getName() != null ? Long.parseLong(new String(slide.getPart().getName())) : new Date().getTime();
+            } catch(NumberFormatException nfe){
+              receiveDate = new Date().getTime();
+            }
+            saveTask.execute(new SaveAttachmentTask.Attachment(slide.getUri(), slide.getContentType(), receiveDate, receivedFileName));
+          }
+        });
+        builder.setNegativeButton(R.string.no, null);
+        builder.show();
+      }
+      else if (MediaPreviewActivity.isContentTypeSupported(slide.getContentType()) &&
                  slide.getThumbnailUri() != null)
       {
         Intent intent = new Intent(context, MediaPreviewActivity.class);

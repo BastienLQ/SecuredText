@@ -158,6 +158,7 @@ public class MmsDownloadJob extends MasterSecretJob {
     if (retrieved.getSubject() != null && WirePrefix.isEncryptedMmsSubject(retrieved.getSubject().getString())) {
       MmsCipher            mmsCipher          = new MmsCipher(new SMSSecureAxolotlStore(context, masterSecret));
       MultimediaMessagePdu plaintextPdu       = mmsCipher.decrypt(context, retrieved);
+
       PduHeaders           incomingHeaders    = retrieved.getPduHeaders();
       if (plaintextPdu.getPduHeaders() != null) {
         if (plaintextPdu.getPduHeaders().getEncodedStringValue(PduHeaders.SUBJECT) != null)

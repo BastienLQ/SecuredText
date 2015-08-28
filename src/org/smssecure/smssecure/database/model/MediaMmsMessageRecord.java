@@ -95,7 +95,7 @@ public class MediaMmsMessageRecord extends MessageRecord {
       @Override
       public void onSuccess(SlideDeck deck) {
         for (Slide slide : deck.getSlides()) {
-          if (slide.hasImage() || slide.hasVideo() || slide.hasAudio()) {
+          if (slide.hasFile() || slide.hasImage() || slide.hasVideo() || slide.hasAudio()) {
             listener.onSuccess(slide);
             return;
           }

@@ -56,6 +56,7 @@ public class NewConversationActivity extends ContactSelectionActivity {
       intent.putExtra(ConversationActivity.DRAFT_AUDIO_EXTRA, getIntent().getParcelableExtra(ConversationActivity.DRAFT_AUDIO_EXTRA));
       intent.putExtra(ConversationActivity.DRAFT_VIDEO_EXTRA, getIntent().getParcelableExtra(ConversationActivity.DRAFT_VIDEO_EXTRA));
       intent.putExtra(ConversationActivity.DRAFT_IMAGE_EXTRA, getIntent().getParcelableExtra(ConversationActivity.DRAFT_IMAGE_EXTRA));
+      intent.putExtra(ConversationActivity.DRAFT_FILE_EXTRA, getIntent().getParcelableExtra(ConversationActivity.DRAFT_FILE_EXTRA));
 
       long existingThread = DatabaseFactory.getThreadDatabase(this).getThreadIdIfExistsFor(recipients);
 

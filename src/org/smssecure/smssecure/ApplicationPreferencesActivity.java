@@ -33,6 +33,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
+import org.smssecure.smssecure.mms.MmsMediaConstraints;
 import org.smssecure.smssecure.preferences.AdvancedPreferenceFragment;
 import org.smssecure.smssecure.preferences.AppProtectionPreferenceFragment;
 import org.smssecure.smssecure.preferences.AppearancePreferenceFragment;

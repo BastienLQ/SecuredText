@@ -257,7 +257,7 @@ public class MmsDatabase extends MessagingDatabase {
       String           localNumber      = telephonyManager.getLine1Number();
 
       if (localNumber == null) {
-          localNumber = SMSSecurePreferences.getLocalNumber(context);
+        localNumber = SMSSecurePreferences.getLocalNumber(context);
       }
 
       if (encodedCcList != null) {
