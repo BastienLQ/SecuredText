@@ -20,3 +20,4 @@ build
 signing.properties
 library/lib/
 library/obj/
+test/androidTestEspresso/res/values/arrays.xml

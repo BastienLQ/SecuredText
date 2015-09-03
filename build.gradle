@@ -65,9 +65,15 @@ dependencies {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'
     }
     androidTestCompile ('com.squareup.assertj:assertj-android:1.0.0') {
-        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+        exclude group: 'org.hamcrest',        module: 'hamcrest-core'
+        exclude group: 'com.android.support', module: 'support-annotations'
     }
-    androidTestCompile 'com.android.support.test:runner:0.2'
+    androidTestCompile ('com.android.support.test:runner:0.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.1') {
+        exclude group: 'javax.inject'
+    }
 }
 
 dependencyVerification {
@@ -114,6 +120,7 @@ dependencyVerification {
 android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
+    testBuildType "debugTest"
 
     defaultConfig {
         versionCode 108
@@ -160,6 +167,9 @@ android {
             proguardFiles = buildTypes.debug.proguardFiles
             signingConfig signingConfigs.release
         }
+        debugTest.initWith(buildTypes.debug){
+             proguardFile 'proguard-testing.pro'
+        }
     }
 
     sourceSets {
@@ -173,10 +183,7 @@ android {
             assets.srcDirs = ['assets']
         }
         androidTest {
-            java.srcDirs = ['androidTest/java']
-            resources.srcDirs = ['androidTest/java']
-            aidl.srcDirs = ['androidTest/java']
-            renderscript.srcDirs = ['androidTest/java']
+            java.srcDirs = ['test/androidTest/java']
         }
     }
 
@@ -214,4 +221,29 @@ if (propFile.canRead()){
 }else {
     println 'signing.properties not found'
     android.buildTypes.release.signingConfig = null
+}
+
+if (project.hasProperty('espresso') && System.console() != null) {
+    println "______________________WARNING_______________________"
+    println "ALL YOUR CONTACTS WILL BE DELETED IN THE PROCESS"
+    println "OF RUNNING THESE TESTS, TYPE 'delete all my contacts'"
+    println "TO CONTINUE"
+    println "----------------------------------------------------"
+
+    def input = System.console().readLine(':')
+    if (input == 'delete all my contacts') {
+        android.productFlavors {
+            base {}
+            espresso {
+                testInstrumentationRunner "org.smssecure.smssecure.SMSSecureWakingTestRunner"
+            }
+        }
+        android.sourceSets.espresso {
+            manifest.srcFile 'test/espresso/AndroidManifest.xml'
+        }
+        android.sourceSets.androidTestEspresso {
+            java.srcDirs = ['test/androidTestEspresso/java']
+            res.srcDirs  = ['test/androidTestEspresso/res']
+        }
+    }
 }
