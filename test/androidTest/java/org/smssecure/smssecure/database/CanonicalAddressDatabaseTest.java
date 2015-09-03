@@ -9,8 +9,8 @@ public class CanonicalAddressDatabaseTest extends SMSSecureTestCase {
   private static final String SPECIFIC_NUMBER  = "+49 444 222 3333";
   private static final String EMAIL            = "a@b.fom";
   private static final String SIMILAR_EMAIL    = "a@b.com";
-  private static final String GROUP            = "__textsecure_group__!000111222333";
-  private static final String SIMILAR_GROUP    = "__textsecure_group__!100111222333";
+  private static final String GROUP            = "__smssecure_group__!000111222333";
+  private static final String SIMILAR_GROUP    = "__smssecure_group__!100111222333";
   private static final String ALPHA            = "T-Mobile";
   private static final String SIMILAR_ALPHA    = "T-Mobila";
 
@@ -112,7 +112,7 @@ public class CanonicalAddressDatabaseTest extends SMSSecureTestCase {
     assertThat(CanonicalAddressDatabase.isNumberAddress("T-Mobile")).isFalse();
     assertThat(CanonicalAddressDatabase.isNumberAddress("T-Mobile1")).isFalse();
     assertThat(CanonicalAddressDatabase.isNumberAddress("Wherever bank")).isFalse();
-    assertThat(CanonicalAddressDatabase.isNumberAddress("__textsecure_group__!afafafafafaf")).isFalse();
+    assertThat(CanonicalAddressDatabase.isNumberAddress("__smssecure_group__!afafafafafaf")).isFalse();
     assertThat(CanonicalAddressDatabase.isNumberAddress("email@domain.com")).isFalse();
   }
 }

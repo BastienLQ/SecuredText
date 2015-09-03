@@ -25,7 +25,7 @@ before_script:
 
 script:
      - ./scripts/build-witness.sh
-     - ./gradlew connectedCheck -PdisablePreDex -PtaskThreads=1 -PandroidThread=1
+     - ./gradlew connectedCheck -Pespresso -PdisablePreDex -PtaskThreads=1 -PandroidThread=1
      - rm -rf ~/.android/avd
 
 after_success:
