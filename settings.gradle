@@ -1,3 +1,4 @@
 include 'libs:com.amulyakhare.textdrawable:library',
 'libs:com.android.support.support-v4-preferencefragment',
+'libs:com.github.amlcurran.showcaseview:library',
 'libs:org.w3c.dom'

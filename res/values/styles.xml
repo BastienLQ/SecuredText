@@ -104,7 +104,7 @@
         <item name="android:shadowRadius">0.0</item>
         <item name="android:lineSpacingMultiplier">1.25</item>
     </style>
-    
+
     <style name="Registration.Label" parent="@android:style/TextAppearance">
         <item name="android:textSize">12.0sp</item>
         <item name="android:typeface">sans</item>
@@ -119,11 +119,11 @@
         <item name="android:shadowRadius">0.0</item>
         <item name="android:lineSpacingMultiplier">1.25</item>
     </style>
-    
+
     <style name="Registration.BigLabel" parent="@style/Registration.Label">
         <item name="android:textSize">20sp</item>
     </style>
-    
+
     <style name="Registration.Constant" parent="@android:style/TextAppearance">
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">normal</item>
@@ -132,7 +132,7 @@
         <item name="android:shadowDx">1.0</item>
         <item name="android:shadowDy">1.0</item>
         <item name="android:shadowRadius">0.0</item>
-        <item name="android:lineSpacingMultiplier">1.25</item>        
+        <item name="android:lineSpacingMultiplier">1.25</item>
     </style>
 
     <!-- For Holo Light Dialog Activity Styling Emulation -->
@@ -189,6 +189,16 @@
         <item name="android:imeOptions">flagNoEnterAction</item>
         <item name="android:inputType">textAutoCorrect|textCapSentences|textMultiLine</item>
         <item name="android:contentDescription">@string/conversation_activity__compose_description</item>
+    </style>
+
+    <style name="CustomShowcaseTheme" parent="ShowcaseView">
+        <item name="sv_backgroundColor">#CC424242</item>
+        <item name="sv_showcaseColor">#D4E4F5</item>
+        <item name="sv_titleTextAppearance">@style/CustomShowcaseTitle</item>
+    </style>
+
+    <style name="CustomShowcaseTitle" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">#D4E4F5</item>
     </style>
 
 </resources>

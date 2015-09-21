@@ -10,3 +10,6 @@
 [submodule "libs/com.amulyakhare.textdrawable"]
 	path = libs/com.amulyakhare.textdrawable
 	url = https://github.com/amulyakhare/TextDrawable.git
+[submodule "libs/com.github.amlcurran.showcaseview"]
+	path = libs/com.github.amlcurran.showcaseview
+	url = https://github.com/SMSSecure/ShowcaseView.git

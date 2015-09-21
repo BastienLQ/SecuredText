@@ -79,6 +79,7 @@ public class SMSSecurePreferences {
   private static final String RATING_LATER_PREF                = "pref_rating_later";
   private static final String RATING_ENABLED_PREF              = "pref_rating_enabled";
   public  static final String NOTIFICATION_PRIVACY_PREF        = "pref_notification_privacy";
+  private static final String SHOWCASEVIEW_DISPLAYED_PREF      = "pref_showcaseview_displayed";
 
   public static NotificationPrivacyPreference getNotificationPrivacy(Context context) {
     return new NotificationPrivacyPreference(getStringPreference(context, NOTIFICATION_PRIVACY_PREF, "all"));
@@ -98,6 +99,14 @@ public class SMSSecurePreferences {
 
   public static void setRatingEnabled(Context context, boolean enabled) {
     setBooleanPreference(context, RATING_ENABLED_PREF, enabled);
+  }
+
+  public static boolean isShowcaseDisplayed(Context context) {
+    return getBooleanPreference(context, SHOWCASEVIEW_DISPLAYED_PREF, false);
+  }
+
+  public static void setShowcaseDisplayed(Context context, boolean displayed) {
+    setBooleanPreference(context, SHOWCASEVIEW_DISPLAYED_PREF, displayed);
   }
 
   public static boolean isWebsocketRegistered(Context context) {

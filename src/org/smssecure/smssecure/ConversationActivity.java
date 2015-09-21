@@ -49,6 +49,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -56,6 +57,10 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.google.protobuf.ByteString;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 
 import org.smssecure.smssecure.TransportOptions.OnTransportChangedListener;
 import org.smssecure.smssecure.color.MaterialColor;
@@ -132,7 +137,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     implements ConversationFragment.ConversationFragmentListener,
                AttachmentManager.AttachmentListener,
                RecipientsModifiedListener,
-               OnKeyboardShownListener
+               OnKeyboardShownListener,
+               OnShowcaseEventListener
 {
   private static final String TAG = ConversationActivity.class.getSimpleName();
 
@@ -163,6 +169,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private   InputAwareLayout      container;
   private   View                  composePanel;
   private   View                  composeBubble;
+  private   ShowcaseView          showcaseView;
+  private   ViewTarget            showcaseViewTarget;
 
   private   AttachmentTypeSelectorAdapter attachmentAdapter;
   private   AttachmentManager             attachmentManager;
@@ -255,6 +263,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     super.onConfigurationChanged(newConfig);
     composeText.setTransport(sendButton.getSelectedTransport());
     if (container.getCurrentInput() == emojiDrawer) container.hideAttachedInput(true);
+    updateShowcaseView();
   }
 
   @Override
@@ -305,6 +314,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     } else if (isSingleConversation()) {
       inflater.inflate(R.menu.conversation_insecure_no_push, menu);
       inflater.inflate(R.menu.conversation_insecure, menu);
+      initializeShowcaseView(findViewById(R.id.menu_security));
     }
 
     if (isSingleConversation()) {
@@ -363,8 +373,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   @Override
   public void onBackPressed() {
     Log.w(TAG, "onBackPressed()");
-    if (container.isInputOpen()) container.hideCurrentInput(composeText);
-    else                         super.onBackPressed();
+    if (showcaseView != null)         showcaseView.hide();
+    else if (container.isInputOpen()) container.hideCurrentInput(composeText);
+    else                              super.onBackPressed();
   }
 
   @Override
@@ -859,6 +870,53 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     registerReceiver(groupUpdateReceiver,
                      new IntentFilter(GroupDatabase.DATABASE_UPDATE_ACTION));
+  }
+
+  private void updateShowcaseView() {
+    if (showcaseView != null) {
+      showcaseView.setTarget(showcaseViewTarget);
+    }
+  }
+
+  private void initializeShowcaseView(View item) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+      if (item != null &&
+          showcaseView == null &&
+         !SMSSecurePreferences.isShowcaseDisplayed(this))
+      {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+          getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        showcaseViewTarget = new ViewTarget(item);
+        showcaseView = new ShowcaseView.Builder(this, true)
+            .setTarget(showcaseViewTarget)
+            .setStyle(R.style.CustomShowcaseTheme)
+            .hideOnTouchOutside()
+            .setShowcaseEventListener(this)
+            .build();
+        showcaseView.setContentTitle(getString(R.string.ConversationActivity_showcaseview_title));
+        showcaseView.setContentText(getString(R.string.ConversationActivity_showcaseview_description));
+        showcaseView.hideButton();
+      }
+    } else {
+      Log.w(TAG, "ShowcaseView: API<11, skipping");
+    }
+  }
+
+  @Override
+  public void onShowcaseViewDidHide(ShowcaseView sv) {
+    if (sv != null) {
+      showcaseView = null;
+      SMSSecurePreferences.setShowcaseDisplayed(this, true);
+    }
+  }
+
+  @Override
+  public void onShowcaseViewShow(ShowcaseView sv) {
+  }
+
+  @Override
+  public void onShowcaseViewHide(ShowcaseView sv) {
   }
 
   //////// Helper Methods

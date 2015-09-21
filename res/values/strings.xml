@@ -103,6 +103,8 @@
     <string name="ConversationActivity_mms_not_supported_title">MMS not supported</string>
     <string name="ConversationActivity_mms_not_supported_message">This message cannot be sent since your carrier doesn\'t support MMS.</string>
     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
+    <string name="ConversationActivity_showcaseview_title">Initiate secure session</string>
+    <string name="ConversationActivity_showcaseview_description">To initiate a secure session with your recipient, tap on the padlock. SMSSecure will exchange a key and your messages will then be encrypted. The recipient must use SMSSecure, but if you receive a message from an SMSSecure user, the app will also ask you to upgrade to a secure session.</string>
 
     <!-- ConversationFragment -->
     <string name="ConversationFragment_message_details">Message details</string>

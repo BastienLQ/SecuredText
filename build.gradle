@@ -57,6 +57,7 @@ dependencies {
     compile 'org.whispersystems:libpastelog:1.0.6'
     compile 'org.whispersystems:textsecure-android:1.6.2'
     compile project (':libs:com.amulyakhare.textdrawable:library')
+    compile project (':libs:com.github.amlcurran.showcaseview:library')
 
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
@@ -183,7 +184,7 @@ android {
         }
     }
 
-     lintOptions {
+    lintOptions {
         abortOnError false
     }
 }
