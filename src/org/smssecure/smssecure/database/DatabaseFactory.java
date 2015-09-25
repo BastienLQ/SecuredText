@@ -377,7 +377,8 @@ public class DatabaseFactory {
             }
           } else if (ContentType.isAudioType(contentType) ||
                      ContentType.isImageType(contentType) ||
-                     ContentType.isVideoType(contentType))
+                     ContentType.isVideoType(contentType) ||
+                     ContentType.isDrmType(contentType))
           {
             partCount++;
           }

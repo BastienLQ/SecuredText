@@ -18,6 +18,9 @@ package org.smssecure.smssecure;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.smssecure.smssecure.crypto.PRNGFixes;
 import org.smssecure.smssecure.dependencies.AxolotlStorageModule;
@@ -25,6 +28,7 @@ import org.smssecure.smssecure.dependencies.InjectableType;
 import org.smssecure.smssecure.jobs.persistence.EncryptingJobSerializer;
 import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirementProvider;
 import org.smssecure.smssecure.jobs.requirements.ServiceRequirementProvider;
+import org.smssecure.smssecure.mms.MmsMediaConstraints;
 import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.whispersystems.jobqueue.JobManager;
 import org.whispersystems.jobqueue.dependencies.DependencyInjector;
@@ -48,9 +52,15 @@ public class ApplicationContext extends Application implements DependencyInjecto
 
   private JobManager jobManager;
   private ObjectGraph objectGraph;
+  private static Context context;
+
 
   public static ApplicationContext getInstance(Context context) {
-    return (ApplicationContext)context.getApplicationContext();
+    return (ApplicationContext) context.getApplicationContext();
+  }
+
+  public static Context get(){
+    return ApplicationContext.context;
   }
 
   @Override
@@ -59,6 +69,7 @@ public class ApplicationContext extends Application implements DependencyInjecto
     initializeLogging();
     initializeDependencyInjection();
     initializeJobManager();
+    ApplicationContext.context = getApplicationContext();
   }
 
   @Override

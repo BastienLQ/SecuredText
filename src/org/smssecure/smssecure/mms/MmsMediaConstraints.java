@@ -1,17 +1,21 @@
 package org.smssecure.smssecure.mms;
 
+import android.app.Application;
 import android.content.Context;
 
+import org.smssecure.smssecure.ApplicationContext;
+import org.smssecure.smssecure.util.SMSSecurePreferences;
 import org.smssecure.smssecure.util.Util;
+
 
 public class MmsMediaConstraints extends MediaConstraints {
   private static final int MAX_IMAGE_DIMEN_LOWMEM = 768;
   private static final int MAX_IMAGE_DIMEN        = 1024;
-  public  static final int MAX_MESSAGE_SIZE       = 280 * 1024;
+  public static int MAX_MESSAGE_SIZE       = 280 * 1024;
 
   @Override
   public int getImageMaxWidth(Context context) {
-    return Util.isLowMemory(context) ? MAX_IMAGE_DIMEN_LOWMEM : MAX_IMAGE_DIMEN;
+     return Util.isLowMemory(context) ? MAX_IMAGE_DIMEN_LOWMEM : MAX_IMAGE_DIMEN;
   }
 
   @Override
@@ -38,4 +42,5 @@ public class MmsMediaConstraints extends MediaConstraints {
   public int getAudioMaxSize() {
     return MAX_MESSAGE_SIZE;
   }
+
 }

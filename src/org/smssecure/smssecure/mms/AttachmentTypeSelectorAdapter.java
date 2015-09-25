@@ -26,8 +26,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.util.ResUtil;
+import org.smssecure.smssecure.util.SMSSecurePreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +41,21 @@ public class AttachmentTypeSelectorAdapter extends ArrayAdapter<AttachmentTypeSe
   public static final int ADD_SOUND         = 3;
   public static final int ADD_CONTACT_INFO  = 4;
   public static final int TAKE_PHOTO        = 5;
+  public static final int ADD_FILE          = 6;
+  public static IconListItem fileIdentifier;
 
   private final Context context;
 
-  public AttachmentTypeSelectorAdapter(Context context) {
-    super(context, R.layout.icon_list_item, getItemList(context));
+  public AttachmentTypeSelectorAdapter(Context context, boolean isEncryptedConversation) {
+    super(context, R.layout.icon_list_item, getItemList(context, isEncryptedConversation));
     this.context = context;
   }
 
   public int buttonToCommand(int position) {
     return getItem(position).getCommand();
   }
+
+
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
@@ -71,19 +77,33 @@ public class AttachmentTypeSelectorAdapter extends ArrayAdapter<AttachmentTypeSe
     return view;
   }
 
-  private static List<IconListItem> getItemList(Context context) {
+  private static List<IconListItem> getItemList(Context context, boolean isEncryptedConversation) {
     List<IconListItem> data = new ArrayList<>(4);
     if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
       addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_camera),  ResUtil.getDrawableRes(context, R.attr.conversation_attach_camera), TAKE_PHOTO);
     }
     addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_picture), ResUtil.getDrawableRes(context, R.attr.conversation_attach_image),        ADD_IMAGE);
     addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_video),   ResUtil.getDrawableRes(context, R.attr.conversation_attach_video),        ADD_VIDEO);
-    addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_audio),   ResUtil.getDrawableRes(context, R.attr.conversation_attach_sound),        ADD_SOUND);
+    addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_audio), ResUtil.getDrawableRes(context, R.attr.conversation_attach_sound), ADD_SOUND);
     addItem(data, context.getString(R.string.AttachmentTypeSelectorAdapter_contact), ResUtil.getDrawableRes(context, R.attr.conversation_attach_contact_info), ADD_CONTACT_INFO);
-
+    if(isEncryptedConversation && SMSSecurePreferences.getMultipartMMS(context)) {
+      if (fileIdentifier == null)
+        fileIdentifier = new IconListItem("File", ResUtil.getDrawableRes(context, R.attr.conversation_attach), ADD_FILE);
+      data.add(fileIdentifier);
+    }
     return data;
   }
 
+
+  public void setSecureDestination(boolean isSecure){
+    if(fileIdentifier == null)
+      fileIdentifier = new IconListItem("File", ResUtil.getDrawableRes(context, R.attr.conversation_attach), ADD_FILE);
+    if(isSecure && getPosition(fileIdentifier) == -1 && SMSSecurePreferences.getMultipartMMS(context)) {
+      add(fileIdentifier);
+    }
+    else if((!isSecure || !SMSSecurePreferences.getMultipartMMS(context)) && getPosition(fileIdentifier) >= 0)
+      remove(fileIdentifier);
+  }
   private static void addItem(List<IconListItem> list, String text, int resource, int id) {
     list.add(new IconListItem(text, resource, id));
   }

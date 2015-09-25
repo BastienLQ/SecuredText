@@ -32,6 +32,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.smssecure.smssecure.ConversationActivity;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.components.ThumbnailView;
 import org.smssecure.smssecure.crypto.MasterSecret;
@@ -40,7 +41,9 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.BitmapDecodingException;
 import org.smssecure.smssecure.util.MediaUtil;
 
+import java.io.File;
 import java.io.IOException;
+
 
 public class AttachmentManager {
   private final static String TAG = AttachmentManager.class.getSimpleName();
@@ -82,6 +85,14 @@ public class AttachmentManager {
     attachmentView.startAnimation(animation);
   }
 
+  public void clearIfFileSlides(){
+    if(slideDeck.hasFileSlide()) {
+      slideDeck.clear();
+      attachmentView.setVisibility(View.GONE);
+      attachmentListener.onAttachmentChanged();
+    }
+  }
+
   public void cleanup() {
     if (captureUri != null) CaptureProvider.getInstance(context).delete(captureUri);
     captureUri = null;
@@ -103,6 +114,10 @@ public class AttachmentManager {
 
   public void setAudio(Uri audio) throws IOException, MediaTooLargeException {
     setMedia(new AudioSlide(context, audio));
+  }
+
+  public void setFile(File file) throws IOException, MediaTooLargeException {
+    setMedia(new FileSlide(context, file));
   }
 
   public void setMedia(final Slide slide) {
@@ -141,6 +156,24 @@ public class AttachmentManager {
   public static void selectContactInfo(Activity activity, int requestCode) {
     Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
     activity.startActivityForResult(intent, requestCode);
+  }
+
+  public void selectFile(final Activity activity, int requestCode) {
+
+    new FileChooser(activity).setFileListener(new FileChooser.FileSelectedListener() {
+      @Override
+      public void fileSelected(final File file) {
+        try {
+          setFile(file);
+        } catch (IOException ioe) {
+          Toast.makeText(activity, "Error while attaching file", Toast.LENGTH_LONG).show();
+          Log.w("AttachmentManager", ioe);
+        } catch (MediaTooLargeException mtle) {
+          Toast.makeText(activity, "File is too large to be attached", Toast.LENGTH_LONG).show();
+          Log.w("AttachmentManager", mtle);
+        }
+      }
+    }).showDialog();
   }
 
   public Uri getCaptureUri() {

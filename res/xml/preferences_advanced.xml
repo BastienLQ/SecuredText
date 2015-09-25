@@ -20,6 +20,12 @@
                         android:title="@string/preferences__complete_key_exchanges"
                         android:summary="@string/preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key" />
 
+    <org.smssecure.smssecure.components.SwitchPreferenceCompat
+                        android:defaultValue="true"
+                        android:key="pref_experimental_multipartmms_file"
+                        android:title="@string/pref_experimental_multipartmms_file_title"
+                        android:summary="@string/pref_experimental_multipartmms_file_summary" />
+
     <Preference android:key="pref_submit_debug_logs"
                 android:title="@string/preferences__submit_debug_log"/>
 </PreferenceScreen>

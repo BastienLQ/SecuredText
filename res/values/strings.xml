@@ -103,6 +103,7 @@
     <string name="ConversationActivity_mms_not_supported_title">MMS not supported</string>
     <string name="ConversationActivity_mms_not_supported_message">This message cannot be sent since your carrier doesn\'t support MMS.</string>
     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
+    <string name="ConversationActivity_sorry_no_files_attaching_on_insecure_chat">Sorry, files cannot be attached to insecure conversations.</string>
 
     <!-- ConversationFragment -->
     <string name="ConversationFragment_message_details">Message details</string>
@@ -111,7 +112,7 @@
     <string name="ConversationFragment_save_to_sd_card">Save to storage?</string>
     <string name="ConversationFragment_this_media_has_been_stored_in_an_encrypted_database_warning">Saving this attachment to storage will allow any other apps on your phone to access it.\n\nContinue?</string>
     <string name="ConversationFragment_error_while_saving_attachment_to_sd_card">Error while saving attachment to storage!</string>
-    <string name="ConversationFragment_success_exclamation">Success!</string>
+    <string name="ConversationFragment_success_exclamation">Succesfully saved file!</string>
     <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Unable to write to storage!</string>
     <string name="ConversationFragment_saving_attachment">Saving attachment</string>
     <string name="ConversationFragment_saving_attachment_to_sd_card">Saving attachment to storage...</string>
@@ -640,6 +641,8 @@
     <string name="preferences_notifications__display_in_notifications">Display in notifications</string>
     <string name="preferences__show_sent_time">Show sent time</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Show sent time instead of received time for incoming messages</string>
+    <string name="pref_experimental_multipartmms_file_title">Filetransfer in secure MMS</string>
+    <string name="pref_experimental_multipartmms_file_summary">Allows sending of files to secure conversation recipients. Limited to max MMS size.</string>
 
     <!-- **************************************** -->
     <!-- menus -->

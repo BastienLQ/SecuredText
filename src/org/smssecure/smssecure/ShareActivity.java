@@ -146,6 +146,8 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
       intent.putExtra(ConversationActivity.DRAFT_AUDIO_EXTRA, streamExtra);
     } else if (ContentType.isVideoType(type)) {
       intent.putExtra(ConversationActivity.DRAFT_VIDEO_EXTRA, streamExtra);
+    } else {
+      intent.putExtra(ConversationActivity.DRAFT_FILE_EXTRA, streamExtra);
     }
     intent.putExtra(ConversationActivity.DRAFT_TEXT_EXTRA, textExtra);
 

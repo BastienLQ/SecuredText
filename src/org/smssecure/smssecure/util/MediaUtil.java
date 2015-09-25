@@ -10,6 +10,7 @@ import android.webkit.MimeTypeMap;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.mms.AudioSlide;
+import org.smssecure.smssecure.mms.FileSlide;
 import org.smssecure.smssecure.mms.GifSlide;
 import org.smssecure.smssecure.mms.ImageSlide;
 import org.smssecure.smssecure.mms.PartAuthority;
@@ -70,6 +71,8 @@ public class MediaUtil {
       slide = new VideoSlide(context, masterSecret, part);
     } else if (ContentType.isAudioType(contentType)) {
       slide = new AudioSlide(context, masterSecret, part);
+    } else if (ContentType.isDrmType(contentType)) {
+      slide = new FileSlide(context, masterSecret, part);
     }
 
     return slide;
