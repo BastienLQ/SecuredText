@@ -37,13 +37,9 @@ public abstract class AbstractNotificationBuilder extends NotificationCompat.Bui
     return builder;
   }
 
-  public void setAlarms(@Nullable Uri ringtone, RecipientPreferenceDatabase.VibrateState vibrate) {
+  public void setAudibleAlarms(@Nullable Uri ringtone, RecipientPreferenceDatabase.VibrateState vibrate) {
     String defaultRingtoneName   = SMSSecurePreferences.getNotificationRingtone(context);
     boolean defaultVibrate       = SMSSecurePreferences.isNotificationVibrateEnabled(context);
-    String ledColor              = SMSSecurePreferences.getNotificationLedColor(context);
-    String ledBlinkPattern       = SMSSecurePreferences.getNotificationLedPattern(context);
-    String ledBlinkPatternCustom = SMSSecurePreferences.getNotificationLedPatternCustom(context);
-    String[] blinkPatternArray   = parseBlinkPattern(ledBlinkPattern, ledBlinkPatternCustom);
 
     if      (ringtone != null)                        setSound(ringtone);
     else if (!TextUtils.isEmpty(defaultRingtoneName)) setSound(Uri.parse(defaultRingtoneName));
@@ -53,6 +49,14 @@ public abstract class AbstractNotificationBuilder extends NotificationCompat.Bui
     {
       setDefaults(Notification.DEFAULT_VIBRATE);
     }
+
+  }
+
+  public void setVisualAlarms() {
+    String ledColor              = SMSSecurePreferences.getNotificationLedColor(context);
+    String ledBlinkPattern       = SMSSecurePreferences.getNotificationLedPattern(context);
+    String ledBlinkPatternCustom = SMSSecurePreferences.getNotificationLedPatternCustom(context);
+    String[] blinkPatternArray   = parseBlinkPattern(ledBlinkPattern, ledBlinkPatternCustom);
 
     if (!ledColor.equals("none")) {
       setLights(Color.parseColor(ledColor),

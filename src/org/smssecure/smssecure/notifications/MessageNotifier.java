@@ -70,6 +70,7 @@ import java.util.concurrent.TimeUnit;
 public class MessageNotifier {
 
   private static final String TAG = MessageNotifier.class.getSimpleName();
+  private static boolean bLightsActive = false;
 
   public static final int NOTIFICATION_ID = 1338;
 
@@ -79,6 +80,27 @@ public class MessageNotifier {
 
   public static void setVisibleThread(long threadId) {
     visibleThread = threadId;
+  }
+
+  public static final int MNF_SOUND       = 0x1;
+  public static final int MNF_LIGHTS      = 0x2;
+  public static final int MNF_LIGHTS_KEEP = 0x4;
+  public static final int MNF_DEFAULTS    = MNF_SOUND | MNF_LIGHTS;
+
+  public static boolean notificationsRequested(int flags) {
+    int mask = MNF_SOUND | MNF_LIGHTS | MNF_LIGHTS_KEEP;
+    return ((flags & mask) != 0);
+  }
+
+  public static boolean newNotificationRequested(int flags) {
+    int mask = MNF_SOUND | MNF_LIGHTS;
+    return ((flags & mask) != 0);
+  }
+
+  public static void cancelNotification(Context context) {
+    ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
+            .cancel(NOTIFICATION_ID);
+    bLightsActive = false;
   }
 
   public static void sendDeliveryToast(final Context context, final String recipientName){
@@ -109,12 +131,16 @@ public class MessageNotifier {
     }
   }
 
-  public static void updateNotification(Context context, MasterSecret masterSecret) {
+  public static void updateNotificationWithFlags(Context context, MasterSecret masterSecret, int flags) {
     if (!SMSSecurePreferences.isNotificationsEnabled(context)) {
       return;
     }
 
-    updateNotification(context, masterSecret, false, 0);
+    updateNotification(context, masterSecret, flags, 0);
+  }
+
+  public static void updateNotification(Context context, MasterSecret masterSecret) {
+    updateNotificationWithFlags(context, masterSecret, MNF_LIGHTS_KEEP);
   }
 
   public static void updateNotification(Context context, MasterSecret masterSecret, long threadId) {
@@ -133,11 +159,11 @@ public class MessageNotifier {
       threads.setRead(threadId);
       sendInThreadNotification(context, threads.getRecipientsForThreadId(threadId));
     } else {
-      updateNotification(context, masterSecret, true, 0);
+      updateNotification(context, masterSecret, MNF_DEFAULTS, 0);
     }
   }
 
-  private static void updateNotification(Context context, MasterSecret masterSecret, boolean signal, int reminderCount) {
+  private static void updateNotification(Context context, MasterSecret masterSecret, int flags, int reminderCount) {
     Cursor telcoCursor = null;
     Cursor pushCursor  = null;
 
@@ -147,8 +173,7 @@ public class MessageNotifier {
       if ((telcoCursor == null || telcoCursor.isAfterLast()) &&
           (pushCursor == null || pushCursor.isAfterLast()))
       {
-        ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
-          .cancel(NOTIFICATION_ID);
+        cancelNotification(context);
         clearReminder(context);
         return;
       }
@@ -156,12 +181,12 @@ public class MessageNotifier {
       NotificationState notificationState = constructNotificationState(context, masterSecret, telcoCursor);
 
       if (notificationState.hasMultipleThreads()) {
-        sendMultipleThreadNotification(context, notificationState, signal);
+        sendMultipleThreadNotification(context, notificationState, flags);
       } else {
-        sendSingleThreadNotification(context, masterSecret, notificationState, signal);
+        sendSingleThreadNotification(context, masterSecret, notificationState, flags);
       }
 
-      if (signal) {
+      if (newNotificationRequested(flags)) {
         scheduleReminder(context, reminderCount);
       }
     } finally {
@@ -170,14 +195,25 @@ public class MessageNotifier {
     }
   }
 
+  private static void triggerNotificationAlarms(AbstractNotificationBuilder builder, NotificationState notificationState, int flags) {
+      if ((flags & MNF_SOUND) == MNF_SOUND)
+        builder.setAudibleAlarms(notificationState.getRingtone(), notificationState.getVibrate());
+
+      if ((flags & MNF_LIGHTS) == MNF_LIGHTS) {
+        builder.setVisualAlarms();
+        bLightsActive = true;
+      } else if (((flags & MNF_LIGHTS_KEEP) == MNF_LIGHTS_KEEP) && (bLightsActive)) {
+          builder.setVisualAlarms();
+      }
+  }
+
   private static void sendSingleThreadNotification(Context context,
                                                    MasterSecret masterSecret,
                                                    NotificationState notificationState,
-                                                   boolean signal)
+                                                   int flags)
   {
     if (notificationState.getNotifications().isEmpty()) {
-      ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
-          .cancel(NOTIFICATION_ID);
+      cancelNotification(context);
       return;
     }
 
@@ -204,8 +240,9 @@ public class MessageNotifier {
 
     }
 
-    if (signal) {
-      builder.setAlarms(notificationState.getRingtone(), notificationState.getVibrate());
+    if (notificationsRequested(flags)) {
+      triggerNotificationAlarms(builder, notificationState, flags);
+
       builder.setTicker(notifications.get(0).getIndividualRecipient(),
                         notifications.get(0).getText());
     }
@@ -216,7 +253,7 @@ public class MessageNotifier {
 
   private static void sendMultipleThreadNotification(Context context,
                                                      NotificationState notificationState,
-                                                     boolean signal)
+                                                     int flags)
   {
     MultipleRecipientNotificationBuilder builder       = new MultipleRecipientNotificationBuilder(context, SMSSecurePreferences.getNotificationPrivacy(context));
     List<NotificationItem>               notifications = notificationState.getNotifications();
@@ -236,8 +273,9 @@ public class MessageNotifier {
       builder.addMessageBody(item.getIndividualRecipient(), item.getText());
     }
 
-    if (signal) {
-      builder.setAlarms(notificationState.getRingtone(), notificationState.getVibrate());
+    if (notificationsRequested(flags)) {
+      triggerNotificationAlarms(builder, notificationState, flags);
+
       builder.setTicker(notifications.get(0).getText());
     }
 
@@ -375,7 +413,7 @@ public class MessageNotifier {
         protected Void doInBackground(Void... params) {
           MasterSecret masterSecret  = KeyCachingService.getMasterSecret(context);
           int          reminderCount = intent.getIntExtra("reminder_count", 0);
-          MessageNotifier.updateNotification(context, masterSecret, true, reminderCount + 1);
+          MessageNotifier.updateNotification(context, masterSecret, MNF_DEFAULTS, reminderCount + 1);
 
           return null;
         }

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 
 import org.smssecure.smssecure.util.MmsCharacterCalculator;
 import org.smssecure.smssecure.util.SmsCharacterCalculator;
+import org.smssecure.smssecure.util.EncryptedSmsCharacterCalculator;
 import org.whispersystems.libaxolotl.util.guava.Optional;
 
 import java.util.LinkedList;
@@ -104,7 +105,7 @@ public class TransportOptions {
                                       context.getResources().getColor(R.color.smssecure_primary),
                                       context.getString(R.string.ConversationActivity_transport_secure_sms),
                                       context.getString(R.string.conversation_activity__type_message_sms_secure),
-                                      new SmsCharacterCalculator()));
+                                      new EncryptedSmsCharacterCalculator()));
     }
 
     return results;

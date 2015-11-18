@@ -22,7 +22,8 @@ public class FailedNotificationBuilder extends AbstractNotificationBuilder {
     setTicker(context.getString(R.string.MessageNotifier_error_delivering_message));
     setContentIntent(PendingIntent.getActivity(context, 0, intent, 0));
     setAutoCancel(true);
-    setAlarms(null, RecipientPreferenceDatabase.VibrateState.DEFAULT);
+    setAudibleAlarms(null, RecipientPreferenceDatabase.VibrateState.DEFAULT);
+    setVisualAlarms();
   }
 
 
