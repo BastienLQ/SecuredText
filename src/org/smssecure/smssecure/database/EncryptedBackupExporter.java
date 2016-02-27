@@ -94,7 +94,9 @@ public class EncryptedBackupExporter {
       for (int i=0;i<contents.length;i++) {
         File localFile = contents[i];
 
-        if (localFile.isFile()) {
+        if ( localFile.getAbsolutePath().contains("libcurve25519.so")) {
+          // The library should not be exported, so do nothing
+        } else if (localFile.isFile()) {
           File exportedFile = new File(exportDirectory.getAbsolutePath() + File.separator + localFile.getName());
           migrateFile(localFile, exportedFile);
         } else {
