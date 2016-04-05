@@ -171,7 +171,7 @@ public class MediaPreviewActivity extends PassphraseRequiredActionBarActivity im
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
         SaveAttachmentTask saveTask = new SaveAttachmentTask(MediaPreviewActivity.this, masterSecret);
-        saveTask.execute(new Attachment(mediaUri, mediaType, date));
+        saveTask.execute(new Attachment(mediaUri, mediaType, date, null));
       }
     });
   }

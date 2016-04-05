@@ -49,6 +49,7 @@
     <string name="DraftDatabase_Draft_image_snippet">(image)</string>
     <string name="DraftDatabase_Draft_audio_snippet">(audio)</string>
     <string name="DraftDatabase_Draft_video_snippet">(video)</string>
+    <string name="DraftDatabase_Draft_file_snippet">(file)</string>
 
     <!-- AttchmentManager -->
     <string name="AttachmentManager_cant_open_media_selection">Can\'t find an app to select media.</string>
@@ -58,6 +59,7 @@
     <string name="AttachmentTypeSelectorAdapter_picture">Picture</string>
     <string name="AttachmentTypeSelectorAdapter_video">Video</string>
     <string name="AttachmentTypeSelectorAdapter_audio">Audio</string>
+    <string name="AttachmentTypeSelectorAdapter_file">File</string>
     <string name="AttachmentTypeSelectorAdapter_contact">Contact info</string>
 
     <!-- BlockedContactsActivity -->
@@ -118,6 +120,7 @@
     <string name="ConversationActivity_mms_not_supported_title">MMS not supported</string>
     <string name="ConversationActivity_mms_not_supported_message">This message cannot be sent since your carrier doesn\'t support MMS.</string>
     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
+    <string name="ConversationActivity_sorry_no_files_attaching_on_insecure_chat">Sorry, files cannot be attached to insecure conversations.</string>
     <string name="ConversationActivity_attachment_exceeds_size_limits">Attachment exceeds size limits.</string>
 
     <!-- ConversationFragment -->

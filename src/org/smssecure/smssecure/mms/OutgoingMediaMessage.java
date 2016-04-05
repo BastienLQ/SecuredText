@@ -32,6 +32,7 @@ public class OutgoingMediaMessage {
 
   public OutgoingMediaMessage(Recipients recipients, SlideDeck slideDeck, String message, long sentTimeMillis, int subscriptionId, int distributionType)
   {
+
     this(recipients,
          buildMessage(slideDeck, message),
          slideDeck.asAttachments(),

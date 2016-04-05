@@ -63,15 +63,19 @@ import org.smssecure.smssecure.protocol.AutoInitiate;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.DateUtils;
+import org.smssecure.smssecure.util.SaveAttachmentTask;
 import org.smssecure.smssecure.util.TelephonyUtil;
 import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
 import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.libaxolotl.util.guava.Optional;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+
+import ws.com.google.android.mms.ContentType;
 
 /**
  * A view that displays an individual conversation item within a conversation
@@ -525,6 +529,15 @@ public class ConversationItem extends LinearLayout
         intent.putExtra(MediaPreviewActivity.DATE_EXTRA, messageRecord.getTimestamp());
 
         context.startActivity(intent);
+      } else if (slide.hasFile()) {
+        SaveAttachmentTask.showWarningDialog(context, new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int which) {
+            SaveAttachmentTask saveTask = new SaveAttachmentTask(context, masterSecret);
+            saveTask.execute(new SaveAttachmentTask.Attachment(slide.getUri(), slide.getContentType(), new Date().getTime(), slide.getFileName()));
+            return;
+          }
+        });
+
       } else {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.ConversationItem_view_secure_media_question);

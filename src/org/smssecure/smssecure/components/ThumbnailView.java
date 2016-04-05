@@ -118,9 +118,9 @@ public class ThumbnailView extends FrameLayout {
 
     this.slide = slide;
 
-    if      (slide.getThumbnailUri() != null) buildThumbnailGlideRequest(slide, masterSecret).into(image);
-    else if (slide.hasPlaceholder())          buildPlaceholderGlideRequest(slide).into(image);
-    else                                      Glide.clear(image);
+    if      (slide.getThumbnailUri() != null && !slide.hasFile()) buildThumbnailGlideRequest(slide, masterSecret).into(image);
+    else if (slide.hasPlaceholder())                              buildPlaceholderGlideRequest(slide).into(image);
+    else                                                          Glide.clear(image);
   }
 
   public void setImageResource(@NonNull MasterSecret masterSecret, @NonNull Uri uri) {

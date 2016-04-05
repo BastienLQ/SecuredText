@@ -961,6 +961,13 @@ public class PduComposer {
             appendValueLength(contentTypeLength);
             mStack.copy();
 
+            // file-name for fileslides
+            if(part.getFilename() != null) {
+                Log.w("PduComposer", "Filenameheader added to part: " + new String(part.getFilename()));
+                appendOctet(PduPart.P_FILENAME);
+                appendTextString(part.getFilename());
+            }
+
             // content id
             byte[] contentId = part.getContentId();
 

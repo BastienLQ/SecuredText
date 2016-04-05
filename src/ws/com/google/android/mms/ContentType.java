@@ -75,6 +75,8 @@ public class ContentType {
     public static final String APP_DRM_CONTENT   = "application/vnd.oma.drm.content";
     public static final String APP_DRM_MESSAGE   = "application/vnd.oma.drm.message";
 
+    public static final String SMS_SECURE_FILE   = "application/vnd.smssecure-filetype";
+
     private static final ArrayList<String> sSupportedContentTypes = new ArrayList<String>();
     private static final ArrayList<String> sSupportedImageTypes = new ArrayList<String>();
     private static final ArrayList<String> sSupportedAudioTypes = new ArrayList<String>();
@@ -124,6 +126,7 @@ public class ContentType {
 
         sSupportedContentTypes.add(APP_DRM_CONTENT);
         sSupportedContentTypes.add(APP_DRM_MESSAGE);
+        sSupportedContentTypes.add(SMS_SECURE_FILE);
 
         // add supported image types
         sSupportedImageTypes.add(IMAGE_JPEG);
@@ -197,10 +200,13 @@ public class ContentType {
         return (null != contentType) && contentType.startsWith("video/");
     }
 
-    public static boolean isDrmType(String contentType) {
+    public static boolean isNonTextVideoImageAudioType(String contentType){
+        return !isVideoType(contentType) && !isTextType(contentType) && !isAudioType(contentType) && !isImageType(contentType);
+    }
+
+    public static boolean isVendorFileType(String contentType) {
         return (null != contentType)
-                && (contentType.equals(APP_DRM_CONTENT)
-                        || contentType.equals(APP_DRM_MESSAGE));
+                && (contentType.equals(SMS_SECURE_FILE));
     }
 
     public static boolean isUnspecified(String contentType) {

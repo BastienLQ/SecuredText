@@ -32,8 +32,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import junit.framework.Assert;
-
 import org.smssecure.smssecure.MediaPreviewActivity;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.components.AudioView;
@@ -41,12 +39,12 @@ import org.smssecure.smssecure.components.RemovableMediaView;
 import org.smssecure.smssecure.components.ThumbnailView;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.providers.PersistentBlobProvider;
-import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.MediaUtil;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.smssecure.smssecure.util.concurrent.ListenableFuture.Listener;
 import org.whispersystems.libaxolotl.util.guava.Optional;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -80,6 +78,15 @@ public class AttachmentManager {
 
     removableMediaView.setRemoveClickListener(new RemoveButtonListener());
     thumbnail.setOnClickListener(new ThumbnailClickListener());
+  }
+
+  public void selectFile(final MasterSecret secret, final Activity activity, int requestCode) {
+    new FileChooser(activity).setFileListener(new FileChooser.FileSelectedListener() {
+      @Override
+      public void fileSelected(final File file) {
+        setMedia(secret, Uri.fromFile(file), MediaType.FILE, new MmsMediaConstraints());
+      }
+    }).showDialog();
   }
 
   public void clear() {
@@ -140,7 +147,15 @@ public class AttachmentManager {
   public void setMedia(@NonNull final MasterSecret masterSecret,
                        @NonNull final Uri uri,
                        @NonNull final MediaType mediaType,
-                       @NonNull final MediaConstraints constraints)
+                       @NonNull final MediaConstraints constraints){
+    setMedia(masterSecret, uri, mediaType, constraints, null);
+  }
+
+  public void setMedia(@NonNull final MasterSecret masterSecret,
+                       @NonNull final Uri uri,
+                       @NonNull final MediaType mediaType,
+                       @NonNull final MediaConstraints constraints,
+                       final String fileName)
   {
     new AsyncTask<Void, Void, Slide>() {
       @Override protected void onPreExecute() {
@@ -153,7 +168,7 @@ public class AttachmentManager {
         long start = System.currentTimeMillis();
         try {
           final long  mediaSize = MediaUtil.getMediaSize(context, masterSecret, uri);
-          final Slide slide     = mediaType.createSlide(context, uri, mediaSize);
+          final Slide slide     = mediaType.createSlide(context, uri, mediaSize, fileName);
           Log.w(TAG, "slide with size " + mediaSize + " took " + (System.currentTimeMillis() - start) + "ms");
           return slide;
         } catch (IOException ioe) {
@@ -306,18 +321,19 @@ public class AttachmentManager {
   }
 
   public enum MediaType {
-    IMAGE, GIF, AUDIO, VIDEO;
+    IMAGE, GIF, AUDIO, VIDEO, FILE;
 
     public @NonNull Slide createSlide(@NonNull Context context,
                                       @NonNull Uri     uri,
-                                               long    dataSize)
-        throws IOException
-    {
+                                               long    dataSize,
+                                                String fileName)
+        throws IOException {
       switch (this) {
       case IMAGE: return new ImageSlide(context, uri, dataSize);
       case GIF:   return new GifSlide(context, uri, dataSize);
       case AUDIO: return new AudioSlide(context, uri, dataSize);
       case VIDEO: return new VideoSlide(context, uri, dataSize);
+      case FILE:  return new FileSlide(context, uri, dataSize, fileName);
       default:    throw  new AssertionError("unrecognized enum");
       }
     }
@@ -328,6 +344,7 @@ public class AttachmentManager {
       if (ContentType.isImageType(mimeType)) return IMAGE;
       if (ContentType.isAudioType(mimeType)) return AUDIO;
       if (ContentType.isVideoType(mimeType)) return VIDEO;
+      if (ContentType.isVendorFileType(mimeType))   return FILE;
       return null;
     }
   }

@@ -107,6 +107,7 @@ public class DraftDatabase extends Database {
     public static final String IMAGE = "image";
     public static final String VIDEO = "video";
     public static final String AUDIO = "audio";
+    public static final String FILE = "file";
 
     private final String type;
     private final String value;
@@ -130,6 +131,7 @@ public class DraftDatabase extends Database {
       case IMAGE: return context.getString(R.string.DraftDatabase_Draft_image_snippet);
       case VIDEO: return context.getString(R.string.DraftDatabase_Draft_video_snippet);
       case AUDIO: return context.getString(R.string.DraftDatabase_Draft_audio_snippet);
+      case FILE:  return context.getString(R.string.DraftDatabase_Draft_file_snippet);
       default:    return null;
       }
     }

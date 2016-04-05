@@ -48,6 +48,7 @@ public class ApplicationContext extends Application implements DependencyInjecto
 
   private JobManager  jobManager;
   private ObjectGraph objectGraph;
+  private static Context context;
 
   private MediaNetworkRequirementProvider mediaNetworkRequirementProvider = new MediaNetworkRequirementProvider();
 
@@ -55,11 +56,16 @@ public class ApplicationContext extends Application implements DependencyInjecto
     return (ApplicationContext)context.getApplicationContext();
   }
 
+  public static Context get(){
+    return ApplicationContext.context;
+  }
+
   @Override
   public void onCreate() {
     initializeRandomNumberFix();
     initializeLogging();
     initializeJobManager();
+    ApplicationContext.context = getApplicationContext();
   }
 
   @Override

@@ -138,6 +138,7 @@ public class MmsDatabase extends MessagingDatabase {
       AttachmentDatabase.CONTENT_LOCATION,
       AttachmentDatabase.CONTENT_DISPOSITION,
       AttachmentDatabase.NAME,
+      AttachmentDatabase.FILENAME,
       AttachmentDatabase.TRANSFER_STATE
   };
 
@@ -503,7 +504,8 @@ public class MmsDatabase extends MessagingDatabase {
                                                databaseAttachment.getSize(),
                                                databaseAttachment.getLocation(),
                                                databaseAttachment.getKey(),
-                                               databaseAttachment.getRelay()));
+                                               databaseAttachment.getRelay(),
+                                               databaseAttachment.getFileName()));
       }
 
       return insertMediaMessage(masterSecret,

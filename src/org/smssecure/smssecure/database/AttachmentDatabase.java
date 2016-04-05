@@ -65,6 +65,7 @@ public class AttachmentDatabase extends Database {
           static final String MMS_ID                 = "mid";
           static final String CONTENT_TYPE           = "ct";
           static final String NAME                   = "name";
+          static final String FILENAME               = "filename";
           static final String CONTENT_DISPOSITION    = "cd";
           static final String CONTENT_LOCATION       = "cl";
           static final String DATA                   = "_data";
@@ -85,11 +86,11 @@ public class AttachmentDatabase extends Database {
                                                            MMS_ID, CONTENT_TYPE, NAME, CONTENT_DISPOSITION,
                                                            CONTENT_LOCATION, DATA, TRANSFER_STATE,
                                                            SIZE, THUMBNAIL, THUMBNAIL_ASPECT_RATIO,
-                                                           UNIQUE_ID};
+                                                           UNIQUE_ID, FILENAME};
 
   public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ROW_ID + " INTEGER PRIMARY KEY, " +
     MMS_ID + " INTEGER, " + "seq" + " INTEGER DEFAULT 0, "                        +
-    CONTENT_TYPE + " TEXT, " + NAME + " TEXT, " + "chset" + " INTEGER, "             +
+    CONTENT_TYPE + " TEXT, " + NAME + " TEXT, " + FILENAME + " TEXT, " + "chset" + " INTEGER, "             +
     CONTENT_DISPOSITION + " TEXT, " + "fn" + " TEXT, " + "cid" + " TEXT, "  +
     CONTENT_LOCATION + " TEXT, " + "ctt_s" + " INTEGER, "                 +
     "ctt_t" + " TEXT, " + "encrypted" + " INTEGER, "                         +
@@ -260,6 +261,7 @@ public class AttachmentDatabase extends Database {
     values.put(CONTENT_LOCATION, (String)null);
     values.put(CONTENT_DISPOSITION, (String)null);
     values.put(NAME, (String) null);
+    values.put(FILENAME, (String) null);
 
     if (database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings()) == 0) {
       //noinspection ResultOfMethodCallIgnored
@@ -305,6 +307,9 @@ public class AttachmentDatabase extends Database {
     ContentValues contentValues = new ContentValues();
     contentValues.put(SIZE, dataSize);
     contentValues.put(CONTENT_TYPE, mediaStream.getMimeType());
+    if (attachment.getFileName() != null) {
+      contentValues.put(FILENAME, databaseAttachment.getFileName());
+    }
 
     database.update(TABLE_NAME, contentValues, PART_ID_WHERE, databaseAttachment.getAttachmentId().toStrings());
 
@@ -316,7 +321,8 @@ public class AttachmentDatabase extends Database {
                                   dataSize,
                                   databaseAttachment.getLocation(),
                                   databaseAttachment.getKey(),
-                                  databaseAttachment.getRelay());
+                                  databaseAttachment.getRelay(),
+                                  databaseAttachment.getFileName());
   }
 
 
@@ -437,7 +443,8 @@ public class AttachmentDatabase extends Database {
                                   cursor.getLong(cursor.getColumnIndexOrThrow(SIZE)),
                                   cursor.getString(cursor.getColumnIndexOrThrow(CONTENT_LOCATION)),
                                   cursor.getString(cursor.getColumnIndexOrThrow(CONTENT_DISPOSITION)),
-                                  cursor.getString(cursor.getColumnIndexOrThrow(NAME)));
+                                  cursor.getString(cursor.getColumnIndexOrThrow(NAME)),
+                                  cursor.getString(cursor.getColumnIndexOrThrow(FILENAME)));
   }
 
 
@@ -463,7 +470,9 @@ public class AttachmentDatabase extends Database {
     contentValues.put(CONTENT_LOCATION, attachment.getLocation());
     contentValues.put(CONTENT_DISPOSITION, attachment.getKey());
     contentValues.put(NAME, attachment.getRelay());
-
+    if (attachment.getFileName() != null) {
+      contentValues.put(FILENAME, attachment.getFileName());
+    }
     if (partData != null) {
       contentValues.put(DATA, partData.first.getAbsolutePath());
       contentValues.put(SIZE, partData.second);

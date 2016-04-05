@@ -83,6 +83,11 @@ public class PartParser {
   }
 
   public static boolean isDisplayableMedia(PduPart part) {
-    return isImage(part) || isAudio(part) || isVideo(part);
+    return isFile(part) || isImage(part) || isAudio(part) || isVideo(part);
   }
+
+  public static boolean isFile(PduPart part) {
+    return ContentType.isVendorFileType(Util.toIsoString(part.getContentType()));
+  }
+
 }

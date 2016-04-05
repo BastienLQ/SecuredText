@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.smssecure.smssecure.attachments.UriAttachment;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.mms.PartAuthority;
 import org.smssecure.smssecure.providers.PersistentBlobProvider;
@@ -42,6 +43,8 @@ import org.smssecure.smssecure.util.ViewUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import ws.com.google.android.mms.ContentType;
 
 /**
  * An activity to quickly share content with contacts
@@ -62,6 +65,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
   private Uri          resolvedExtra;
   private String       mimeType;
   private boolean      isPassingAlongMedia;
+  private String       resolvedFilename;
 
   @Override
   protected void onPreCreate() {
@@ -112,7 +116,9 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
     isPassingAlongMedia = false;
 
     Uri streamExtra = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
-    mimeType        = getMimeType(streamExtra);
+    mimeType        = streamExtra != null && !ContentType.isTextType(getMimeType(streamExtra)) ? getMimeType(streamExtra)
+            : ContentType.SMS_SECURE_FILE;
+    resolvedFilename = UriAttachment.getFilenameFromUri(streamExtra, context);
     if (streamExtra != null && PartAuthority.isLocalUri(streamExtra)) {
       isPassingAlongMedia = true;
       resolvedExtra       = streamExtra;
@@ -171,6 +177,7 @@ public class ShareActivity extends PassphraseRequiredActionBarActivity
     final String textExtra   = getIntent().getStringExtra(Intent.EXTRA_TEXT);
     intent.putExtra(ConversationActivity.TEXT_EXTRA, textExtra);
     if (resolvedExtra != null) intent.setDataAndType(resolvedExtra, mimeType);
+    if (resolvedFilename != null) intent.putExtra(ConversationActivity.FILENAME_EXTRA, resolvedFilename);
 
     return intent;
   }

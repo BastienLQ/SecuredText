@@ -234,6 +234,9 @@ public class MmsSendJob extends SendJob {
         PduPart part = new PduPart();
         part.setData(Util.readFully(PartAuthority.getAttachmentStream(context, masterSecret, attachment.getDataUri())));
         part.setContentType(Util.toIsoBytes(attachment.getContentType()));
+        if (attachment.getFileName() != null) {
+          part.setFilename(Util.toIsoBytes(attachment.getFileName()));
+        }
         part.setContentId((System.currentTimeMillis() + "").getBytes());
         part.setName((System.currentTimeMillis() + "").getBytes());
 

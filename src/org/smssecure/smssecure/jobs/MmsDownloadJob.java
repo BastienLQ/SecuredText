@@ -7,6 +7,8 @@ import android.os.Build.VERSION_CODES;
 import android.util.Log;
 import android.util.Pair;
 
+import com.fasterxml.jackson.databind.util.ISO8601Utils;
+
 import org.smssecure.smssecure.attachments.Attachment;
 import org.smssecure.smssecure.attachments.UriAttachment;
 import org.smssecure.smssecure.crypto.MasterSecret;
@@ -209,9 +211,10 @@ public class MmsDownloadJob extends MasterSecretJob {
 
         if (part.getData() != null) {
           Uri uri = provider.createUri(part.getData());
+          String potentialFilename = part.getFilename() != null ? Util.toIsoString(part.getFilename()) : null;
           attachments.add(new UriAttachment(uri, Util.toIsoString(part.getContentType()),
                                             AttachmentDatabase.TRANSFER_PROGRESS_DONE,
-                                            part.getData().length));
+                                            part.getData().length, potentialFilename));
         }
       }
     }

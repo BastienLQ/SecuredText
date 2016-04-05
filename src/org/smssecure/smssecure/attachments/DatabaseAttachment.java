@@ -13,12 +13,19 @@ public class DatabaseAttachment extends Attachment {
 
   public DatabaseAttachment(AttachmentId attachmentId, long mmsId,  boolean hasData,
                             String contentType, int transferProgress, long size,
-                            String location, String key, String relay)
+                            String location, String key, String relay, String fileName)
   {
-    super(contentType, transferProgress, size, location, key, relay);
+    super(contentType, transferProgress, size, location, key, relay, fileName);
     this.attachmentId = attachmentId;
     this.hasData      = hasData;
     this.mmsId        = mmsId;
+  }
+
+  public DatabaseAttachment(AttachmentId attachmentId, long mmsId,  boolean hasData,
+                            String contentType, int transferProgress, long size,
+                            String location, String key, String relay)
+  {
+    this(attachmentId, mmsId, hasData, contentType, transferProgress, size, location, key, relay, null);
   }
 
   @Override

@@ -74,7 +74,8 @@ public class DatabaseFactory {
   private static final int MIGRATED_CONVERSATION_LIST_STATUS_VERSION       = 26;
   private static final int INTRODUCED_INVITE_REMINDERS_VERSION             = 27;
   private static final int INTRODUCED_SUBSCRIPTION_ID_VERSION              = 28;
-  private static final int DATABASE_VERSION                                = 28;
+  private static final int INTRODUCED_ATTACHMENT_FILENAME                  = 29;
+  private static final int DATABASE_VERSION                                = 29;
 
   private static final String DATABASE_NAME    = "messages.db";
   private static final Object lock             = new Object();
@@ -393,7 +394,8 @@ public class DatabaseFactory {
             }
           } else if (ContentType.isAudioType(contentType) ||
                      ContentType.isImageType(contentType) ||
-                     ContentType.isVideoType(contentType))
+                     ContentType.isVideoType(contentType) ||
+                     ContentType.isVendorFileType(contentType))
           {
             partCount++;
           }
@@ -820,6 +822,11 @@ public class DatabaseFactory {
         db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN default_subscription_id INTEGER DEFAULT -1");
         db.execSQL("ALTER TABLE sms ADD COLUMN subscription_id INTEGER DEFAULT -1");
         db.execSQL("ALTER TABLE mms ADD COLUMN subscription_id INTEGER DEFAULT -1");
+      }
+
+      if (oldVersion < INTRODUCED_ATTACHMENT_FILENAME) {
+        db.execSQL("ALTER TABLE part ADD COLUMN filename TEXT DEFAULT NULL;");
+        db.execSQL("UPDATE part SET filename = ?;", new String[]{""});
       }
 
       db.setTransactionSuccessful();

@@ -86,7 +86,30 @@ public class SlideDeck {
 
   public boolean containsMediaSlide() {
     for (Slide slide : slides) {
-      if (slide.hasImage() || slide.hasVideo() || slide.hasAudio()) {
+      if (slide.hasImage() || slide.hasVideo() || slide.hasAudio() || slide.hasFile()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean removeFileSlides() {
+    boolean returnObject = false;
+    if (slides.isEmpty()) {
+      return returnObject;
+    }
+    for (Slide slide : slides) {
+      if (slide.hasFile()) {
+        returnObject = true;
+        slides.remove(slide);
+      }
+    }
+    return returnObject;
+  }
+
+  public boolean hasFileSlide() {
+    for (Slide slide : slides) {
+      if (slide.hasFile()) {
         return true;
       }
     }
