@@ -21,9 +21,9 @@
   <string name="ApplicationPreferencesActivity_warning_this_will_disable_storage_encryption_for_all_messages">
 Atenção, isto desativa a cifra de armazenamento para todas as mensagens e chaves. As suas sessões continuam cifradas, mas qualquer pessoa com acesso ao dispositivo poderá ver as suas mensagens e chaves.</string>
   <string name="ApplicationPreferencesActivity_disable">Desativar</string>
-  <string name="ApplicationPreferencesActivity_sms_enabled">Receção de SMS ativa</string>
+  <string name="ApplicationPreferencesActivity_sms_enabled">Recepção de SMS ativa</string>
   <string name="ApplicationPreferencesActivity_tap_to_change_your_default_sms_app">Toque para alterar a aplicação padrão para SMS</string>
-  <string name="ApplicationPreferencesActivity_sms_disabled">Receção de SMS inativa</string>
+  <string name="ApplicationPreferencesActivity_sms_disabled">Recepção de SMS inativa</string>
   <string name="ApplicationPreferencesActivity_tap_to_make_silence_your_default_sms_app">Toque para tornar o Silence a sua aplicação padrão para SMS</string>
   <string name="ApplicationPreferencesActivity_on">ligada</string>
   <string name="ApplicationPreferencesActivity_On">Ligada</string>
