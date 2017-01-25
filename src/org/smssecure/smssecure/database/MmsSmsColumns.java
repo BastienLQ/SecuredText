@@ -14,7 +14,7 @@ public interface MmsSmsColumns {
   public static final String DATE_DELIVERY_RECEIVED   = "date_delivery_received";
   public static final String MISMATCHED_IDENTITIES    = "mismatched_identities";
   public static final String UNIQUE_ROW_ID            = "unique_row_id";
-  public  static final String SUBSCRIPTION_ID         = "subscription_id";
+  public static final String SUBSCRIPTION_ID          = "subscription_id";
 
   public static class Types {
     protected static final long TOTAL_MASK = 0xFFFFFFFF;

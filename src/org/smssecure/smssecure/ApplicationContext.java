@@ -18,6 +18,7 @@ package org.smssecure.smssecure;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import org.smssecure.smssecure.crypto.PRNGFixes;
 import org.smssecure.smssecure.dependencies.InjectableType;
@@ -26,6 +27,7 @@ import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirementProvider
 import org.smssecure.smssecure.jobs.requirements.MediaNetworkRequirementProvider;
 import org.smssecure.smssecure.jobs.requirements.ServiceRequirementProvider;
 import org.smssecure.smssecure.util.SilencePreferences;
+import org.smssecure.smssecure.util.dualsim.SimChangedReceiver;
 import org.whispersystems.jobqueue.JobManager;
 import org.whispersystems.jobqueue.dependencies.DependencyInjector;
 import org.whispersystems.jobqueue.requirements.NetworkRequirementProvider;
@@ -45,6 +47,7 @@ import dagger.ObjectGraph;
  * @author Moxie Marlinspike
  */
 public class ApplicationContext extends Application implements DependencyInjector {
+  private static final String TAG = ApplicationContext.class.getSimpleName();
 
   private JobManager  jobManager;
   private ObjectGraph objectGraph;
@@ -60,6 +63,7 @@ public class ApplicationContext extends Application implements DependencyInjecto
     initializeRandomNumberFix();
     initializeLogging();
     initializeJobManager();
+    checkSimState();
   }
 
   @Override
@@ -96,6 +100,10 @@ public class ApplicationContext extends Application implements DependencyInjecto
 
   public void notifyMediaControlEvent() {
     mediaNetworkRequirementProvider.notifyMediaControlEvent();
+  }
+
+  private void checkSimState() {
+    SimChangedReceiver.checkSimState(this);
   }
 
 }
