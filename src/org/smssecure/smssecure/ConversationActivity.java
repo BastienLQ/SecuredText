@@ -320,10 +320,14 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void startActivity(Intent intent) {
-    if (intent.getStringExtra(Browser.EXTRA_APPLICATION_ID) != null) {
-      intent.removeExtra(Browser.EXTRA_APPLICATION_ID);
+    try {
+      if (intent.getStringExtra(Browser.EXTRA_APPLICATION_ID) != null) {
+        intent.removeExtra(Browser.EXTRA_APPLICATION_ID);
+      }
+      super.startActivity(intent);
+    } catch (ActivityNotFoundException anfe) {
+      Log.w(TAG, "No app found, ignoring...");
     }
-    super.startActivity(intent);
   }
 
   @Override

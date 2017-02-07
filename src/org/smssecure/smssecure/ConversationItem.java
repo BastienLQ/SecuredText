@@ -30,6 +30,7 @@ import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -72,6 +73,7 @@ import org.whispersystems.libaxolotl.util.guava.Optional;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * A view that displays an individual conversation item within a conversation
@@ -236,7 +238,6 @@ public class ConversationItem extends LinearLayout
     mediaThumbnail.setFocusable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
     mediaThumbnail.setClickable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
     mediaThumbnail.setLongClickable(batchSelected.isEmpty());
-    bodyText.setAutoLinkMask(batchSelected.isEmpty() ? Linkify.ALL : 0);
   }
 
   private boolean isCaptionlessMms(MessageRecord messageRecord) {
@@ -264,6 +265,28 @@ public class ConversationItem extends LinearLayout
     } else {
       bodyText.setText(messageRecord.getDisplayBody());
       bodyText.setVisibility(View.VISIBLE);
+      linkifyBodyText();
+    }
+    linkifyBodyText();
+  }
+
+  private void linkifyBodyText() {
+    Log.w(TAG, "linkifyBodyText()");
+
+    if (batchSelected.isEmpty()) {
+      Linkify.addLinks(bodyText, Pattern.compile("geo:[-0-9.]+,[-0-9.]+[^ \t\n\"\':]*"), null);
+      Linkify.addLinks(bodyText, Pattern.compile("xmpp:[^ \t\n\"\':,]+"), null);
+
+      /*
+       * Linkify.addLinks(bodyText, Linkify.ALL) conflicts with custom patterns, so
+       * we recreate patterns by hand.
+       */
+      Linkify.addLinks(bodyText, Patterns.WEB_URL, null);
+      Linkify.addLinks(bodyText, Patterns.EMAIL_ADDRESS, "mailto:");
+      Linkify.addLinks(bodyText, Patterns.PHONE, "tel:");
+    } else {
+      Log.w(TAG, "batchSelected is not empty!");
+      bodyText.setAutoLinkMask(0);
     }
   }
 
@@ -386,7 +409,7 @@ public class ConversationItem extends LinearLayout
     return batchSelected.isEmpty() &&
            ((messageRecord.isFailed() && !messageRecord.isMmsNotification()) ||
            messageRecord.isKeyExchange());
-}
+  }
 
   private void setGroupMessageStatus(MessageRecord messageRecord, Recipient recipient) {
     if (groupThread && !messageRecord.isOutgoing()) {
