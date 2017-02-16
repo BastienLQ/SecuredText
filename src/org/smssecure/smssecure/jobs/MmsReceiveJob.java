@@ -12,6 +12,7 @@ import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
+import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.Util;
 import org.whispersystems.jobqueue.JobParameters;
 
@@ -67,7 +68,9 @@ public class MmsReceiveJob extends ContextJob {
       Log.w(TAG, "Inserted received MMS notification...");
 
       database.markIncomingNotificationReceived(messageAndThreadId.second);
-      MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
+
+      if (!SilencePreferences.isMediaDownloadAllowed(context))
+        MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
 
       ApplicationContext.getInstance(context)
                         .getJobManager()
