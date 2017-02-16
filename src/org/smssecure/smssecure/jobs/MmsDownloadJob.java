@@ -229,7 +229,7 @@ public class MmsDownloadJob extends MasterSecretJob {
     }
 
     database.delete(messageId);
-    MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
+    MessageNotifier.updateNotification(context, null);
   }
 
   private void handleDownloadError(MasterSecret masterSecret, long messageId, long threadId,

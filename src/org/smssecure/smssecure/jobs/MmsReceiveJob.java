@@ -67,6 +67,7 @@ public class MmsReceiveJob extends ContextJob {
       Log.w(TAG, "Inserted received MMS notification...");
 
       database.markIncomingNotificationReceived(messageAndThreadId.second);
+      MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
 
       ApplicationContext.getInstance(context)
                         .getJobManager()
