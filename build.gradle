@@ -136,7 +136,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        versionCode 128
+        versionCode 129
         versionName "0.14.8"
 
         minSdkVersion 9

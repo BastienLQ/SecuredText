@@ -34,10 +34,12 @@ public class SilencePreKeyStore implements PreKeyStore, SignedPreKeyStore {
 
   private final Context      context;
   private final MasterSecret masterSecret;
+  private final int          subscriptionId;
 
-  public SilencePreKeyStore(Context context, MasterSecret masterSecret) {
-    this.context      = context;
-    this.masterSecret = masterSecret;
+  public SilencePreKeyStore(Context context, MasterSecret masterSecret, int subscriptionId) {
+    this.context        = context;
+    this.masterSecret   = masterSecret;
+    this.subscriptionId = subscriptionId;
   }
 
   @Override
@@ -156,11 +158,13 @@ public class SilencePreKeyStore implements PreKeyStore, SignedPreKeyStore {
   }
 
   private File getPreKeyFile(int preKeyId) {
-    return new File(getPreKeyDirectory(), String.valueOf(preKeyId));
+    String subscriptionFile = subscriptionId != -1 ? subscriptionId + "" : "";
+    return new File(getPreKeyDirectory(), String.valueOf(preKeyId) + subscriptionFile);
   }
 
   private File getSignedPreKeyFile(int signedPreKeyId) {
-    return new File(getSignedPreKeyDirectory(), String.valueOf(signedPreKeyId));
+    String subscriptionFile = subscriptionId != -1 ? subscriptionId + "" : "";
+    return new File(getSignedPreKeyDirectory(), String.valueOf(signedPreKeyId) + subscriptionFile);
   }
 
   private File getPreKeyDirectory() {

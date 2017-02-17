@@ -47,6 +47,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -122,6 +123,7 @@ import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.smssecure.smssecure.util.concurrent.ListenableFuture;
 import org.smssecure.smssecure.util.concurrent.SettableFuture;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
 import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.libaxolotl.InvalidMessageException;
 import org.whispersystems.libaxolotl.util.guava.Optional;
@@ -196,6 +198,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private DynamicTheme    dynamicTheme    = new DynamicTheme();
   private DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
+  private List<SubscriptionInfoCompat> activeSubscriptions;
+
   @Override
   protected void onPreCreate() {
     dynamicTheme.onCreate(this);
@@ -206,6 +210,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   protected void onCreate(Bundle state, @NonNull MasterSecret masterSecret) {
     Log.w(TAG, "onCreate()");
     this.masterSecret = masterSecret;
+    this.activeSubscriptions = SubscriptionManagerCompat.from(this).getActiveSubscriptionInfoList();
 
     supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY);
     setContentView(R.layout.conversation_activity);
@@ -343,12 +348,18 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     MenuInflater inflater = this.getMenuInflater();
     menu.clear();
 
+    boolean isEncryptedForAllSubscriptionIdsConversation = SessionUtil.hasSession(this, masterSecret, recipients.getPrimaryRecipient().getNumber(), activeSubscriptions);
+
     if (isSingleConversation() && isEncryptedConversation) {
       inflater.inflate(R.menu.conversation_secure_identity, menu);
+      inflateSubMenuVerifyIdentity(menu);
       inflater.inflate(R.menu.conversation_secure_sms, menu.findItem(R.id.menu_security).getSubMenu());
-    } else if (isSingleConversation()) {
-      inflater.inflate(R.menu.conversation_insecure_no_push, menu);
-      inflater.inflate(R.menu.conversation_insecure, menu);
+      if (!isEncryptedForAllSubscriptionIdsConversation) {
+        inflateSubMenuStartSecureSession(menu);
+      } else {
+        MenuItem item = menu.findItem(R.id.menu_start_secure_session);
+        if (item != null) item.setVisible(false);
+      }
     }
 
     if (isSingleConversation()) {
@@ -418,6 +429,51 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   @Override
   public void onKeyboardShown() {
     emojiToggle.setToEmoji();
+  }
+
+  private void inflateSubMenuVerifyIdentity(Menu menu) {
+    if (Build.VERSION.SDK_INT >= 22 && activeSubscriptions.size() > 1) {
+      MenuItem identityMenu = menu.findItem(R.id.menu_verify_identity);
+      if (identityMenu == null) return;
+
+      SubMenu identitiesMenu = identityMenu.getSubMenu();
+      for (SubscriptionInfoCompat subscriptionInfo : activeSubscriptions) {
+        final int subscriptionId = subscriptionInfo.getSubscriptionId();
+        identitiesMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, subscriptionInfo.getDisplayName())
+                      .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                          handleVerifyIdentity(subscriptionId);
+                          return true;
+                        }
+                      });
+      }
+    }
+  }
+
+  private void inflateSubMenuStartSecureSession(Menu menu) {
+    if (Build.VERSION.SDK_INT >= 22 && activeSubscriptions.size() > 1) {
+      MenuItem secureMenu = menu.findItem(R.id.menu_start_secure_session);
+      if (secureMenu == null) return;
+
+      SubMenu startSecureSessionMenu = secureMenu.getSubMenu();
+      for (SubscriptionInfoCompat subscriptionInfo : activeSubscriptions) {
+        final int subscriptionId = subscriptionInfo.getSubscriptionId();
+        Log.w(TAG, "inflating for subscription ID: " + subscriptionId);
+
+        if (!SessionUtil.hasSession(this, masterSecret, recipients.getPrimaryRecipient().getNumber(), subscriptionId)) {
+
+          startSecureSessionMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, subscriptionInfo.getDisplayName())
+                                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                  @Override
+                                  public boolean onMenuItemClick(MenuItem item) {
+                                    handleStartSecureSession(subscriptionId);
+                                    return true;
+                                  }
+                                });
+        }
+      }
+    }
   }
 
   //////// Event Handlers
@@ -493,12 +549,27 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleVerifyIdentity() {
+    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
+      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+      handleVerifyIdentity(subscriptionId);
+    }
+  }
+
+  private void handleVerifyIdentity(int subscriptionId) {
     Intent verifyIdentityIntent = new Intent(this, VerifyIdentityActivity.class);
+    verifyIdentityIntent.putExtra("subscription_id", subscriptionId);
     verifyIdentityIntent.putExtra("recipient", getRecipients().getPrimaryRecipient().getRecipientId());
     startActivity(verifyIdentityIntent);
   }
 
   private void handleStartSecureSession() {
+    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
+      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+      handleStartSecureSession(subscriptionId);
+    }
+  }
+
+  private void handleStartSecureSession(final int subscriptionId) {
     if (getRecipients() == null) {
       Toast.makeText(this, getString(R.string.ConversationActivity_invalid_recipient),
                      Toast.LENGTH_LONG).show();
@@ -513,7 +584,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     final Recipients recipients = getRecipients();
     final Recipient recipient   = recipients.getPrimaryRecipient();
-    final int subscriptionId    = sendButton.getSelectedTransport().getSimSubscriptionId().or(-1);
     String recipientName        = (recipient.getName() == null ? recipient.getNumber() : recipient.getName());
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -526,7 +596,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       @Override
       public void onClick(DialogInterface dialog, int which) {
         if (!isEncryptedConversation){
-          KeyExchangeInitiator.initiate(ConversationActivity.this, masterSecret, recipients, true, subscriptionId);
+          KeyExchangeInitiator.initiate(ConversationActivity.this, masterSecret, recipients, true);
         }
         long allocatedThreadId;
         if (threadId == -1) {
@@ -553,22 +623,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       @Override
       public void onClick(DialogInterface dialog, int which) {
         if (isSingleConversation() && isEncryptedConversation) {
-          final Context context = getApplicationContext();
+          Recipients recipients = getRecipients();
+          KeyExchangeInitiator.abort(ConversationActivity.this, masterSecret, recipients);
 
-          OutgoingEndSessionMessage endSessionMessage =
-              new OutgoingEndSessionMessage(new OutgoingTextMessage(getRecipients(), "TERMINATE", -1));
-
-          new AsyncTask<OutgoingEndSessionMessage, Void, Long>() {
-            @Override
-            protected Long doInBackground(OutgoingEndSessionMessage... messages) {
-              return MessageSender.send(context, masterSecret, messages[0], threadId, false);
-            }
-
-            @Override
-            protected void onPostExecute(Long result) {
-              sendComplete(result);
-            }
-          }.execute(endSessionMessage);
+          long allocatedThreadId;
+          if (threadId == -1) {
+            allocatedThreadId = DatabaseFactory.getThreadDatabase(getApplicationContext()).getThreadIdFor(recipients);
+          } else {
+            allocatedThreadId = threadId;
+          }
+          Log.w(TAG, "Refreshing thread "+allocatedThreadId+"...");
+          sendComplete(allocatedThreadId);
         }
       }
     });
@@ -753,7 +818,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     Recipient    primaryRecipient = getRecipients() == null ? null : getRecipients().getPrimaryRecipient();
     boolean      isMediaMessage   = !recipients.isSingleRecipient() || attachmentManager.isAttachmentPresent();
 
-    isSecureSmsDestination = isSingleConversation() && SessionUtil.hasSession(this, masterSecret, primaryRecipient);
+    isSecureSmsDestination = isSingleConversation() && SessionUtil.hasAtLeastOneSession(this, masterSecret, primaryRecipient.getNumber(), activeSubscriptions);
 
     if (isSecureSmsDestination) {
       this.isEncryptedConversation = true;
@@ -764,6 +829,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     sendButton.resetAvailableTransports(isMediaMessage);
     if (!isSecureSmsDestination      ) sendButton.disableTransport(Type.SECURE_SMS);
     if (recipients.isGroupRecipient()) sendButton.disableTransport(Type.INSECURE_SMS);
+
+    if (Build.VERSION.SDK_INT >= 22) {
+      sendButton.disableTransport(Type.SECURE_SMS, SessionUtil.getSubscriptionIdWithoutSession(this, masterSecret, primaryRecipient.getNumber(), activeSubscriptions));
+    }
 
     if (isSecureSmsDestination) {
       sendButton.setDefaultTransport(Type.SECURE_SMS);

@@ -6,8 +6,9 @@
           app:showAsAction="ifRoom">
           <menu>
               <item android:title="@string/conversation_insecure__menu_start_secure_session"
-                    android:id="@+id/menu_start_secure_session" />
-
+                    android:id="@+id/menu_start_secure_session">
+                  <menu></menu>
+              </item>
           </menu>
     </item>
 </menu>

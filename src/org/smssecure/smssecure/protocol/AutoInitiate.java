@@ -14,6 +14,7 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.crypto.SessionUtil;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 
 import java.util.Locale;
 
@@ -89,7 +90,7 @@ public class AutoInitiate {
                                              MasterSecret masterSecret,
                                              Recipient recipient)
   {
-    return !SessionUtil.hasSession(context, masterSecret, recipient);
+    return !SessionUtil.hasSession(context, masterSecret, recipient.getNumber(), SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoList());
   }
 
 }
