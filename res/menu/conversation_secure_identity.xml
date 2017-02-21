@@ -6,7 +6,12 @@
           app:showAsAction="ifRoom">
           <menu>
               <item android:title="@string/conversation_secure_verified__menu_verify_identity"
-                    android:id="@+id/menu_verify_identity"/>
+                    android:id="@+id/menu_verify_identity" />
+
+              <item android:title="@string/conversation_secure_verified__menu_verify_identity"
+                    android:id="@+id/menu_verify_identity_dual_sim">
+                  <menu></menu>
+              </item>
           </menu>
     </item>
 </menu>

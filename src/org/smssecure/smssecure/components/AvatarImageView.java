@@ -24,6 +24,10 @@ import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
+
+import java.util.List;
 
 public class AvatarImageView extends ImageView {
 
@@ -92,17 +96,19 @@ public class AvatarImageView extends ImageView {
 
   private class BadgeResolutionTask extends AsyncTask<Recipients,Void,Pair<Recipients, Boolean>> {
     private final Context context;
-    private MasterSecret masterSecret;
+    private       MasterSecret masterSecret;
+    private final List<SubscriptionInfoCompat> activeSubscriptions;
 
     public BadgeResolutionTask(Context context, MasterSecret masterSecret) {
       this.context = context;
       this.masterSecret = masterSecret;
+      this.activeSubscriptions = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoList();
     }
 
     @Override
     protected Pair<Recipients, Boolean> doInBackground(Recipients... recipients) {
       Boolean isSecureSmsDestination = masterSecret != null &&
-                                       SessionUtil.hasSession(context, masterSecret, recipients[0].getPrimaryRecipient());
+                                       SessionUtil.hasAtLeastOneSession(context, masterSecret, recipients[0].getPrimaryRecipient().getNumber(), activeSubscriptions);
       return new Pair<>(recipients[0], isSecureSmsDestination);
     }
 

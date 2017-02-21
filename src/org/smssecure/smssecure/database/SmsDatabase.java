@@ -396,7 +396,7 @@ public class SmsDatabase extends MessagingDatabase {
     if (groupRecipients == null) threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipients);
     else                         threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(groupRecipients);
 
-    ContentValues values = new ContentValues(6);
+    ContentValues values = new ContentValues();
     values.put(ADDRESS, message.getSender());
     values.put(ADDRESS_DEVICE_ID,  message.getSenderDeviceId());
     values.put(DATE_RECEIVED, System.currentTimeMillis());

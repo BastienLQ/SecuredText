@@ -63,6 +63,12 @@ public class SmsReceiveJob extends ContextJob {
       {
         MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
       }
+
+      if (incomingTextMessage.getSender() != null) {
+        Recipients recipients = RecipientFactory.getRecipientsFromString(context, incomingTextMessage.getSender(), false);
+        DatabaseFactory.getRecipientPreferenceDatabase(context)
+                       .setDefaultSubscriptionId(recipients, incomingTextMessage.getSubscriptionId());
+      }
     } else if (message.isPresent()) {
       Log.w(TAG, "*** Received blocked SMS, ignoring...");
     }

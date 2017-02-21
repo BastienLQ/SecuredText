@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
       <item android:title="@string/conversation_secure_verified__menu_abort_secure_session"
-            android:id="@+id/menu_abort_session"/>
+            android:id="@+id/menu_abort_session" />
+      <item android:title="@string/conversation_secure_verified__menu_abort_secure_session"
+            android:id="@+id/menu_abort_session_dual_sim">
+          <menu></menu>
+      </item>
+      <item android:title="@string/conversation_insecure__menu_start_secure_session"
+            android:id="@+id/menu_start_secure_session" />
+      <item android:title="@string/conversation_insecure__menu_start_secure_session"
+            android:id="@+id/menu_start_secure_session_dual_sim">
+          <menu></menu>
+      </item>
 </menu>

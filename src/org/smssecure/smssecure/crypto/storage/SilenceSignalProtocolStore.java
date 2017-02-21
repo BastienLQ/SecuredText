@@ -24,12 +24,14 @@ public class SilenceSignalProtocolStore implements SignalProtocolStore {
   private final SignedPreKeyStore signedPreKeyStore;
   private final IdentityKeyStore  identityKeyStore;
   private final SessionStore      sessionStore;
+  private final int               subscriptionId;
 
-  public SilenceSignalProtocolStore(Context context, MasterSecret masterSecret) {
-    this.preKeyStore       = new SilencePreKeyStore(context, masterSecret);
-    this.signedPreKeyStore = new SilencePreKeyStore(context, masterSecret);
-    this.identityKeyStore  = new SilenceIdentityKeyStore(context, masterSecret);
-    this.sessionStore      = new SilenceSessionStore(context, masterSecret);
+  public SilenceSignalProtocolStore(Context context, MasterSecret masterSecret, int subscriptionId) {
+    this.preKeyStore       = new SilencePreKeyStore(context, masterSecret, subscriptionId);
+    this.signedPreKeyStore = new SilencePreKeyStore(context, masterSecret, subscriptionId);
+    this.identityKeyStore  = new SilenceIdentityKeyStore(context, masterSecret, subscriptionId);
+    this.sessionStore      = new SilenceSessionStore(context, masterSecret, subscriptionId);
+    this.subscriptionId    = subscriptionId;
   }
 
   @Override
