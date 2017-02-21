@@ -12,6 +12,8 @@ import org.smssecure.smssecure.TransportOptionsPopup;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 
+import java.util.List;
+
 public class SendButton extends ImageButton
     implements TransportOptions.OnTransportChangedListener,
                TransportOptionsPopup.SelectedListener,
@@ -77,6 +79,16 @@ public class SendButton extends ImageButton
 
   public void disableTransport(TransportOption.Type type) {
     transportOptions.disableTransport(type);
+  }
+
+  public void disableTransport(TransportOption.Type type, int subscriptionId) {
+    transportOptions.disableTransport(type, subscriptionId);
+  }
+
+  public void disableTransport(TransportOption.Type type, List<Integer> subscriptionIds) {
+    for (int subscriptionId : subscriptionIds) {
+      transportOptions.disableTransport(type, subscriptionId);
+    }
   }
 
   public void setDefaultTransport(TransportOption.Type type) {

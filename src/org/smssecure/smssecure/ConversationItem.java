@@ -398,7 +398,7 @@ public class ConversationItem extends LinearLayout
   }
 
   private void setSimInfo(MessageRecord messageRecord) {
-    SubscriptionManagerCompat subscriptionManager = new SubscriptionManagerCompat(context);
+    SubscriptionManagerCompat subscriptionManager = SubscriptionManagerCompat.from(context);
 
     if (messageRecord.getSubscriptionId() == -1 || subscriptionManager.getActiveSubscriptionInfoList().size() < 2) {
       simInfoText.setVisibility(View.GONE);
@@ -513,7 +513,7 @@ public class ConversationItem extends LinearLayout
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            KeyExchangeInitiator.initiate(context, masterSecret, recipients, true, subscriptionId);
+            KeyExchangeInitiator.initiate(context, masterSecret, recipients, true);
           }
         });
         builder.show();

@@ -19,16 +19,18 @@ package org.smssecure.smssecure;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.DatabaseFactory;
@@ -36,9 +38,13 @@ import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicTheme;
 import org.smssecure.smssecure.util.SilencePreferences;
+
+import java.util.List;
 
 public class ConversationListActivity extends PassphraseRequiredActionBarActivity
     implements ConversationListFragment.ConversationSelectedListener
@@ -52,6 +58,8 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   private ContentObserver observer;
   private MasterSecret masterSecret;
 
+  private List<SubscriptionInfoCompat> activeSubscriptions;
+
   @Override
   protected void onPreCreate() {
     dynamicTheme.onCreate(this);
@@ -61,6 +69,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   @Override
   protected void onCreate(Bundle icicle, @NonNull MasterSecret masterSecret) {
     this.masterSecret = masterSecret;
+    this.activeSubscriptions = SubscriptionManagerCompat.from(this).getActiveSubscriptionInfoList();
 
     getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
     getSupportActionBar().setTitle(R.string.app_name);
@@ -91,12 +100,35 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
     menu.findItem(R.id.menu_clear_passphrase).setVisible(!SilencePreferences.isPasswordDisabled(this));
 
+    inflateViewIdentities(menu);
+
     inflater.inflate(R.menu.conversation_list, menu);
     MenuItem menuItem = menu.findItem(R.id.menu_search);
     initializeSearch(menuItem);
 
     super.onPrepareOptionsMenu(menu);
     return true;
+  }
+
+  private void inflateViewIdentities(Menu menu) {
+    if (Build.VERSION.SDK_INT >= 22 && activeSubscriptions.size() > 1) {
+      menu.findItem(R.id.menu_my_identity).setVisible(false);
+      MenuItem menuItem = menu.findItem(R.id.menu_my_identity_dual_sim);
+      SubMenu identitiesMenu = menuItem.getSubMenu();
+      for (SubscriptionInfoCompat subscriptionInfo : activeSubscriptions) {
+        final int subscriptionId = subscriptionInfo.getSubscriptionId();
+        identitiesMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, subscriptionInfo.getDisplayName())
+                      .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                          handleMyIdentity(subscriptionId);
+                          return true;
+                        }
+                      });
+      }
+    } else {
+      menu.findItem(R.id.menu_my_identity_dual_sim).setVisible(false);
+    }
   }
 
   private void initializeSearch(MenuItem searchViewItem) {
@@ -197,7 +229,16 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   }
 
   private void handleMyIdentity() {
-    startActivity(new Intent(this, ViewLocalIdentityActivity.class));
+    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
+      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+      handleMyIdentity(subscriptionId);
+    }
+  }
+
+  private void handleMyIdentity(int subscriptionId) {
+    Intent intent = new Intent(this, ViewIdentityActivity.class);
+    intent.putExtra("subscription_id", subscriptionId);
+    startActivity(intent);
   }
 
   private void handleMarkAllRead() {

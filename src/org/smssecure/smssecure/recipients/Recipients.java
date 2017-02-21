@@ -50,11 +50,12 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   private final Set<RecipientsModifiedListener> listeners = Collections.newSetFromMap(new WeakHashMap<RecipientsModifiedListener, Boolean>());
   private final List<Recipient> recipients;
 
-  private Uri          ringtone   = null;
-  private long         mutedUntil = 0;
-  private boolean      blocked    = false;
-  private VibrateState vibrate    = VibrateState.DEFAULT;
-  private boolean      stale      = false;
+  private Uri          ringtone              = null;
+  private long         mutedUntil            = 0;
+  private boolean      blocked               = false;
+  private VibrateState vibrate               = VibrateState.DEFAULT;
+  private boolean      stale                 = false;
+  private int          defaultSubscriptionId = -1;
 
   Recipients() {
     this(new LinkedList<Recipient>(), null);
@@ -64,10 +65,11 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
     this.recipients = recipients;
 
     if (preferences != null) {
-      ringtone   = preferences.getRingtone();
-      mutedUntil = preferences.getMuteUntil();
-      vibrate    = preferences.getVibrateState();
-      blocked    = preferences.isBlocked();
+      ringtone              = preferences.getRingtone();
+      mutedUntil            = preferences.getMuteUntil();
+      vibrate               = preferences.getVibrateState();
+      blocked               = preferences.isBlocked();
+      defaultSubscriptionId = preferences.getDefaultSubscriptionId().or(-1);
     }
   }
 
@@ -78,10 +80,11 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
     this.recipients = recipients;
 
     if (stale != null) {
-      ringtone   = stale.ringtone;
-      mutedUntil = stale.mutedUntil;
-      vibrate    = stale.vibrate;
-      blocked    = stale.blocked;
+      ringtone              = stale.ringtone;
+      mutedUntil            = stale.mutedUntil;
+      vibrate               = stale.vibrate;
+      blocked               = stale.blocked;
+      defaultSubscriptionId = stale.defaultSubscriptionId;
     }
 
     preferences.addListener(new FutureTaskListener<RecipientsPreferences>() {
@@ -92,10 +95,11 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
           Set<RecipientsModifiedListener> localListeners;
 
           synchronized (Recipients.this) {
-            ringtone   = result.getRingtone();
-            mutedUntil = result.getMuteUntil();
-            vibrate    = result.getVibrateState();
-            blocked    = result.isBlocked();
+            ringtone              = result.getRingtone();
+            mutedUntil            = result.getMuteUntil();
+            vibrate               = result.getVibrateState();
+            blocked               = result.isBlocked();
+            defaultSubscriptionId = result.getDefaultSubscriptionId().or(-1);
 
             localListeners = new HashSet<>(listeners);
           }
@@ -156,6 +160,18 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   public void setVibrate(VibrateState vibrate) {
     synchronized (this) {
       this.vibrate = vibrate;
+    }
+
+    notifyListeners();
+  }
+
+  public synchronized int getDefaultSubscriptionId() {
+    return defaultSubscriptionId;
+  }
+
+  public void setDefaultSubscriptionId(int defaultSubscriptionId) {
+    synchronized (this) {
+      this.defaultSubscriptionId = defaultSubscriptionId;
     }
 
     notifyListeners();

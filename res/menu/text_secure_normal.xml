@@ -26,6 +26,12 @@
           android:id="@+id/menu_my_identity"
           android:icon="@android:drawable/ic_menu_view" />
 
+    <item android:title="@string/arrays__your_identity_key"
+          android:id="@+id/menu_my_identity_dual_sim"
+          android:icon="@android:drawable/ic_menu_view">
+        <menu></menu>
+    </item>
+
     <item android:title="@string/text_secure_normal__menu_settings"
           android:id="@+id/menu_settings"
           android:icon="@android:drawable/ic_menu_preferences" />
