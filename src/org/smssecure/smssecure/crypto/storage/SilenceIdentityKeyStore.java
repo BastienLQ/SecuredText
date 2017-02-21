@@ -16,15 +16,17 @@ public class SilenceIdentityKeyStore implements IdentityKeyStore {
 
   private final Context      context;
   private final MasterSecret masterSecret;
+  private final int          subscriptionId;
 
-  public SilenceIdentityKeyStore(Context context, MasterSecret masterSecret) {
-    this.context      = context;
-    this.masterSecret = masterSecret;
+  public SilenceIdentityKeyStore(Context context, MasterSecret masterSecret, int subscriptionId) {
+    this.context        = context;
+    this.masterSecret   = masterSecret;
+    this.subscriptionId = subscriptionId;
   }
 
   @Override
   public IdentityKeyPair getIdentityKeyPair() {
-    return IdentityKeyUtil.getIdentityKeyPair(context, masterSecret);
+    return IdentityKeyUtil.getIdentityKeyPair(context, masterSecret, subscriptionId);
   }
 
   @Override

@@ -75,7 +75,7 @@ public class RemoteReplyReceiver extends MasterSecretBroadcastReceiver {
             OutgoingMediaMessage reply = new OutgoingMediaMessage(recipients, responseText.toString(), new LinkedList<Attachment>(), System.currentTimeMillis(), subscriptionId, 0);
             threadId = MessageSender.send(context, masterSecret, reply, -1, false);
           } else {
-            boolean secure = SessionUtil.hasSession(context, masterSecret, recipients.getPrimaryRecipient());
+            boolean secure = SessionUtil.hasSession(context, masterSecret, recipients.getPrimaryRecipient().getNumber(), subscriptionId);
 
             OutgoingTextMessage reply;
             if (!secure) {

@@ -20,6 +20,7 @@ package org.smssecure.smssecure.crypto;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
@@ -39,43 +40,45 @@ import java.io.IOException;
  */
 
 public class IdentityKeyUtil {
+  private final static String TAG = IdentityKeyUtil.class.getSimpleName();
 
   private static final String IDENTITY_PUBLIC_KEY_DJB_PREF  = "pref_identity_public_curve25519";
   private static final String IDENTITY_PRIVATE_KEY_DJB_PREF = "pref_identity_private_curve25519";
 
-  public static boolean hasIdentityKey(Context context) {
+  public static boolean hasIdentityKey(Context context, int subscriptionId) {
     SharedPreferences preferences = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
 
     return
-        preferences.contains(IDENTITY_PUBLIC_KEY_DJB_PREF) &&
-        preferences.contains(IDENTITY_PRIVATE_KEY_DJB_PREF);
+        preferences.contains(getIdentityPublicKeyDjbPref(subscriptionId)) &&
+        preferences.contains(getIdentityPrivateKeyDjbPref(subscriptionId));
   }
 
-  public static IdentityKey getIdentityKey(Context context) {
-    if (!hasIdentityKey(context)) return null;
+  public static IdentityKey getIdentityKey(Context context, int subscriptionId) {
+    if (!hasIdentityKey(context, subscriptionId)) return null;
 
     try {
-      byte[] publicKeyBytes = Base64.decode(retrieve(context, IDENTITY_PUBLIC_KEY_DJB_PREF));
+      byte[] publicKeyBytes = Base64.decode(retrieve(context, getIdentityPublicKeyDjbPref(subscriptionId)));
       return new IdentityKey(publicKeyBytes, 0);
     } catch (IOException ioe) {
-      Log.w("IdentityKeyUtil", ioe);
+      Log.w(TAG, ioe);
       return null;
     } catch (InvalidKeyException e) {
-      Log.w("IdentityKeyUtil", e);
+      Log.w(TAG, e);
       return null;
     }
   }
 
   public static IdentityKeyPair getIdentityKeyPair(Context context,
-                                                   MasterSecret masterSecret)
+                                                   MasterSecret masterSecret,
+                                                   int subscriptionId)
   {
-    if (!hasIdentityKey(context))
+    if (!hasIdentityKey(context, subscriptionId))
       return null;
 
     try {
       MasterCipher masterCipher = new MasterCipher(masterSecret);
-      IdentityKey  publicKey    = getIdentityKey(context);
-      ECPrivateKey privateKey   = masterCipher.decryptKey(Base64.decode(retrieve(context, IDENTITY_PRIVATE_KEY_DJB_PREF)));
+      IdentityKey  publicKey    = getIdentityKey(context, subscriptionId);
+      ECPrivateKey privateKey   = masterCipher.decryptKey(Base64.decode(retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId))));
 
       return new IdentityKeyPair(publicKey, privateKey);
     } catch (IOException | InvalidKeyException e) {
@@ -83,31 +86,32 @@ public class IdentityKeyUtil {
     }
   }
 
-  public static void generateIdentityKeys(Context context, MasterSecret masterSecret) {
+  public static void generateIdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId) {
+    Log.w(TAG, "Generating identity keys for subscription ID " + subscriptionId);
     ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
 
     MasterCipher masterCipher   = new MasterCipher(masterSecret);
     IdentityKey  djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
     byte[]       djbPrivateKey  = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
 
-    save(context, IDENTITY_PUBLIC_KEY_DJB_PREF, Base64.encodeBytes(djbIdentityKey.serialize()));
-    save(context, IDENTITY_PRIVATE_KEY_DJB_PREF, Base64.encodeBytes(djbPrivateKey));
+    save(context, getIdentityPublicKeyDjbPref(subscriptionId), Base64.encodeBytes(djbIdentityKey.serialize()));
+    save(context, getIdentityPrivateKeyDjbPref(subscriptionId), Base64.encodeBytes(djbPrivateKey));
   }
 
-  public static boolean hasCurve25519IdentityKeys(Context context) {
+  public static boolean hasCurve25519IdentityKeys(Context context, int subscriptionId) {
     return
-        retrieve(context, IDENTITY_PUBLIC_KEY_DJB_PREF) != null &&
-        retrieve(context, IDENTITY_PRIVATE_KEY_DJB_PREF) != null;
+        retrieve(context, getIdentityPublicKeyDjbPref(subscriptionId)) != null &&
+        retrieve(context, getIdentityPrivateKeyDjbPref(subscriptionId)) != null;
   }
 
-  public static void generateCurve25519IdentityKeys(Context context, MasterSecret masterSecret) {
+  public static void generateCurve25519IdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId) {
     MasterCipher masterCipher    = new MasterCipher(masterSecret);
     ECKeyPair    djbKeyPair      = Curve.generateKeyPair();
     IdentityKey  djbIdentityKey  = new IdentityKey(djbKeyPair.getPublicKey());
     byte[]       djbPrivateKey   = masterCipher.encryptKey(djbKeyPair.getPrivateKey());
 
-    save(context, IDENTITY_PUBLIC_KEY_DJB_PREF, Base64.encodeBytes(djbIdentityKey.serialize()));
-    save(context, IDENTITY_PRIVATE_KEY_DJB_PREF, Base64.encodeBytes(djbPrivateKey));
+    save(context, getIdentityPublicKeyDjbPref(subscriptionId), Base64.encodeBytes(djbIdentityKey.serialize()));
+    save(context, getIdentityPrivateKeyDjbPref(subscriptionId), Base64.encodeBytes(djbPrivateKey));
   }
 
   public static String retrieve(Context context, String key) {
@@ -121,5 +125,29 @@ public class IdentityKeyUtil {
 
     preferencesEditor.putString(key, value);
     if (!preferencesEditor.commit()) throw new AssertionError("failed to save identity key/value to shared preferences");
+  }
+
+  public static void remove(Context context, String key) {
+    SharedPreferences preferences   = context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0);
+    Editor preferencesEditor        = preferences.edit();
+
+    preferencesEditor.remove(key);
+    if (!preferencesEditor.commit()) throw new AssertionError("failed to remove identity key/value to shared preferences");
+  }
+
+  public static String getIdentityPublicKeyDjbPref(int subscriptionId) {
+    if (Build.VERSION.SDK_INT >= 22 && subscriptionId != -1) {
+      return IDENTITY_PUBLIC_KEY_DJB_PREF + "_" + subscriptionId;
+    } else {
+      return IDENTITY_PUBLIC_KEY_DJB_PREF;
+    }
+  }
+
+  public static String getIdentityPrivateKeyDjbPref(int subscriptionId) {
+    if (Build.VERSION.SDK_INT >= 22 && subscriptionId != -1) {
+      return IDENTITY_PRIVATE_KEY_DJB_PREF + "_" + subscriptionId;
+    } else {
+      return IDENTITY_PRIVATE_KEY_DJB_PREF;
+    }
   }
 }

@@ -77,7 +77,7 @@ public class ReceiveKeyDialog extends AlertDialog {
       final IncomingKeyExchangeMessage message = getMessage(messageRecord);
       final IdentityKey identityKey = getIdentityKey(message);
 
-      if (isTrusted(masterSecret, identityKey, messageRecord.getIndividualRecipient())){
+      if (isTrusted(masterSecret, identityKey, messageRecord.getIndividualRecipient(), messageRecord.getSubscriptionId())){
         setMessage(context.getString(R.string.ReceiveKeyActivity_the_signature_on_this_key_exchange_is_trusted_but));
       } else {
         setUntrustedText(messageRecord, identityKey);
@@ -121,8 +121,8 @@ public class ReceiveKeyDialog extends AlertDialog {
     setMessage(spannableString);
   }
 
-  private boolean isTrusted(MasterSecret masterSecret, IdentityKey identityKey, Recipient recipient) {
-    IdentityKeyStore identityKeyStore = new SilenceIdentityKeyStore(getContext(), masterSecret);
+  private boolean isTrusted(MasterSecret masterSecret, IdentityKey identityKey, Recipient recipient, int subscriptionId) {
+    IdentityKeyStore identityKeyStore = new SilenceIdentityKeyStore(getContext(), masterSecret, subscriptionId);
 
     return identityKeyStore.isTrustedIdentity(new SignalProtocolAddress(recipient.getNumber(), 1), identityKey);
   }
@@ -134,7 +134,8 @@ public class ReceiveKeyDialog extends AlertDialog {
     IncomingTextMessage message = new IncomingTextMessage(messageRecord.getIndividualRecipient().getNumber(),
                                                           messageRecord.getRecipientDeviceId(),
                                                           System.currentTimeMillis(),
-                                                          messageRecord.getBody().getBody());
+                                                          messageRecord.getBody().getBody(),
+                                                          messageRecord.getSubscriptionId());
 
     if (messageRecord.isBundleKeyExchange()) {
       return new IncomingPreKeyBundleMessage(message, message.getMessageBody());
