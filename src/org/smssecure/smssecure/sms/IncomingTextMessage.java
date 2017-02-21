@@ -54,7 +54,7 @@ public class IncomingTextMessage implements Parcelable {
     this.receivedWhenLocked   = receivedWhenLocked;
   }
 
-  public IncomingTextMessage(String sender, int senderDeviceId, long sentTimestampMillis, String encodedBody) {
+  public IncomingTextMessage(String sender, int senderDeviceId, long sentTimestampMillis, String encodedBody, int subscriptionId) {
     this.message              = encodedBody;
     this.sender               = sender;
     this.senderDeviceId       = senderDeviceId;
@@ -64,8 +64,8 @@ public class IncomingTextMessage implements Parcelable {
     this.pseudoSubject        = "";
     this.sentTimestampMillis  = sentTimestampMillis;
     this.push                 = true;
-    this.subscriptionId       = -1;
-    this.groupId = null;
+    this.subscriptionId       = subscriptionId;
+    this.groupId              = null;
     this.receivedWhenLocked   = false;
   }
 

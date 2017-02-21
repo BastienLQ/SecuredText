@@ -8,6 +8,10 @@
               <item android:title="@string/conversation_insecure__menu_start_secure_session"
                     android:id="@+id/menu_start_secure_session" />
 
+              <item android:title="@string/conversation_insecure__menu_start_secure_session"
+                    android:id="@+id/menu_start_secure_session_dual_sim">
+                  <menu></menu>
+              </item>
           </menu>
     </item>
 </menu>

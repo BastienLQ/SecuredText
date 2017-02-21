@@ -118,7 +118,7 @@ public class MmsDownloadJob extends MasterSecretJob {
       }
 
       if (retrieveConf.getSubject() != null && WirePrefix.isEncryptedMmsSubject(retrieveConf.getSubject().getString())) {
-        MmsCipher    mmsCipher    = new MmsCipher(new SilenceSignalProtocolStore(context, masterSecret));
+        MmsCipher    mmsCipher    = new MmsCipher(new SilenceSignalProtocolStore(context, masterSecret, notification.get().second));
         RetrieveConf plaintextPdu = (RetrieveConf) mmsCipher.decrypt(context, retrieveConf);
 
         storeRetrievedMms(masterSecret, contentLocation, messageId, threadId, plaintextPdu, true, notification.get().second);

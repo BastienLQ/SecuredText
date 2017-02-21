@@ -83,70 +83,39 @@ public class SmsSendJob extends SendJob {
   private void deliver(MasterSecret masterSecret, SmsMessageRecord message)
       throws UndeliverableMessageException
   {
+    String recipient;
+    ArrayList<String> messages;
+
     if (message.isSecure() || message.isKeyExchange() || message.isEndSession()) {
-      deliverSecureMessage(masterSecret, message);
-    } else {
-      deliverPlaintextMessage(message);
-    }
-  }
+      recipient = message.getIndividualRecipient().getNumber();
 
-  private void deliverSecureMessage(MasterSecret masterSecret, SmsMessageRecord message)
-      throws UndeliverableMessageException
-  {
-    MultipartSmsMessageHandler multipartMessageHandler = new MultipartSmsMessageHandler();
-    OutgoingTextMessage        transportMessage        = OutgoingTextMessage.from(message);
+      MultipartSmsMessageHandler multipartMessageHandler = new MultipartSmsMessageHandler();
+      OutgoingTextMessage        transportMessage        = OutgoingTextMessage.from(message);
 
-    if (message.isSecure() || message.isEndSession()) {
-      transportMessage = getAsymmetricEncrypt(masterSecret, transportMessage);
-    }
-
-    ArrayList<String> messages                = multipartMessageHandler.divideMessage(transportMessage);
-    ArrayList<PendingIntent> sentIntents      = constructSentIntents(message.getId(), message.getType(), messages, message.isSecure());
-    ArrayList<PendingIntent> deliveredIntents = constructDeliveredIntents(message.getId(), message.getType(), messages);
-
-    Log.w("SmsTransport", "Secure divide into message parts: " + messages.size());
-
-    for (int i=0;i<messages.size();i++) {
-      // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
-      // and messages, this will throw an NPE.  We have no idea why, so we're just
-      // catching it and marking the message as a failure.  That way at least it
-      // doesn't repeatedly crash every time you start the app.
-      try {
-        SmsManager.getDefault().sendTextMessage(message.getIndividualRecipient().getNumber(), null, messages.get(i),
-                                                sentIntents.get(i),
-                                                deliveredIntents == null ? null : deliveredIntents.get(i));
-      } catch (NullPointerException npe) {
-        Log.w(TAG, npe);
-        Log.w(TAG, "Recipient: " + message.getIndividualRecipient().getNumber());
-        Log.w(TAG, "Message Total Parts/Current: " + messages.size() + "/" + i);
-        Log.w(TAG, "Message Part Length: " + messages.get(i).getBytes().length);
-        throw new UndeliverableMessageException(npe);
-      } catch (IllegalArgumentException iae) {
-        Log.w(TAG, iae);
-        throw new UndeliverableMessageException(iae);
+      if (!message.isKeyExchange()) {
+        transportMessage = getAsymmetricEncrypt(masterSecret, transportMessage);
       }
+
+      messages = multipartMessageHandler.divideMessage(transportMessage);
+    } else {
+      recipient = message.getIndividualRecipient().getNumber();
+
+      // See issue #1516 for bug report, and discussion on commits related to #4833 for problems
+      // related to the original fix to #1516. This still may not be a correct fix if networks allow
+      // SMS/MMS sending to alphanumeric recipients other than email addresses, but should also
+      // help to fix issue #3099.
+      if (!NumberUtil.isValidEmail(recipient)) {
+        recipient = PhoneNumberUtils.stripSeparators(PhoneNumberUtils.convertKeypadLettersToDigits(recipient));
+      }
+
+      if (!NumberUtil.isValidSmsOrEmail(recipient)) {
+        throw new UndeliverableMessageException("Not a valid SMS destination! " + recipient);
+      }
+
+      messages = SmsManager.getDefault().divideMessage(message.getBody().getBody());
     }
-  }
 
-  private void deliverPlaintextMessage(SmsMessageRecord message)
-      throws UndeliverableMessageException
-  {
-    String recipient = message.getIndividualRecipient().getNumber();
-
-    // See issue #1516 for bug report, and discussion on commits related to #4833 for problems
-    // related to the original fix to #1516. This still may not be a correct fix if networks allow
-    // SMS/MMS sending to alphanumeric recipients other than email addresses, but should also
-    // help to fix issue #3099.
-    if (!NumberUtil.isValidEmail(recipient)) {
-      recipient = PhoneNumberUtils.stripSeparators(PhoneNumberUtils.convertKeypadLettersToDigits(recipient));
-    }
-
-    if (!NumberUtil.isValidSmsOrEmail(recipient)) {
-      throw new UndeliverableMessageException("Not a valid SMS destination! " + recipient);
-    }
-
-    ArrayList<String> messages                = SmsManager.getDefault().divideMessage(message.getBody().getBody());
-    ArrayList<PendingIntent> sentIntents      = constructSentIntents(message.getId(), message.getType(), messages, false);
+    ArrayList<PendingIntent> sentIntents      = constructSentIntents(message.getId(), message.getType(), messages, message.isSecure());
     ArrayList<PendingIntent> deliveredIntents = constructDeliveredIntents(message.getId(), message.getType(), messages);
 
     // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
@@ -178,7 +147,7 @@ public class SmsSendJob extends SendJob {
       throws UndeliverableMessageException
   {
     try {
-      return new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret)).encrypt(message);
+      return new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret, message.getSubscriptionId())).encrypt(message);
     } catch (NoSessionException e) {
       throw new UndeliverableMessageException(e);
     }
@@ -240,6 +209,7 @@ public class SmsSendJob extends SendJob {
   }
 
   private SmsManager getSmsManagerFor(int subscriptionId) {
+    Log.w(TAG, "getSmsManagerFor(" + subscriptionId + ")");
     if (Build.VERSION.SDK_INT >= 22 && subscriptionId != -1) {
       return SmsManager.getSmsManagerForSubscriptionId(subscriptionId);
     } else {

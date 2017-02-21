@@ -1,6 +1,7 @@
 package org.smssecure.smssecure.crypto.storage;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.crypto.MasterCipher;
@@ -37,10 +38,13 @@ public class SilenceSessionStore implements SessionStore {
 
   private final Context      context;
   private final MasterSecret masterSecret;
+  private final int          subscriptionId;
 
-  public SilenceSessionStore(Context context, MasterSecret masterSecret) {
-    this.context      = context.getApplicationContext();
-    this.masterSecret = masterSecret;
+  public SilenceSessionStore(Context context, MasterSecret masterSecret, int subscriptionId) {
+    Log.w(TAG, "SilenceSessionStore for subscription ID " + subscriptionId);
+    this.context        = context.getApplicationContext();
+    this.masterSecret   = masterSecret;
+    this.subscriptionId = subscriptionId;
   }
 
   @Override
@@ -143,10 +147,16 @@ public class SilenceSessionStore implements SessionStore {
   }
 
   private File getSessionFile(SignalProtocolAddress address) {
-    return new File(getSessionDirectory(), getSessionName(address));
+    String sessionName = getSessionName(address);
+    Log.w(TAG, "session name: " + sessionName);
+    return new File(getSessionDirectory(), sessionName);
   }
 
   private File getSessionDirectory() {
+    return getSessionDirectory(context);
+  }
+
+  public static File getSessionDirectory(Context context) {
     File directory = new File(context.getFilesDir(), SESSIONS_DIRECTORY_V2);
 
     if (!directory.exists()) {
@@ -159,12 +169,10 @@ public class SilenceSessionStore implements SessionStore {
   }
 
   private String getSessionName(SignalProtocolAddress axolotlAddress) {
-    Recipient recipient   = RecipientFactory.getRecipientsFromString(context, axolotlAddress.getName(), true)
-                                          .getPrimaryRecipient();
+    Recipient recipient   = RecipientFactory.getRecipientsFromString(context, axolotlAddress.getName(), true).getPrimaryRecipient();
     long      recipientId = recipient.getRecipientId();
-    int       deviceId    = axolotlAddress.getDeviceId();
 
-    return recipientId + (deviceId == 1 ? "" : "." + deviceId);
+    return recipientId + ((Build.VERSION.SDK_INT < 22 || subscriptionId == -1) ? "" : "." + subscriptionId);
   }
 
   private byte[] readBlob(FileInputStream in) throws IOException {
