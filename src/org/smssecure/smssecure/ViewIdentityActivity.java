@@ -19,11 +19,17 @@ package org.smssecure.smssecure;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
-import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.util.Hex;
-import org.whispersystems.libsignal.IdentityKey;
 import org.smssecure.smssecure.crypto.IdentityKeyParcelable;
+import org.smssecure.smssecure.crypto.IdentityKeyUtil;
+import org.smssecure.smssecure.crypto.MasterSecret;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
+import org.smssecure.smssecure.util.Hex;
+
+import org.whispersystems.libsignal.IdentityKey;
 
 /**
  * Activity for displaying an identity key.
@@ -39,11 +45,39 @@ public class ViewIdentityActivity extends KeyScanningActivity {
   private IdentityKey identityKey;
 
   @Override
-  protected void onCreate(Bundle state, @NonNull MasterSecret masterSecret) {
+  protected void onCreate(Bundle icicle, @NonNull MasterSecret masterSecret) {
+    int subscriptionId = getIntent().getIntExtra("subscription_id", SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1));
+
+    getIntent().putExtra(ViewIdentityActivity.IDENTITY_KEY,
+                         new IdentityKeyParcelable(IdentityKeyUtil.getIdentityKey(this, subscriptionId)));
+    getIntent().putExtra(ViewIdentityActivity.TITLE,
+                         getString(R.string.ViewIdentityActivity_your_identity_fingerprint));
+
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     setContentView(R.layout.view_identity_activity);
 
     initialize();
+  }
+
+  @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+    super.onPrepareOptionsMenu(menu);
+
+    MenuInflater inflater = this.getMenuInflater();
+    inflater.inflate(R.menu.local_identity, menu);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    super.onOptionsItemSelected(item);
+
+    switch (item.getItemId()) {
+        case android.R.id.home:finish(); return true;
+    }
+
+    return false;
   }
 
   protected void initialize() {

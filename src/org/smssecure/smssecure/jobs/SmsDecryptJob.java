@@ -1,6 +1,7 @@
 package org.smssecure.smssecure.jobs;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.crypto.AsymmetricMasterCipher;
@@ -28,6 +29,8 @@ import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.IncomingXmppExchangeMessage;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingKeyExchangeMessage;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.DuplicateMessageException;
@@ -40,6 +43,7 @@ import org.whispersystems.libsignal.UntrustedIdentityException;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SmsDecryptJob extends MasterSecretJob {
 
@@ -127,7 +131,7 @@ public class SmsDecryptJob extends MasterSecretJob {
       InvalidMessageException, LegacyMessageException
   {
     EncryptingSmsDatabase database  = DatabaseFactory.getEncryptingSmsDatabase(context);
-    SmsCipher             cipher    = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret));
+    SmsCipher             cipher    = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
     IncomingTextMessage   plaintext = cipher.decrypt(context, message);
 
     database.updateMessageBody(masterSecret, messageId, plaintext.getMessageBody());
@@ -143,7 +147,7 @@ public class SmsDecryptJob extends MasterSecretJob {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
-      SmsCipher                smsCipher = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret));
+      SmsCipher                smsCipher = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
       IncomingEncryptedMessage plaintext = smsCipher.decrypt(context, message);
 
       database.updateBundleMessageBody(masterSecret, messageId, plaintext.getMessageBody());
@@ -158,12 +162,12 @@ public class SmsDecryptJob extends MasterSecretJob {
   }
 
   private void handleKeyExchangeMessage(MasterSecret masterSecret, long messageId, long threadId,
-                                        IncomingKeyExchangeMessage message)
+                                      IncomingKeyExchangeMessage message)
   {
     EncryptingSmsDatabase database = DatabaseFactory.getEncryptingSmsDatabase(context);
 
     try {
-      SmsCipher                  cipher   = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret));
+      SmsCipher                  cipher   = new SmsCipher(new SilenceSignalProtocolStore(context, masterSecret, message.getSubscriptionId()));
       OutgoingKeyExchangeMessage response = cipher.process(context, message);
 
       if (shouldSend()) {
@@ -209,7 +213,7 @@ public class SmsDecryptJob extends MasterSecretJob {
     database.markAsXmppExchange(messageId);
   }
 
-  private String getAsymmetricDecryptedBody(MasterSecret masterSecret, String body)
+  private String getAsymmetricDecryptedBody(MasterSecret masterSecret, String body, int subscriptionId)
       throws InvalidMessageException
   {
     try {
@@ -228,13 +232,14 @@ public class SmsDecryptJob extends MasterSecretJob {
     String plaintextBody = record.getBody().getBody();
 
     if (record.isAsymmetricEncryption()) {
-      plaintextBody = getAsymmetricDecryptedBody(masterSecret, record.getBody().getBody());
+      plaintextBody = getAsymmetricDecryptedBody(masterSecret, record.getBody().getBody(), record.getSubscriptionId());
     }
 
     IncomingTextMessage message = new IncomingTextMessage(record.getRecipients().getPrimaryRecipient().getNumber(),
                                                           record.getRecipientDeviceId(),
                                                           record.getDateSent(),
-                                                          plaintextBody);
+                                                          plaintextBody,
+                                                          record.getSubscriptionId());
 
     if (record.isEndSession()) {
       return new IncomingEndSessionMessage(message);

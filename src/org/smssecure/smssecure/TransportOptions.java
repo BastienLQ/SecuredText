@@ -111,6 +111,17 @@ public class TransportOptions {
     }
   }
 
+  public void disableTransport(Type type, int subscriptionId) {
+    List<TransportOption> options = find(type);
+
+    for (TransportOption option : options) {
+      if (option.getSimSubscriptionId().or(-1) == subscriptionId) enabledTransports.remove(option);
+      if (selectedOption.isPresent() && selectedOption.get().getType() == type && selectedOption.get().getSimSubscriptionId().or(-1) == subscriptionId) {
+        setSelectedTransport(null);
+      }
+    }
+  }
+
   public List<TransportOption> getEnabledTransports() {
     return enabledTransports;
   }
@@ -157,7 +168,7 @@ public class TransportOptions {
                                                                         @NonNull CharacterCalculator characterCalculator)
   {
     List<TransportOption>        results             = new LinkedList<>();
-    SubscriptionManagerCompat    subscriptionManager = new SubscriptionManagerCompat(context);
+    SubscriptionManagerCompat    subscriptionManager = SubscriptionManagerCompat.from(context);
     List<SubscriptionInfoCompat> subscriptions       = subscriptionManager.getActiveSubscriptionInfoList();
 
     if (subscriptions.size() < 2) {
