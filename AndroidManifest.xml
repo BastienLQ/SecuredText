@@ -63,6 +63,9 @@
     <meta-data android:name="org.smssecure.smssecure.mms.SilenceGlideModule"
                android:value="GlideModule" />
 
+    <meta-data android:name="com.google.android.gms.car.application"
+               android:resource="@xml/automotive_app_desc" />
+
     <activity android:name=".CountrySelectionActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -343,6 +346,21 @@
             <action android:name="org.smssecure.smssecure.notifications.WEAR_REPLY"/>
         </intent-filter>
     </receiver>
+
+    <receiver android:name=".notifications.AndroidAutoHeardReceiver"
+              android:exported="false">
+        <intent-filter>
+          <action android:name="org.smssecure.smssecure.notifications.ANDROID_AUTO_HEARD"/>
+        </intent-filter>
+    </receiver>
+
+    <receiver android:name=".notifications.AndroidAutoReplyReceiver"
+              android:exported="false">
+        <intent-filter>
+          <action android:name="org.smssecure.smssecure.notifications.ANDROID_AUTO_REPLY"/>
+        </intent-filter>
+    </receiver>
+
 
     <provider android:name=".providers.PartProvider"
               android:grantUriPermissions="true"
