@@ -127,6 +127,39 @@ public class NotificationState {
     return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
+  public PendingIntent getAndroidAutoReplyIntent(Context context, Recipients recipients) {
+    if (threads.size() != 1) throw new AssertionError("We only support replies to single thread notifications!");
+
+    Intent intent = new Intent(AndroidAutoReplyReceiver.REPLY_ACTION);
+    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+    intent.setClass(context, AndroidAutoReplyReceiver.class);
+    intent.setData((Uri.parse("custom://"+System.currentTimeMillis())));
+    intent.putExtra(AndroidAutoReplyReceiver.RECIPIENT_IDS_EXTRA, recipients.getIds());
+    intent.putExtra(AndroidAutoReplyReceiver.THREAD_ID_EXTRA, (long)threads.toArray()[0]);
+    intent.setPackage(context.getPackageName());
+
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+  }
+
+  public PendingIntent getAndroidAutoHeardIntent(Context context, int notificationId) {
+    long[] threadArray = new long[threads.size()];
+    int    index       = 0;
+    for (long thread : threads) {
+      Log.w("NotificationState", "getAndroidAutoHeardIntent Added thread: " + thread);
+      threadArray[index++] = thread;
+    }
+
+    Intent intent = new Intent(AndroidAutoHeardReceiver.HEARD_ACTION);
+    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+    intent.setClass(context, AndroidAutoHeardReceiver.class);
+    intent.setData((Uri.parse("custom://"+System.currentTimeMillis())));
+    intent.putExtra(AndroidAutoHeardReceiver.THREAD_IDS_EXTRA, threadArray);
+    intent.putExtra(AndroidAutoHeardReceiver.NOTIFICATION_ID_EXTRA, notificationId);
+    intent.setPackage(context.getPackageName());
+
+    return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+  }
+
   public PendingIntent getQuickReplyIntent(Context context, Recipients recipients) {
     if (threads.size() != 1) throw new AssertionError("We only support replies to single thread notifications! " + threads.size());
 
