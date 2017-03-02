@@ -4,6 +4,11 @@
 
 Using Silence, you can send SMS messages and share media or attachments with complete privacy.
 
+<a href="https://f-droid.org/repository/browse/?fdid=org.smssecure.smssecure" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80"/></a>
+<a href="https://play.google.com/store/apps/details?id=org.smssecure.smssecure" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
+
 Features:
 * Easy. Silence works like any other SMS application. There's nothing to sign up for and no new service your friends need to join.
 * Reliable. Silence communicates using encrypted SMS messages. No servers or internet connection required.
