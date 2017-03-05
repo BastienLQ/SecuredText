@@ -25,7 +25,6 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.SmsDeliveryListener;
 import org.smssecure.smssecure.sms.MultipartSmsMessageHandler;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
-import org.smssecure.smssecure.transport.InsecureFallbackApprovalException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
@@ -61,10 +60,6 @@ public class SmsSendJob extends SendJob {
       Log.w(TAG, ude);
       DatabaseFactory.getSmsDatabase(context).markAsSentFailed(record.getId());
       MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
-    } catch (InsecureFallbackApprovalException ifae) {
-      Log.w(TAG, ifae);
-      DatabaseFactory.getSmsDatabase(context).markAsPendingInsecureSmsFallback(record.getId());
-      MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipients(), record.getThreadId());
     }
   }
 
@@ -86,7 +81,7 @@ public class SmsSendJob extends SendJob {
   }
 
   private void deliver(MasterSecret masterSecret, SmsMessageRecord message)
-      throws UndeliverableMessageException, InsecureFallbackApprovalException
+      throws UndeliverableMessageException
   {
     String recipient;
     ArrayList<String> messages;
@@ -149,12 +144,12 @@ public class SmsSendJob extends SendJob {
 
   private OutgoingTextMessage getAsymmetricEncrypt(MasterSecret masterSecret,
                                                    OutgoingTextMessage message)
-      throws InsecureFallbackApprovalException
+      throws UndeliverableMessageException
   {
     try {
       return new SmsCipher(new SilenceAxolotlStore(context, masterSecret, message.getSubscriptionId())).encrypt(message);
     } catch (NoSessionException e) {
-      throw new InsecureFallbackApprovalException(e);
+      throw new UndeliverableMessageException(e);
     }
   }
 

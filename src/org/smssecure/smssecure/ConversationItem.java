@@ -392,8 +392,6 @@ public class ConversationItem extends LinearLayout
 
     if (messageRecord.isFailed()) {
       setFailedStatusIcons();
-    } else if (messageRecord.isPendingInsecureSmsFallback()) {
-      setFallbackStatusIcons();
     } else {
       alertView.setNone();
 
@@ -433,13 +431,6 @@ public class ConversationItem extends LinearLayout
       indicatorText.setText(R.string.ConversationItem_click_for_details);
       indicatorText.setVisibility(View.VISIBLE);
     }
-  }
-
-  private void setFallbackStatusIcons() {
-    alertView.setPendingApproval();
-    deliveryStatusIndicator.setNone();
-    indicatorText.setVisibility(View.VISIBLE);
-    indicatorText.setText(R.string.ConversationItem_click_to_approve_unencrypted);
   }
 
   private void setMinimumWidth() {
@@ -685,74 +676,8 @@ public class ConversationItem extends LinearLayout
                  !messageRecord.isStaleKeyExchange())
       {
         handleKeyExchangeClicked();
-      } else if (messageRecord.isPendingSmsFallback()) {
-        handleMessageApproval();
       }
     }
-  }
-
-  private void handleMessageApproval() {
-    final int title;
-    final int message;
-
-    if (messageRecord.isPendingSecureSmsFallback()) {
-      //TODO: Remove push code
-      title = -1;
-
-      message = -1;
-    } else {
-      if (messageRecord.isMms()) title = R.string.ConversationItem_click_to_approve_unencrypted_mms_dialog_title;
-      else                       title = R.string.ConversationItem_click_to_approve_unencrypted_sms_dialog_title;
-
-      message = R.string.ConversationItem_click_to_approve_unencrypted_dialog_message;
-    }
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-    builder.setTitle(title);
-
-    if (message > -1) builder.setMessage(message);
-
-    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialogInterface, int i) {
-        if (messageRecord.isMms()) {
-          MmsDatabase database = DatabaseFactory.getMmsDatabase(context);
-          if (messageRecord.isPendingInsecureSmsFallback()) {
-            database.markAsInsecure(messageRecord.getId());
-          }
-          database.markAsOutbox(messageRecord.getId());
-          database.markAsForcedSms(messageRecord.getId());
-
-          ApplicationContext.getInstance(context)
-                            .getJobManager()
-                            .add(new MmsSendJob(context, messageRecord.getId()));
-        } else {
-          SmsDatabase database = DatabaseFactory.getSmsDatabase(context);
-          if (messageRecord.isPendingInsecureSmsFallback()) {
-            database.markAsInsecure(messageRecord.getId());
-          }
-          database.markAsOutbox(messageRecord.getId());
-          database.markAsForcedSms(messageRecord.getId());
-
-          ApplicationContext.getInstance(context)
-                            .getJobManager()
-                            .add(new SmsSendJob(context, messageRecord.getId(),
-                                                messageRecord.getIndividualRecipient().getNumber()));
-        }
-      }
-    });
-
-    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialogInterface, int i) {
-        if (messageRecord.isMms()) {
-          DatabaseFactory.getMmsDatabase(context).markAsSentFailed(messageRecord.getId());
-        } else {
-          DatabaseFactory.getSmsDatabase(context).markAsSentFailed(messageRecord.getId());
-        }
-      }
-    });
-    builder.show();
   }
 
 }

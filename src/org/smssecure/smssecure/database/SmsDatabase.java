@@ -243,14 +243,6 @@ public class SmsDatabase extends MessagingDatabase {
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_OUTBOX_TYPE);
   }
 
-  public void markAsPendingSecureSmsFallback(long id) {
-    updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_PENDING_SECURE_SMS_FALLBACK);
-  }
-
-  public void markAsPendingInsecureSmsFallback(long id) {
-    updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_PENDING_INSECURE_SMS_FALLBACK);
-  }
-
   public void markAsSent(long id, boolean isSecure) {
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENT_TYPE | (isSecure ? Types.SECURE_MESSAGE_BIT : 0));
   }

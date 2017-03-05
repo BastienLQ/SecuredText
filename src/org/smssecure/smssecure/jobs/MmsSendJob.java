@@ -22,7 +22,6 @@ import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
-import org.smssecure.smssecure.transport.InsecureFallbackApprovalException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
 import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.NumberUtil;
@@ -101,10 +100,6 @@ public class MmsSendJob extends SendJob {
       Log.w(TAG, e);
       database.markAsSentFailed(messageId);
       notifyMediaMessageDeliveryFailed(context, messageId);
-    } catch (InsecureFallbackApprovalException e) {
-      Log.w(TAG, e);
-      database.markAsPendingInsecureSmsFallback(messageId);
-      notifyMediaMessageDeliveryFailed(context, messageId);
     }
   }
 
@@ -120,7 +115,7 @@ public class MmsSendJob extends SendJob {
   }
 
   private byte[] getPduBytes(MasterSecret masterSecret, SendReq message)
-      throws IOException, UndeliverableMessageException, InsecureFallbackApprovalException
+      throws IOException, UndeliverableMessageException
   {
     String number = TelephonyUtil.getManager(context).getLine1Number();
 
@@ -154,13 +149,13 @@ public class MmsSendJob extends SendJob {
   }
 
   private SendReq getEncryptedMessage(MasterSecret masterSecret, SendReq pdu, int subscriptionId)
-      throws InsecureFallbackApprovalException, UndeliverableMessageException
+      throws UndeliverableMessageException
   {
     try {
       MmsCipher cipher = new MmsCipher(new SilenceAxolotlStore(context, masterSecret, subscriptionId));
       return cipher.encrypt(context, pdu);
     } catch (NoSessionException e) {
-      throw new InsecureFallbackApprovalException(e);
+      throw new UndeliverableMessageException(e);
     } catch (RecipientFormattingException e) {
       throw new AssertionError(e);
     }

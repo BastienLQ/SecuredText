@@ -128,16 +128,8 @@ public abstract class MessageRecord extends DisplayRecord {
     return SmsDatabase.Types.isProcessedKeyExchange(type);
   }
 
-  public boolean isPendingSmsFallback() {
-    return SmsDatabase.Types.isPendingSmsFallbackType(type);
-  }
-
   public boolean isIdentityMismatchFailure() {
     return mismatches != null && !mismatches.isEmpty();
-  }
-
-  public boolean isPendingSecureSmsFallback() {
-    return SmsDatabase.Types.isPendingSecureSmsFallbackType(type);
   }
 
   public boolean isBundleKeyExchange() {
