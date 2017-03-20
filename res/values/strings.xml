@@ -212,6 +212,11 @@
     <string name="DateUtils_today">Today</string>
     <string name="DateUtils_yesterday">Yesterday</string>
 
+    <!-- DualSimUtil -->
+    <string name="DualSimUtil__new_sim_card_detected">New SIM card detected</string>
+    <string name="DualSimUtil__a_new_key_has_been_generated">A new key has been generated.</string>
+    <string name="DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card">A new key has been generated for that SIM card.</string>
+
     <!-- ShareActivity -->
     <string name="ShareActivity_share_with">Share with</string>
 
