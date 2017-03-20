@@ -24,6 +24,7 @@ import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.util.Base64;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyException;
@@ -87,6 +88,10 @@ public class IdentityKeyUtil {
   }
 
   public static void generateIdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId) {
+    generateIdentityKeys(context, masterSecret, subscriptionId, true);
+  }
+
+  public static void generateIdentityKeys(Context context, MasterSecret masterSecret, int subscriptionId, boolean displayNotification) {
     Log.w(TAG, "Generating identity keys for subscription ID " + subscriptionId);
     ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
 
@@ -96,6 +101,8 @@ public class IdentityKeyUtil {
 
     save(context, getIdentityPublicKeyDjbPref(subscriptionId), Base64.encodeBytes(djbIdentityKey.serialize()));
     save(context, getIdentityPrivateKeyDjbPref(subscriptionId), Base64.encodeBytes(djbPrivateKey));
+
+    if (displayNotification) DualSimUtil.displayNotification(context);
   }
 
   public static boolean hasCurve25519IdentityKeys(Context context, int subscriptionId) {
