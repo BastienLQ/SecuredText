@@ -588,8 +588,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleVerifyIdentity() {
-    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
-      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+    if (activeSubscriptions.size() < 2) {
+      int subscriptionId = activeSubscriptions.get(0).getSubscriptionId();
       handleVerifyIdentity(subscriptionId);
     }
   }
@@ -602,8 +602,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleStartSecureSession() {
-    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
-      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+    if (activeSubscriptions.size() < 2) {
+      int subscriptionId = activeSubscriptions.get(0).getSubscriptionId();
       handleStartSecureSession(subscriptionId);
     }
   }
@@ -651,8 +651,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleAbortSecureSession() {
-    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
-      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+    if (activeSubscriptions.size() < 2) {
+      int subscriptionId = activeSubscriptions.get(0).getSubscriptionId();
       handleAbortSecureSession(subscriptionId);
     }
   }

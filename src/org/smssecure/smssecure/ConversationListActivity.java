@@ -229,8 +229,8 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   }
 
   private void handleMyIdentity() {
-    if (Build.VERSION.SDK_INT < 22 || activeSubscriptions.size() < 2) {
-      int subscriptionId = Build.VERSION.SDK_INT < 22 ? -1 : activeSubscriptions.get(0).getSubscriptionId();
+    if (activeSubscriptions.size() < 2) {
+      int subscriptionId = activeSubscriptions.get(0).getSubscriptionId();
       handleMyIdentity(subscriptionId);
     }
   }
