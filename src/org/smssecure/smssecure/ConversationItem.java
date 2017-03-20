@@ -404,7 +404,7 @@ public class ConversationItem extends LinearLayout
   private void setSimInfo(MessageRecord messageRecord) {
     SubscriptionManagerCompat subscriptionManager = SubscriptionManagerCompat.from(context);
 
-    if (messageRecord.getSubscriptionId() == -1 || subscriptionManager.getActiveSubscriptionInfoList().size() < 2) {
+    if (subscriptionManager.getActiveSubscriptionInfoList().size() < 2) {
       simInfoText.setVisibility(View.GONE);
     } else {
       Optional<SubscriptionInfoCompat> subscriptionInfo = subscriptionManager.getActiveSubscriptionInfo(messageRecord.getSubscriptionId());

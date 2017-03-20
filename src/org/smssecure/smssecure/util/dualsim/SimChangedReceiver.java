@@ -10,7 +10,7 @@ import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.util.SilencePreferences;
-import org.smssecure.smssecure.jobs.CheckSimStateJob;
+import org.smssecure.smssecure.jobs.GenerateKeysJob;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +31,9 @@ public class SimChangedReceiver extends BroadcastReceiver {
 
   public static void checkSimState(final Context context) {
     if (hasDifferentSubscriptions(context)) {
-      DualSimUpgradeUtil.checkAndFixAppSubscriptionIds(context);
       ApplicationContext.getInstance(context)
                         .getJobManager()
-                        .add(new CheckSimStateJob(context));
+                        .add(new GenerateKeysJob(context));
       SilencePreferences.setDeviceSubscriptions(context, getDeviceSubscriptions(context));
     }
   }
@@ -46,16 +45,16 @@ public class SimChangedReceiver extends BroadcastReceiver {
     Log.w(TAG, "getDeviceSubscriptions():         " + getDeviceSubscriptions(context));
     Log.w(TAG, "getActiveDeviceSubscriptionIds(): " + getActiveDeviceSubscriptionIds(context));
 
-    return subscriptions != null && !subscriptions.equals(registeredSubscriptions);
+    return !subscriptions.equals(registeredSubscriptions);
   }
 
   private static String getDeviceSubscriptions(Context context) {
-    if (Build.VERSION.SDK_INT < 22) return null;
+    if (Build.VERSION.SDK_INT < 22) return "1";
 
     SubscriptionManager    subscriptionManager = SubscriptionManager.from(context);
     List<SubscriptionInfo> activeSubscriptions = subscriptionManager.getActiveSubscriptionInfoList();
 
-    if (activeSubscriptions == null) return null;
+    if (activeSubscriptions == null) return "1";
 
     String[] subscriptions = new String[activeSubscriptions.size()];
     for(int i=0; i<activeSubscriptions.size(); i++){

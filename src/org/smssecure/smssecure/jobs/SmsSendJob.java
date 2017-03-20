@@ -26,6 +26,7 @@ import org.smssecure.smssecure.service.SmsDeliveryListener;
 import org.smssecure.smssecure.sms.MultipartSmsMessageHandler;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.jobqueue.JobParameters;
@@ -118,12 +119,14 @@ public class SmsSendJob extends SendJob {
     ArrayList<PendingIntent> sentIntents      = constructSentIntents(message.getId(), message.getType(), messages, message.isSecure());
     ArrayList<PendingIntent> deliveredIntents = constructDeliveredIntents(message.getId(), message.getType(), messages);
 
+    int deviceSubscriptionId = DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId());
+
     // NOTE 11/04/14 -- There's apparently a bug where for some unknown recipients
     // and messages, this will throw an NPE.  We have no idea why, so we're just
     // catching it and marking the message as a failure.  That way at least it doesn't
     // repeatedly crash every time you start the app.
     try {
-      getSmsManagerFor(message.getSubscriptionId()).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
+      getSmsManagerFor(deviceSubscriptionId).sendMultipartTextMessage(recipient, null, messages, sentIntents, deliveredIntents);
     } catch (NullPointerException npe) {
       Log.w(TAG, npe);
       Log.w(TAG, "Recipient: " + recipient);
@@ -131,7 +134,7 @@ public class SmsSendJob extends SendJob {
 
       try {
         for (int i=0;i<messages.size();i++) {
-          getSmsManagerFor(message.getSubscriptionId()).sendTextMessage(recipient, null, messages.get(i),
+          getSmsManagerFor(deviceSubscriptionId).sendTextMessage(recipient, null, messages.get(i),
                                                                         sentIntents.get(i),
                                                                         deliveredIntents == null ? null : deliveredIntents.get(i));
         }
