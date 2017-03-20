@@ -45,19 +45,11 @@ public class SubscriptionManagerCompat {
       return Optional.absent();
     }
 
-    SubscriptionInfo subscriptionInfo = SubscriptionManager.from(context).getActiveSubscriptionInfo(subscriptionId);
-
-    if (subscriptionInfo != null) {
-      return Optional.of(new SubscriptionInfoCompat(context,
-                                                    subscriptionId,
-                                                    subscriptionInfo.getDisplayName(),
-                                                    subscriptionInfo.getNumber(),
-                                                    subscriptionInfo.getIccId(),
-                                                    subscriptionInfo.getSimSlotIndex()+1,
-                                                    knowThisDisplayNameTwice(subscriptionInfo.getDisplayName())));
-    } else {
-      return Optional.absent();
+    for (SubscriptionInfoCompat subscriptionInfo : getActiveSubscriptionInfoList()) {
+      if (subscriptionInfo.getSubscriptionId() == subscriptionId) return Optional.of(subscriptionInfo);
     }
+
+    return Optional.absent();
   }
 
   @TargetApi(22)
