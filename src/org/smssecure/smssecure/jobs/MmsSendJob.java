@@ -23,6 +23,7 @@ import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.SmilUtil;
@@ -91,7 +92,7 @@ public class MmsSendJob extends SendJob {
       validateDestinations(message, pdu);
 
       final byte[]        pduBytes = getPduBytes(masterSecret, pdu);
-      final SendConf      sendConf = new CompatMmsConnection(context).send(pduBytes, message.getSubscriptionId());
+      final SendConf      sendConf = new CompatMmsConnection(context).send(pduBytes, DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId()));
       final MmsSendResult result   = getSendResult(sendConf, pdu, upgradedSecure);
 
       database.markAsSent(messageId, result.isUpgradedSecure());
