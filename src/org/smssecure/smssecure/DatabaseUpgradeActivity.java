@@ -32,7 +32,7 @@ import android.widget.ProgressBar;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.notifications.MessageNotifier;
-import org.smssecure.smssecure.util.dualsim.DualSimUpgradeUtil;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
 import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.ParcelUtil;
@@ -150,11 +150,6 @@ public class DatabaseUpgradeActivity extends BaseActivity {
           SubscriptionManager subscriptionManager = SubscriptionManager.from(context);
           List<SubscriptionInfo> activeSubscriptions = subscriptionManager.getActiveSubscriptionInfoList();
 
-          for (SubscriptionInfo subscriptionInfo : activeSubscriptions) {
-            int subscriptionId = subscriptionInfo.getSubscriptionId();
-            SilencePreferences.setAppSubscriptionId(context, subscriptionId, subscriptionId);
-          }
-
           /*
            * getDefaultSubscriptionId() is available for API 24+ only, so we
            * move keys and sessions to SIM card in slot 1, not to the default one.
@@ -163,9 +158,9 @@ public class DatabaseUpgradeActivity extends BaseActivity {
 
           List<SubscriptionInfoCompat> activeSubscriptionsCompat = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoList();
 
-          DualSimUpgradeUtil.moveIdentityKeysAndSessionsToSubscriptionId(context, -1, defaultSubscriptionId);
-          DualSimUpgradeUtil.generateKeysIfDoNotExist(context, masterSecret, activeSubscriptionsCompat);
-          DualSimUpgradeUtil.bindSubscriptionId(context, activeSubscriptionsCompat);
+          DualSimUtil.moveIdentityKeysAndSessionsToSubscriptionId(context, -1, defaultSubscriptionId);
+          DualSimUtil.generateKeysIfDoNotExist(context, masterSecret, activeSubscriptionsCompat);
+          SubscriptionManagerCompat.from(context).updateActiveSubscriptionInfoList();
         }
       }
 

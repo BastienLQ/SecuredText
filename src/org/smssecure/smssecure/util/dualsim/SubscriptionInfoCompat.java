@@ -27,8 +27,6 @@ public class SubscriptionInfoCompat {
                                 int          iccSlot,
                                 boolean      duplicateDisplayName)
   {
-    int subscriptionId = SilencePreferences.getAppSubscriptionId(context, deviceSubscriptionId);
-
     this.context              = context;
     this.deviceSubscriptionId = deviceSubscriptionId;
     this.subscriptionId       = subscriptionId;
@@ -37,6 +35,7 @@ public class SubscriptionInfoCompat {
     this.iccId                = iccId;
     this.iccSlot              = iccSlot;
     this.duplicateDisplayName = duplicateDisplayName;
+    this.subscriptionId       = findAppId(context, number, iccId);
   }
 
   public @NonNull CharSequence getDisplayName() {
@@ -72,5 +71,56 @@ public class SubscriptionInfoCompat {
 
   public String getIccId() {
     return iccId;
+  }
+
+  private static int findAppId(Context context, String number, String iccId) {
+    int appSubscriptionId = -1;
+
+    appSubscriptionId = findAppIdFromNumber(context, number);
+    if (appSubscriptionId == -1) appSubscriptionId = findAppIdFromIccId(context, iccId);
+    if (appSubscriptionId == -1) appSubscriptionId = bumpAppSubcriptionId(context);
+
+    saveInfo(context, appSubscriptionId, number, iccId);
+
+    return appSubscriptionId;
+  }
+
+  private static int findAppIdFromNumber(Context context, String number) {
+    if (number == null || number.equals("")) return -1;
+
+    int lastAppSubscriptionId = SilencePreferences.getLastAppSubscriptionId(context);
+    for( int i = 0; i <= lastAppSubscriptionId; i++ ) {
+      String eligibleNumber = SilencePreferences.getNumberForSubscriptionId(context, i);
+      if (eligibleNumber != null && eligibleNumber.equals(number)) return i;
+    }
+
+    return -1;
+  }
+
+  private static int findAppIdFromIccId(Context context, String iccId) {
+    if (iccId == null || iccId.equals("")) return -1;
+
+    int lastAppSubscriptionId = SilencePreferences.getLastAppSubscriptionId(context);
+    for( int i = 0; i <= lastAppSubscriptionId; i++ ) {
+      String eligibleIccId = SilencePreferences.getIccIdForSubscriptionId(context, i);
+      if (eligibleIccId != null && eligibleIccId.equals(iccId)) return i;
+    }
+
+    return -1;
+  }
+
+  private static int bumpAppSubcriptionId(Context context) {
+    int lastAppSubscriptionId = SilencePreferences.getLastAppSubscriptionId(context);
+    SilencePreferences.setLastAppSubscriptionId(context, lastAppSubscriptionId+1);
+
+    return lastAppSubscriptionId+1;
+  }
+
+  private static void saveInfo(Context context, int appSubscriptionId, String number, String iccId) {
+    if (number != null && !number.equals(""))
+      SilencePreferences.setNumberForSubscriptionId(context, appSubscriptionId, number);
+
+    if (iccId != null && !iccId.equals(""))
+      SilencePreferences.setIccIdForSubscriptionId(context, appSubscriptionId, iccId);
   }
 }
