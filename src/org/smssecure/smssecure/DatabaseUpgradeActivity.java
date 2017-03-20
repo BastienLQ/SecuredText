@@ -48,7 +48,7 @@ import java.util.TreeSet;
 public class DatabaseUpgradeActivity extends BaseActivity {
   private static final String TAG = DatabaseUpgradeActivity.class.getSimpleName();
 
-  public static final int MULTI_SIM_MULTI_KEYS_VERSION = 129;
+  public static final int MULTI_SIM_MULTI_KEYS_VERSION = 200;
 
   private static final SortedSet<Integer> UPGRADE_VERSIONS = new TreeSet<Integer>() {{
     add(MULTI_SIM_MULTI_KEYS_VERSION);
@@ -147,19 +147,22 @@ public class DatabaseUpgradeActivity extends BaseActivity {
 
       if (params[0] < MULTI_SIM_MULTI_KEYS_VERSION) {
         if (Build.VERSION.SDK_INT >= 22) {
-          SubscriptionManager subscriptionManager = SubscriptionManager.from(context);
-          List<SubscriptionInfo> activeSubscriptions = subscriptionManager.getActiveSubscriptionInfoList();
 
           /*
            * getDefaultSubscriptionId() is available for API 24+ only, so we
-           * move keys and sessions to SIM card in slot 1, not to the default one.
+           * move keys and sessions to SIM card in the first available slot,
+           * not to the default one.
            */
-          int defaultSubscriptionId = activeSubscriptions.get(0).getSubscriptionId();
+          List<SubscriptionInfoCompat> subscriptionInfoList = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoList();
+          int smallerSlot = -1;
+          int eligibleDeviceSubscriptionId = -1;
 
-          List<SubscriptionInfoCompat> activeSubscriptionsCompat = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoList();
+          for (SubscriptionInfoCompat subscriptionInfo : subscriptionInfoList) {
+            if (smallerSlot == -1 || subscriptionInfo.getIccSlot() < smallerSlot) eligibleDeviceSubscriptionId = subscriptionInfo.getDeviceSubscriptionId();
+          }
 
-          DualSimUtil.moveIdentityKeysAndSessionsToSubscriptionId(context, -1, defaultSubscriptionId);
-          DualSimUtil.generateKeysIfDoNotExist(context, masterSecret, activeSubscriptionsCompat);
+          DualSimUtil.moveIdentityKeysAndSessionsToSubscriptionId(context, -1, eligibleDeviceSubscriptionId);
+          DualSimUtil.generateKeysIfDoNotExist(context, masterSecret, subscriptionInfoList);
           SubscriptionManagerCompat.from(context).updateActiveSubscriptionInfoList();
         }
       }
