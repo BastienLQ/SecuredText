@@ -106,6 +106,12 @@ public class DualSimUtil {
     else                              return -1;
   }
 
+  public static int getSubscriptionIdFromDeviceSubscriptionId(Context context, int deviceSubscriptionId) {
+    Optional<SubscriptionInfoCompat> subscriptionInfo = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfoFromDeviceSubscriptionId(deviceSubscriptionId);
+    if (subscriptionInfo.isPresent()) return subscriptionInfo.get().getSubscriptionId();
+    else                              return -1;
+  }
+
   public static void displayNotification(Context context) {
     Intent       targetIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
     Notification notification = new NotificationCompat.Builder(context)
