@@ -17,6 +17,8 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.MultipartSmsMessageHandler;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -41,7 +43,7 @@ public class SmsReceiveJob extends ContextJob {
                                 .create());
 
     this.pdus           = pdus;
-    this.subscriptionId = subscriptionId;
+    this.subscriptionId = findAppSubscriptionId(context, subscriptionId);
   }
 
   @Override
@@ -137,5 +139,11 @@ public class SmsReceiveJob extends ContextJob {
     } else {
       return Optional.of(message);
     }
+  }
+
+  private static int findAppSubscriptionId(Context context, int subscriptionId) {
+    Optional<SubscriptionInfoCompat> subscriptionInfo = SubscriptionManagerCompat.from(context).getActiveSubscriptionInfo(subscriptionId);
+    if (!subscriptionInfo.isPresent()) return -1;
+    return subscriptionInfo.get().getDeviceSubscriptionId();
   }
 }
