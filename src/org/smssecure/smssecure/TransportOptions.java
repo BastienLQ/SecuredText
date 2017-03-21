@@ -171,24 +171,15 @@ public class TransportOptions {
     SubscriptionManagerCompat    subscriptionManager = SubscriptionManagerCompat.from(context);
     List<SubscriptionInfoCompat> subscriptions       = subscriptionManager.getActiveSubscriptionInfoList();
 
-    if (subscriptions.size() < 2) {
+    for (SubscriptionInfoCompat subscriptionInfo : subscriptions) {
       results.add(new TransportOption(type,
                                       drawable,
                                       backgroundColor,
                                       text,
                                       composeHint,
-                                      characterCalculator));
-    } else {
-      for (SubscriptionInfoCompat subscriptionInfo : subscriptions) {
-        results.add(new TransportOption(type,
-                                        drawable,
-                                        backgroundColor,
-                                        text,
-                                        composeHint,
-                                        characterCalculator,
-                                        Optional.of(subscriptionInfo.getDisplayName()),
-                                        Optional.of(subscriptionInfo.getSubscriptionId())));
-      }
+                                      characterCalculator,
+                                      Optional.of(subscriptionInfo.getDisplayName()),
+                                      Optional.of(subscriptionInfo.getSubscriptionId())));
     }
 
     return results;
