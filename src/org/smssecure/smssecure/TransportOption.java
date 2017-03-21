@@ -25,17 +25,6 @@ public class TransportOption {
   private final @NonNull Optional<CharSequence> simName;
   private final @NonNull Optional<Integer>      simSubscriptionId;
 
-  public TransportOption(@NonNull Type type,
-                         @DrawableRes int drawable,
-                         int backgroundColor,
-                         @NonNull String text,
-                         @NonNull String composeHint,
-                         @NonNull CharacterCalculator characterCalculator)
-  {
-    this(type, drawable, backgroundColor, text, composeHint, characterCalculator,
-         Optional.<CharSequence>absent(), Optional.<Integer>absent());
-  }
-
   public TransportOption(@NonNull  Type type,
                          @DrawableRes int drawable,
                          int backgroundColor,

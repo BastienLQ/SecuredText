@@ -52,6 +52,18 @@ public class SubscriptionManagerCompat {
     return Optional.absent();
   }
 
+  public Optional<SubscriptionInfoCompat> getActiveSubscriptionInfoFromDeviceSubscriptionId(int subscriptionId) {
+    if (getActiveSubscriptionInfoList().size() <= 0) {
+      return Optional.absent();
+    }
+
+    for (SubscriptionInfoCompat subscriptionInfo : getActiveSubscriptionInfoList()) {
+      if (subscriptionInfo.getDeviceSubscriptionId() == subscriptionId) return Optional.of(subscriptionInfo);
+    }
+
+    return Optional.absent();
+  }
+
   @TargetApi(22)
   private void updateDisplayNameList(List<SubscriptionInfo> activeSubscriptions) {
     displayNameList = new LinkedList<String>();
