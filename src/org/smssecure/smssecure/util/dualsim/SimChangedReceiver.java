@@ -10,6 +10,7 @@ import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.util.SilencePreferences;
+import org.smssecure.smssecure.util.VersionTracker;
 import org.smssecure.smssecure.jobs.GenerateKeysJob;
 
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class SimChangedReceiver extends BroadcastReceiver {
   }
 
   public static void checkSimState(final Context context) {
-    if (hasDifferentSubscriptions(context)) {
+    if (hasDifferentSubscriptions(context) && VersionTracker.isDbUpdated(context)) {
       ApplicationContext.getInstance(context)
                         .getJobManager()
                         .add(new GenerateKeysJob(context));
