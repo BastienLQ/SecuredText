@@ -147,7 +147,6 @@ public class DatabaseUpgradeActivity extends BaseActivity {
 
       if (params[0] < MULTI_SIM_MULTI_KEYS_VERSION) {
         if (Build.VERSION.SDK_INT >= 22) {
-
           /*
            * getDefaultSubscriptionId() is available for API 24+ only, so we
            * move keys and sessions to SIM card in the first available slot,
@@ -158,7 +157,10 @@ public class DatabaseUpgradeActivity extends BaseActivity {
           int eligibleDeviceSubscriptionId = -1;
 
           for (SubscriptionInfoCompat subscriptionInfo : subscriptionInfoList) {
-            if (smallerSlot == -1 || subscriptionInfo.getIccSlot() < smallerSlot) eligibleDeviceSubscriptionId = subscriptionInfo.getDeviceSubscriptionId();
+            if (smallerSlot == -1 || subscriptionInfo.getIccSlot() < smallerSlot) {
+              smallerSlot                  = subscriptionInfo.getIccSlot();
+              eligibleDeviceSubscriptionId = subscriptionInfo.getDeviceSubscriptionId();
+            }
           }
 
           DualSimUtil.moveIdentityKeysAndSessionsToSubscriptionId(context, -1, eligibleDeviceSubscriptionId);
