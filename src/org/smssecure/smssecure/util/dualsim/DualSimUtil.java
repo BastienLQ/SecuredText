@@ -122,7 +122,7 @@ public class DualSimUtil {
                                     .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.DualSimUtil__a_new_key_has_been_generated_for_that_new_sim_card)))
                                     .setAutoCancel(true)
                                     .setVisibility(Notification.VISIBILITY_PUBLIC)
-                                    .setContentIntent(PendingIntent.getActivity(context, 0,
+                                    .setContentIntent(PendingIntent.getActivity(context.getApplicationContext(), 0,
                                                                                 targetIntent,
                                                                                 PendingIntent.FLAG_UPDATE_CURRENT))
                                     .build();
