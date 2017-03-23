@@ -150,7 +150,6 @@ public class SilenceSessionStore implements SessionStore {
 
   private File getSessionFile(SignalProtocolAddress address) {
     String sessionName = getSessionName(address);
-    Log.w(TAG, "session name: " + sessionName);
     return new File(getSessionDirectory(), sessionName);
   }
 
