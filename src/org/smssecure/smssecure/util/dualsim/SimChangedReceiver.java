@@ -37,6 +37,7 @@ public class SimChangedReceiver extends BroadcastReceiver {
                         .add(new GenerateKeysJob(context));
       SilencePreferences.setDeviceSubscriptions(context, getDeviceSubscriptions(context));
     }
+    SubscriptionManagerCompat.from(context).updateActiveSubscriptionInfoList();
   }
 
   private static boolean hasDifferentSubscriptions(Context context) {
