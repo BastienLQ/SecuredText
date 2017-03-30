@@ -12,6 +12,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 public class TransportOption {
 
   public enum Type {
+    DISABLED,
     INSECURE_SMS,
     SECURE_SMS
   }
