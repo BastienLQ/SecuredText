@@ -8,7 +8,6 @@ import android.telephony.SmsManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import org.smssecure.smssecure.util.ServiceUtil;
 
@@ -18,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SubscriptionManagerCompat {
-  private static final String TAG = SubscriptionManagerCompat.class.getSimpleName();
 
   private static SubscriptionManagerCompat instance;
 
@@ -27,8 +25,6 @@ public class SubscriptionManagerCompat {
   private       List<SubscriptionInfoCompat> compatList;
 
   public static SubscriptionManagerCompat from(Context context) {
-    Log.w(TAG, "from()");
-
     if (instance == null) {
       instance = new SubscriptionManagerCompat(context);
     }
