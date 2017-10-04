@@ -23,6 +23,7 @@ import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.smssecure.smssecure.util.Hex;
 import org.smssecure.smssecure.util.NumberUtil;
 import org.smssecure.smssecure.util.SmilUtil;
@@ -84,14 +85,14 @@ public class MmsSendJob extends SendJob {
 
       if (message.isSecure()) {
         Log.w(TAG, "Encrypting MMS...");
-        pdu = getEncryptedMessage(masterSecret, pdu);
+        pdu = getEncryptedMessage(masterSecret, pdu, message.getSubscriptionId());
         upgradedSecure = true;
       }
 
       validateDestinations(message, pdu);
 
       final byte[]        pduBytes = getPduBytes(masterSecret, pdu);
-      final SendConf      sendConf = new CompatMmsConnection(context).send(pduBytes, message.getSubscriptionId());
+      final SendConf      sendConf = new CompatMmsConnection(context).send(pduBytes, DualSimUtil.getSubscriptionIdFromAppSubscriptionId(context, message.getSubscriptionId()));
       final MmsSendResult result   = getSendResult(sendConf, pdu, upgradedSecure);
 
       database.markAsSent(messageId, result.isUpgradedSecure());
@@ -148,11 +149,11 @@ public class MmsSendJob extends SendJob {
     }
   }
 
-  private SendReq getEncryptedMessage(MasterSecret masterSecret, SendReq pdu)
+  private SendReq getEncryptedMessage(MasterSecret masterSecret, SendReq pdu, int subscriptionId)
       throws UndeliverableMessageException
   {
     try {
-      MmsCipher cipher = new MmsCipher(new SilenceSignalProtocolStore(context, masterSecret));
+      MmsCipher cipher = new MmsCipher(new SilenceSignalProtocolStore(context, masterSecret, subscriptionId));
       return cipher.encrypt(context, pdu);
     } catch (NoSessionException e) {
       throw new UndeliverableMessageException(e);

@@ -29,6 +29,7 @@ import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.crypto.storage.SilenceSessionStore;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.Hex;
 import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.IdentityKey;
@@ -70,12 +71,14 @@ public class VerifyIdentityActivity extends KeyScanningActivity {
   }
 
   private void initializeFingerprints() {
-    if (!IdentityKeyUtil.hasIdentityKey(this)) {
+    int subscriptionId = getIntent().getIntExtra("subscription_id", SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1));
+
+    if (!IdentityKeyUtil.hasIdentityKey(this, subscriptionId)) {
       localIdentityFingerprint.setText(R.string.VerifyIdentityActivity_you_do_not_have_an_identity_key);
       return;
     }
 
-    localIdentityFingerprint.setText(Hex.toString(IdentityKeyUtil.getIdentityKey(this).serialize()));
+    localIdentityFingerprint.setText(Hex.toString(IdentityKeyUtil.getIdentityKey(this, subscriptionId).serialize()));
 
     IdentityKey identityKey = getRemoteIdentityKey(masterSecret, recipient);
 
@@ -88,7 +91,9 @@ public class VerifyIdentityActivity extends KeyScanningActivity {
 
   @Override
   protected void initiateDisplay() {
-    if (!IdentityKeyUtil.hasIdentityKey(this)) {
+    int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
+
+    if (!IdentityKeyUtil.hasIdentityKey(this, subscriptionId)) {
       Toast.makeText(this,
                      R.string.VerifyIdentityActivity_you_do_not_have_an_identity_key,
                      Toast.LENGTH_LONG).show();
@@ -127,7 +132,9 @@ public class VerifyIdentityActivity extends KeyScanningActivity {
 
   @Override
   protected IdentityKey getIdentityKeyToDisplay() {
-    return IdentityKeyUtil.getIdentityKey(this);
+    int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
+
+    return IdentityKeyUtil.getIdentityKey(this, subscriptionId);
   }
 
   @Override
@@ -151,13 +158,14 @@ public class VerifyIdentityActivity extends KeyScanningActivity {
   }
 
   private @Nullable IdentityKey getRemoteIdentityKey(MasterSecret masterSecret, Recipient recipient) {
+    int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
     IdentityKeyParcelable identityKeyParcelable = getIntent().getParcelableExtra("remote_identity");
 
     if (identityKeyParcelable != null) {
       return identityKeyParcelable.get();
     }
 
-    SessionStore   sessionStore   = new SilenceSessionStore(this, masterSecret);
+    SessionStore   sessionStore   = new SilenceSessionStore(this, masterSecret, subscriptionId);
     SignalProtocolAddress axolotlAddress = new SignalProtocolAddress(recipient.getNumber(), 1);
     SessionRecord  record         = sessionStore.loadSession(axolotlAddress);
 

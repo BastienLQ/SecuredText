@@ -17,14 +17,20 @@
 package org.smssecure.smssecure;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
 import org.smssecure.smssecure.crypto.IdentityKeyUtil;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.crypto.MasterSecretUtil;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.VersionTracker;
+
+import java.util.List;
 
 /**
  * Activity for creating a user's local encryption passphrase.
@@ -53,7 +59,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   }
 
   private class SecretGenerator extends AsyncTask<String, Void, Void> {
-    private MasterSecret   masterSecret;
+    private MasterSecret masterSecret;
 
     @Override
     protected void onPreExecute() {
@@ -66,7 +72,16 @@ public class PassphraseCreateActivity extends PassphraseActivity {
                                                                 passphrase);
 
       MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
-      IdentityKeyUtil.generateIdentityKeys(PassphraseCreateActivity.this, masterSecret);
+
+      SubscriptionManagerCompat subscriptionManagerCompat = SubscriptionManagerCompat.from(PassphraseCreateActivity.this);
+
+      if (Build.VERSION.SDK_INT >= 22) {
+        List<SubscriptionInfoCompat> activeSubscriptions = subscriptionManagerCompat.getActiveSubscriptionInfoList();
+        DualSimUtil.generateKeysIfDoNotExist(PassphraseCreateActivity.this, masterSecret, activeSubscriptions, false);
+      } else {
+        IdentityKeyUtil.generateIdentityKeys(PassphraseCreateActivity.this, masterSecret, -1, false);
+        subscriptionManagerCompat.updateActiveSubscriptionInfoList();
+      }
       VersionTracker.updateLastSeenVersion(PassphraseCreateActivity.this);
       SilencePreferences.setPasswordDisabled(PassphraseCreateActivity.this, true);
 

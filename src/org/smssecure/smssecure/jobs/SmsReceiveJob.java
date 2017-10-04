@@ -17,6 +17,7 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.MultipartSmsMessageHandler;
+import org.smssecure.smssecure.util.dualsim.DualSimUtil;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -40,8 +41,11 @@ public class SmsReceiveJob extends ContextJob {
                                 .withWakeLock(true)
                                 .create());
 
+    Log.w(TAG, "subscriptionId: " + subscriptionId);
+    Log.w(TAG, "Found app subscription ID: " + DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId));
+
     this.pdus           = pdus;
-    this.subscriptionId = subscriptionId;
+    this.subscriptionId = DualSimUtil.getSubscriptionIdFromDeviceSubscriptionId(context, subscriptionId);
   }
 
   @Override
@@ -62,6 +66,12 @@ public class SmsReceiveJob extends ContextJob {
           !incomingTextMessage.isXmppExchange()))
       {
         MessageNotifier.updateNotification(context, masterSecret, messageAndThreadId.second);
+      }
+
+      if (incomingTextMessage.getSender() != null) {
+        Recipients recipients = RecipientFactory.getRecipientsFromString(context, incomingTextMessage.getSender(), false);
+        DatabaseFactory.getRecipientPreferenceDatabase(context)
+                       .setDefaultSubscriptionId(recipients, incomingTextMessage.getSubscriptionId());
       }
     } else if (message.isPresent()) {
       Log.w(TAG, "*** Received blocked SMS, ignoring...");

@@ -78,6 +78,7 @@ import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingEncryptedMessage;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.smssecure.smssecure.util.task.SnackbarAsyncTask;
@@ -348,8 +349,9 @@ public class ConversationListFragment extends Fragment
                 recipients = getListAdapter().getRecipientsFromThreadId(threadId);
 
                 if (recipients != null) {
+                  int subscriptionId = SubscriptionManagerCompat.getDefaultMessagingSubscriptionId().or(-1);
                   isSingleConversation = recipients.isSingleRecipient() && !recipients.isGroupRecipient();
-                  isSecureDestination  = isSingleConversation && SessionUtil.hasSession(context, masterSecret, recipients.getPrimaryRecipient());
+                  isSecureDestination  = isSingleConversation && SessionUtil.hasSession(context, masterSecret, recipients.getPrimaryRecipient().getNumber(), subscriptionId);
 
                   Log.w(TAG, "Number of drafts: " + drafts.size());
                   if (drafts.size() > 1 && !drafts.get(1).getType().equals(DraftDatabase.Draft.TEXT)) {

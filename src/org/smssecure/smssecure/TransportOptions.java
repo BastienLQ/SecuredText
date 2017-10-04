@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.smssecure.smssecure.util.CharacterCalculator;
+import org.smssecure.smssecure.util.DummyCharacterCalculator;
 import org.smssecure.smssecure.util.MmsCharacterCalculator;
 import org.smssecure.smssecure.util.SmsCharacterCalculator;
 import org.smssecure.smssecure.util.EncryptedSmsCharacterCalculator;
@@ -97,7 +98,7 @@ public class TransportOptions {
       }
     }
 
-    throw new AssertionError("No options of default type!");
+    return getDefaultTransportOption();
   }
 
   public void disableTransport(Type type) {
@@ -106,6 +107,17 @@ public class TransportOptions {
     for (TransportOption option : options) {
       enabledTransports.remove(option);
       if (selectedOption.isPresent() && selectedOption.get().getType() == type) {
+        setSelectedTransport(null);
+      }
+    }
+  }
+
+  public void disableTransport(Type type, int subscriptionId) {
+    List<TransportOption> options = find(type);
+
+    for (TransportOption option : options) {
+      if (option.getSimSubscriptionId().or(-1) == subscriptionId) enabledTransports.remove(option);
+      if (selectedOption.isPresent() && selectedOption.get().getType() == type && selectedOption.get().getSimSubscriptionId().or(-1) == subscriptionId) {
         setSelectedTransport(null);
       }
     }
@@ -157,27 +169,18 @@ public class TransportOptions {
                                                                         @NonNull CharacterCalculator characterCalculator)
   {
     List<TransportOption>        results             = new LinkedList<>();
-    SubscriptionManagerCompat    subscriptionManager = new SubscriptionManagerCompat(context);
+    SubscriptionManagerCompat    subscriptionManager = SubscriptionManagerCompat.from(context);
     List<SubscriptionInfoCompat> subscriptions       = subscriptionManager.getActiveSubscriptionInfoList();
 
-    if (subscriptions.size() < 2) {
+    for (SubscriptionInfoCompat subscriptionInfo : subscriptions) {
       results.add(new TransportOption(type,
                                       drawable,
                                       backgroundColor,
                                       text,
                                       composeHint,
-                                      characterCalculator));
-    } else {
-      for (SubscriptionInfoCompat subscriptionInfo : subscriptions) {
-        results.add(new TransportOption(type,
-                                        drawable,
-                                        backgroundColor,
-                                        text,
-                                        composeHint,
-                                        characterCalculator,
-                                        Optional.of(subscriptionInfo.getDisplayName()),
-                                        Optional.of(subscriptionInfo.getSubscriptionId())));
-      }
+                                      characterCalculator,
+                                      Optional.of(subscriptionInfo.getDisplayName()),
+                                      Optional.of(subscriptionInfo.getSubscriptionId())));
     }
 
     return results;
@@ -209,5 +212,16 @@ public class TransportOptions {
 
   public interface OnTransportChangedListener {
     public void onChange(TransportOption newTransport, boolean manuallySelected);
+  }
+
+  private TransportOption getDefaultTransportOption() {
+    return new TransportOption(Type.DISABLED,
+                               R.drawable.ic_send_insecure_white_24dp,
+                               context.getResources().getColor(R.color.grey_600),
+                               context.getString(R.string.TransportOptions_sms_disabled),
+                               context.getString(R.string.TransportOptions_no_sim_card_found),
+                               new DummyCharacterCalculator(),
+                               Optional.of((CharSequence) ""),
+                               Optional.of(-1));
   }
 }

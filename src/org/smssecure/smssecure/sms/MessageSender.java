@@ -55,7 +55,6 @@ public class MessageSender {
   {
     EncryptingSmsDatabase database    = DatabaseFactory.getEncryptingSmsDatabase(context);
     Recipients            recipients  = message.getRecipients();
-    boolean               keyExchange = message.isKeyExchange();
 
     long allocatedThreadId;
 

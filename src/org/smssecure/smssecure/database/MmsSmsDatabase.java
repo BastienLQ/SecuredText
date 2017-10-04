@@ -23,7 +23,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.model.MessageRecord;
@@ -33,8 +32,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MmsSmsDatabase extends Database {
-
-  private static final String TAG = MmsSmsDatabase.class.getSimpleName();
 
   public static final String TRANSPORT     = "transport_type";
   public static final String MMS_TRANSPORT = "mms";
@@ -246,7 +243,6 @@ public class MmsSmsDatabase extends Database {
     @SuppressWarnings("deprecation")
     String query      = outerQueryBuilder.buildQuery(projection, null, null, null, null, null, null);
 
-    Log.w("MmsSmsDatabase", "Executing query: " + query);
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
     return db.rawQuery(query, null);
   }
