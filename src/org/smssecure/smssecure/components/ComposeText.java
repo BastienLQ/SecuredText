@@ -12,6 +12,7 @@ import android.support.v13.view.inputmethod.EditorInfoCompat;
 import android.support.v13.view.inputmethod.InputConnectionCompat;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.support.v4.os.BuildCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,10 +27,9 @@ import android.view.inputmethod.InputConnection;
 
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.TransportOption;
-import org.smssecure.smssecure.components.emoji.EmojiEditText;
 import org.smssecure.smssecure.util.SilencePreferences;
 
-public class ComposeText extends EmojiEditText {
+public class ComposeText extends AppCompatEditText {
 
   private SpannableString hint;
   private SpannableString subHint;

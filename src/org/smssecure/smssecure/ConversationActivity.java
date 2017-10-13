@@ -66,13 +66,8 @@ import org.smssecure.smssecure.audio.AudioSlidePlayer;
 import org.smssecure.smssecure.color.MaterialColor;
 import org.smssecure.smssecure.components.AnimatingToggle;
 import org.smssecure.smssecure.components.ComposeText;
-import org.smssecure.smssecure.components.KeyboardAwareLinearLayout;
-import org.smssecure.smssecure.components.KeyboardAwareLinearLayout.OnKeyboardShownListener;
 import org.smssecure.smssecure.components.SendButton;
 import org.smssecure.smssecure.components.InputAwareLayout;
-import org.smssecure.smssecure.components.emoji.EmojiDrawer.EmojiEventListener;
-import org.smssecure.smssecure.components.emoji.EmojiDrawer;
-import org.smssecure.smssecure.components.emoji.EmojiToggle;
 import org.smssecure.smssecure.contacts.ContactAccessor;
 import org.smssecure.smssecure.contacts.ContactAccessor.ContactData;
 import org.smssecure.smssecure.crypto.KeyExchangeInitiator;
@@ -142,7 +137,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     implements ConversationFragment.ConversationFragmentListener,
                AttachmentManager.AttachmentListener,
                RecipientsModifiedListener,
-               OnKeyboardShownListener,
                ComposeText.MediaListener
 {
   private static final String TAG = ConversationActivity.class.getSimpleName();
@@ -174,13 +168,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private   Button                unblockButton;
   private   InputAwareLayout      container;
   private   View                  composePanel;
-  private   View                  composeBubble;
 
   private   AttachmentTypeSelectorAdapter attachmentAdapter;
   private   AttachmentManager             attachmentManager;
   private   BroadcastReceiver             securityUpdateReceiver;
-  private   Stub<EmojiDrawer>             emojiDrawerStub;
-  private   EmojiToggle                   emojiToggle;
 
   private Recipients recipients;
   private long       threadId;
@@ -280,10 +271,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     Log.w(TAG, "onConfigurationChanged(" + newConfig.orientation + ")");
     super.onConfigurationChanged(newConfig);
     composeText.setTransport(sendButton.getSelectedTransport());
-
-    if (emojiDrawerStub.resolved() && container.getCurrentInput() == emojiDrawerStub.get()) {
-      container.hideAttachedInput(true);
-    }
   }
 
   @Override
@@ -417,11 +404,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     Log.w(TAG, "onBackPressed()");
     if (container.isInputOpen()) container.hideCurrentInput(composeText);
     else                         super.onBackPressed();
-  }
-
-  @Override
-  public void onKeyboardShown() {
-    emojiToggle.setToEmoji();
   }
 
   //////// Event Handlers
@@ -813,22 +795,16 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     attachButton    = ViewUtil.findById(this, R.id.attach_button);
     composeText     = ViewUtil.findById(this, R.id.embedded_text_editor);
     charactersLeft  = ViewUtil.findById(this, R.id.space_left);
-    emojiToggle     = ViewUtil.findById(this, R.id.emoji_toggle);
-    emojiDrawerStub = ViewUtil.findStubById(this, R.id.emoji_drawer_stub);
     unblockButton   = ViewUtil.findById(this, R.id.unblock_button);
     composePanel    = ViewUtil.findById(this, R.id.bottom_panel);
-    composeBubble   = ViewUtil.findById(this, R.id.compose_bubble);
     container       = ViewUtil.findById(this, R.id.layout_container);
 
-    if (SilencePreferences.isEmojiDrawerDisabled(this))
-      emojiToggle.setVisibility(View.GONE);
-
-    container.addOnKeyboardShownListener(this);
     composeText.setMediaListener(this);
 
-    int[]      attributes   = new int[]{R.attr.conversation_item_bubble_background};
-    TypedArray colors       = obtainStyledAttributes(attributes);
-    int        defaultColor = colors.getColor(0, Color.WHITE);
+    View       composeBubble = ViewUtil.findById(this, R.id.compose_bubble);
+    int[]      attributes    = new int[]{R.attr.conversation_item_bubble_background};
+    TypedArray colors        = obtainStyledAttributes(attributes);
+    int        defaultColor  = colors.getColor(0, Color.WHITE);
     composeBubble.getBackground().setColorFilter(defaultColor, PorterDuff.Mode.MULTIPLY);
     colors.recycle();
 
@@ -837,18 +813,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
     SendButtonListener        sendButtonListener        = new SendButtonListener();
     ComposeKeyPressedListener composeKeyPressedListener = new ComposeKeyPressedListener();
-
-    emojiToggle.attach(emojiDrawerStub.get());
-    emojiToggle.setOnClickListener(new EmojiToggleListener());
-    emojiDrawerStub.get().setEmojiEventListener(new EmojiEventListener() {
-      @Override public void onKeyEvent(KeyEvent keyEvent) {
-        composeText.dispatchKeyEvent(keyEvent);
-      }
-
-      @Override public void onEmojiSelected(String emoji) {
-        composeText.insertEmoji(emoji);
-      }
-    });
 
     composeText.setOnEditorActionListener(sendButtonListener);
     attachButton.setOnClickListener(new AttachButtonListener());
@@ -1296,17 +1260,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     public void onClick(DialogInterface dialog, int which) {
       addAttachment(attachmentAdapter.buttonToCommand(which));
       dialog.dismiss();
-    }
-  }
-
-  private class EmojiToggleListener implements OnClickListener {
-
-    @Override public void onClick(View v) {
-      if (container.getCurrentInput() == emojiDrawerStub.get()) {
-        container.showSoftkey(composeText);
-      } else {
-        container.show(composeText, emojiDrawerStub.get());
-      }
     }
   }
 

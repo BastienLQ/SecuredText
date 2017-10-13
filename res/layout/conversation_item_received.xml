@@ -65,7 +65,7 @@
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"/>
 
-            <org.smssecure.smssecure.components.emoji.EmojiTextView
+            <TextView
                     android:id="@+id/conversation_item_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

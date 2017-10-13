@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -12,12 +13,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import org.smssecure.smssecure.R;
-import org.smssecure.smssecure.components.emoji.EmojiTextView;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 
-public class FromTextView extends EmojiTextView {
+public class FromTextView extends AppCompatTextView {
 
   private static final String TAG = FromTextView.class.getSimpleName();
 
@@ -73,6 +73,4 @@ public class FromTextView extends EmojiTextView {
     else if (recipients.isMuted())   setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_volume_off_grey600_18dp, 0, 0, 0);
     else                             setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
   }
-
-
 }

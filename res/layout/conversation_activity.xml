@@ -47,14 +47,6 @@
                           android:layout_weight="1"
                           android:background="@drawable/sent_bubble">
 
-                <org.smssecure.smssecure.components.emoji.EmojiToggle
-                        android:id="@+id/emoji_toggle"
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/touch_highlight_background"
-                        android:contentDescription="@string/conversation_activity__emoji_toggle_description" />
-
                 <org.smssecure.smssecure.components.ComposeText
                         style="@style/ComposeEditText"
                         android:id="@+id/embedded_text_editor"
@@ -112,14 +104,6 @@
                   android:visibility="gone"
                   android:background="?android:windowBackground"
                   android:text="160/160 (1)" />
-
-
-        <ViewStub
-                android:id="@+id/emoji_drawer_stub"
-                android:layout="@layout/conversation_activity_emojidrawer_stub"
-                android:inflatedId="@+id/emoji_drawer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </org.smssecure.smssecure.components.InputAwareLayout>

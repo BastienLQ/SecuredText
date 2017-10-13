@@ -30,7 +30,7 @@
                   android:layout_weight="1"
                   android:orientation="vertical">
 
-        <org.smssecure.smssecure.components.emoji.EmojiTextView
+        <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

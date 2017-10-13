@@ -72,7 +72,6 @@ public class SilencePreferences {
   private static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
   private static final String IN_THREAD_NOTIFICATION_PREF      = "pref_key_inthread_notifications";
   public  static final String REPEAT_ALERTS_PREF               = "pref_repeat_alerts";
-  private static final String DISABLE_EMOJI_DRAWER             = "pref_disable_emoji_drawer";
   private static final String SHOW_SENT_TIME                   = "pref_show_sent_time";
 
   private static final String LOCAL_REGISTRATION_ID_PREF       = "pref_local_registration_id";
@@ -538,10 +537,6 @@ public class SilencePreferences {
 
   public static void setLastPushReminderTime(Context context, long time) {
     setLongPreference(context, PUSH_REGISTRATION_REMINDER_PREF, time);
-  }
-
-  public static boolean isEmojiDrawerDisabled(Context context) {
-    return getBooleanPreference(context, DISABLE_EMOJI_DRAWER, false);
   }
 
   public static boolean showSentTime(Context context) {

@@ -9,12 +9,6 @@
                     android:entryValues="@array/pref_enter_key_values"/>
 
     <org.smssecure.smssecure.components.SwitchPreferenceCompat
-                        android:defaultValue="false"
-                        android:key="pref_disable_emoji_drawer"
-                        android:title="@string/preferences__disable_emoji_drawer"
-                        android:summary="@string/preferences__enable_this_option_if_your_keyboard_supports_emojis" />
-
-    <org.smssecure.smssecure.components.SwitchPreferenceCompat
                         android:defaultValue="true"
                         android:key="pref_auto_complete_key_exchange"
                         android:title="@string/preferences__complete_key_exchanges"

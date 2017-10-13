@@ -67,7 +67,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
-        <org.smssecure.smssecure.components.emoji.EmojiTextView
+        <TextView
                 android:id="@+id/subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
