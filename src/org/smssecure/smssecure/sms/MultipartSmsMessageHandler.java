@@ -30,7 +30,9 @@ public class MultipartSmsMessageHandler {
 
   private final HashMap<String, MultipartSmsTransportMessageFragments> partialMessages = new HashMap<>();
 
-  private IncomingTextMessage processMultipartMessage(MultipartSmsTransportMessage message) {
+  private IncomingTextMessage processLegacyMultipartMessage(MultipartSmsTransportMessage message)
+    throws IOException
+  {
     Log.w(TAG, "Processing multipart message...");
     Log.w(TAG, "Multipart Count: " + message.getMultipartCount());
     Log.w(TAG, "Multipart ID: " + message.getIdentifier());
@@ -49,8 +51,12 @@ public class MultipartSmsMessageHandler {
 
     Log.w(TAG, "Filled buffer at index: " + message.getMultipartIndex());
 
-    if (!container.isComplete())
-      return null;
+    if (!container.isComplete()) {
+      Log.w(TAG, "Container found, assuming wire prefix is incorrect...");
+      message.redecodeWirePrefix(message.getWireType());
+      return processLegacyMultipartMessage(message);
+    }
+
 
     partialMessages.remove(message.getKey());
     String strippedMessage = Base64.encodeBytesWithoutPadding(container.getJoined());
@@ -64,8 +70,8 @@ public class MultipartSmsMessageHandler {
     }
   }
 
-  private IncomingTextMessage processSinglePartMessage(MultipartSmsTransportMessage message) {
-    Log.w(TAG, "Processing single part message...");
+  private IncomingTextMessage processMessage(MultipartSmsTransportMessage message) {
+    Log.w(TAG, "Processing message...");
     String strippedMessage = Base64.encodeBytesWithoutPadding(message.getStrippedMessage());
 
     if (message.getWireType() == MultipartSmsTransportMessage.WIRETYPE_KEY) {
@@ -86,8 +92,9 @@ public class MultipartSmsMessageHandler {
       MultipartSmsTransportMessage transportMessage = new MultipartSmsTransportMessage(message);
 
       if      (transportMessage.isInvalid())    return message;
-      else if (transportMessage.isSinglePart()) return processSinglePartMessage(transportMessage);
-      else                                      return processMultipartMessage(transportMessage);
+      else if (transportMessage.isSinglePart()) return processMessage(transportMessage);
+      else                                      return processLegacyMultipartMessage(transportMessage);
+      //return processSinglePartMessage(transportMessage);
     } catch (IOException e) {
       Log.w(TAG, e);
       return message;
