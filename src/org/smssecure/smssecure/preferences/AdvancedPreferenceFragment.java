@@ -20,6 +20,7 @@ import org.smssecure.smssecure.util.SilencePreferences;
 public class AdvancedPreferenceFragment extends ListSummaryPreferenceFragment {
   private static final String TAG = AdvancedPreferenceFragment.class.getSimpleName();
 
+  private static final String SYSTEM_EMOJI_PREF     = SilencePreferences.SYSTEM_EMOJI_PREF;
   private static final String SUBMIT_DEBUG_LOG_PREF = "pref_submit_debug_logs";
 
   @Override

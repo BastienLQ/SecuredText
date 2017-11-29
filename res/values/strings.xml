@@ -758,6 +758,8 @@
     <string name="preferences__roaming_auto_retrieve">Roaming auto-retrieve</string>
     <string name="preferences__automatically_retrieve_mms_when_roaming">Automatically retrieve MMS when roaming</string>
     <string name="preferences_chats__message_trimming">Message trimming</string>
+    <string name="preferences_advanced__use_system_emoji">Use system emoji</string>
+    <string name="preferences_advanced__disable_silences_built_in_emoji_support">Make Silence blob again! Disable Silence\'s built-in emoji support</string>
 
     <!-- **************************************** -->
     <!-- menus -->

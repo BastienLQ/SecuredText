@@ -20,6 +20,12 @@
                         android:title="@string/preferences__complete_key_exchanges"
                         android:summary="@string/preferences__automatically_complete_key_exchanges_for_new_sessions_or_for_existing_sessions_with_the_same_identity_key" />
 
+    <org.smssecure.smssecure.components.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_system_emoji"
+        android:title="@string/preferences_advanced__use_system_emoji"
+        android:summary="@string/preferences_advanced__disable_silences_built_in_emoji_support" />
+
     <Preference android:key="pref_submit_debug_logs"
                 android:title="@string/preferences__submit_debug_log"/>
 </PreferenceScreen>
