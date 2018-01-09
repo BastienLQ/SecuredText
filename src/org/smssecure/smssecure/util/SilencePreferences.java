@@ -74,6 +74,7 @@ public class SilencePreferences {
   public  static final String REPEAT_ALERTS_PREF               = "pref_repeat_alerts";
   private static final String DISABLE_EMOJI_DRAWER             = "pref_disable_emoji_drawer";
   private static final String SHOW_SENT_TIME                   = "pref_show_sent_time";
+  private static final String HIDE_UNREAD_MESSAGE_DIVIDER      = "pref_hide_unread_message_divider";
 
   private static final String LOCAL_REGISTRATION_ID_PREF       = "pref_local_registration_id";
   private static final String FALLBACK_SMS_ALLOWED_PREF        = "pref_allow_sms_traffic_out";
@@ -557,6 +558,10 @@ public class SilencePreferences {
 
   public static boolean showSentTime(Context context) {
     return getBooleanPreference(context, SHOW_SENT_TIME, false);
+  }
+
+  public static boolean hideUnreadMessageDivider(Context context) {
+    return getBooleanPreference(context, HIDE_UNREAD_MESSAGE_DIVIDER, false);
   }
 
   public static int getLastAppSubscriptionId(Context context) {
