@@ -24,6 +24,12 @@
                         android:defaultValue="false" />
 
     <org.smssecure.smssecure.components.SwitchPreferenceCompat
+        android:key="pref_hide_unread_message_divider"
+        android:title="@string/preferences__hide_unread_message_divider"
+        android:summary="@string/preferences__hide_unread_message_divider_in_conversation"
+        android:defaultValue="false" />
+
+    <org.smssecure.smssecure.components.SwitchPreferenceCompat
                         android:defaultValue="false"
                         android:key="pref_delivery_report_sms"
                         android:summary="@string/preferences__request_a_delivery_report_for_each_sms_message_you_send"

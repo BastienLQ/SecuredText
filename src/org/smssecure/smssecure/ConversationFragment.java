@@ -63,11 +63,13 @@ import org.smssecure.smssecure.mms.Slide;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.sms.MessageSender;
+import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.task.ProgressDialogAsyncTask;
 import org.smssecure.smssecure.util.SaveAttachmentTask;
 import org.smssecure.smssecure.util.SaveAttachmentTask.Attachment;
 import org.smssecure.smssecure.util.StickyHeaderDecoration;
 import org.smssecure.smssecure.util.ViewUtil;
+import org.smssecure.smssecure.util.SilencePreferences;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -259,8 +261,11 @@ public class ConversationFragment extends Fragment
       list.removeItemDecoration(lastSeenDecoration);
     }
 
-    lastSeenDecoration = new ConversationAdapter.LastSeenHeader(getListAdapter(), lastSeen);
-    list.addItemDecoration(lastSeenDecoration);
+    final Context context = getActivity().getApplicationContext();
+    if(!SilencePreferences.hideUnreadMessageDivider(context)){
+      lastSeenDecoration = new ConversationAdapter.LastSeenHeader(getListAdapter(), lastSeen);
+      list.addItemDecoration(lastSeenDecoration);
+    }
   }
 
   private void handleCopyMessage(final Set<MessageRecord> messageRecords) {
