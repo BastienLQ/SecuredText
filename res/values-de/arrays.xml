@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="language_entries">
+      <item></item>
+      <item>Englisch</item>
+      <item>Arabisch</item>
+      <item>Bulgarisch</item>
+      <item>Burmesisch</item>
+      <item>Katalanisch</item>
+      <item>Chinesisch</item>
+      <item>Dänisch</item>
+      <item>Deutsch</item>
+      <item>Spanisch</item>
+      <item>Esperanto</item>
+      <item>Französisch</item>
+      <item>Griechisch</item>
+      <item>Hebräisch</item>
+      <item>Kroatisch</item>
+      <item>Indonesisch</item>
+      <item>Italienisch</item>
+      <item>Japanisch</item>
+      <item>Kannada</item>
+      <item>Koreanisch</item>
+      <item>Ungarisch</item>
+      <item>Niederländisch</item>
+      <item>Norwegisch</item>
+      <item>Polnisch</item>
+      <item>Portugiesisch</item>
+      <item>Portugiesisch Brasilianisch</item>
+      <item>Romänisch</item>
+      <item>Russisch</item>
+      <item>Serbisch</item>
+      <item>Shona</item>
+      <item>Slovenisch</item>
+      <item>Slowakisch</item>
+      <item>Finnisch</item>
+      <item>Schwedisch</item>
+      <item>Tibetanisch</item>
+      <item>Türkisch</item>
+      <item>Ukrainisch</item>
+      <item>Tschechisch</item>
+  </string-array>
+
+  <string-array name="language_values">
+      <item>zz</item>
+      <item>en</item>
+      <item>ar</item>
+      <item>bg</item>
+      <item>my</item>
+      <item>ca</item>
+      <item>zh-rCN</item>
+      <item>da</item>
+      <item>de</item>
+      <item>es</item>
+      <item>eo</item>
+      <item>fr</item>
+      <item>el</item>
+      <item>iw</item>
+      <item>hr</item>
+      <item>in</item>
+      <item>it</item>
+      <item>ja</item>
+      <item>kn</item>
+      <item>ko</item>
+      <item>hu</item>
+      <item>nl</item>
+      <item>nb</item>
+      <item>pl</item>
+      <item>pt</item>
+      <item>pt-rBR</item>
+      <item>ro</item>
+      <item>ru</item>
+      <item>sr</item>
+      <item>sn</item>
+      <item>sl</item>
+      <item>sk</item>
+      <item>fi</item>
+      <item>sv</item>
+      <item>bo</item>
+      <item>tr</item>
+      <item>uk</item>
+      <item>cs</item>
+  </string-array>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <string-array name="transport_selection_values">
+    <item>unsichere_sms</item>
+    <item>sichere_sms</item>
+  </string-array>
+
+
+
+
+
+
+
+  <string-array name="recipient_vibrate_values">
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+  </string-array>
+
+
+  <string-array name="pref_notification_privacy_values">
+      <item>Alle</item>
+      <item>Kontakt</item>
+      <item>k</item>
+  </string-array>
+
+
+  <string-array name="pref_enter_key_values">
+      <item>Eingabe</item>
+      <item>Emoji</item>
+      <item>Sende</item>
+  </string-array>
+</resources>
