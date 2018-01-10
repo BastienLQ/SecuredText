@@ -1,28 +1,18 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    These strings are used as the Silence description on various distribution channels.
+
+    To translate these strings see the "Contributing Translations" portion of the README
+
+-->
+
 <resources>
-  <string name="Distribution_title">Silence</string>
-  <string name="Distribution_tagline">Verschlüsselte SMS/MMS-Konversation leicht gemacht!</string>
-  <string name="Distribution_description">Silence ist eine SMS/MMS-Anwendung zum Schutz Ihrer Privatsphäre bei der Kommunikation mit Ihren Freunden.</string>
-  <string name="Distribution_long_description">
-Silence ist eine SMS/MMS-Anwendung zum Schutz deiner Privatsphäre bei der Kommunikation mit Freunden.
-Mit Silence kannst du SMS-Nachrichten senden sowie Medien oder Anhänge teilen unter vollständiger Einhaltung deiner Privatsphäre.
 
-Funktionen:
-* Einfach. Silence funktioniert wie jede andere SMS-Anwendung. Weder musst du dich irgendwo anmelden, noch müssen deine Freunde einem neuen Dienst beitreten.
-* Zuverlässig. Silence kommuniziert durch Verwendung verschlüsselter SMS-Nachrichten. Dadurch benötigt es weder Server noch eine Internetverbindung.
-* Vertraulich. Silence bietet Ende-zu-Ende-Verschlüsselung für deine Nachrichten und verwendet hierfür das mit großer Sorgfalt entwickelte Signal-Verschlüsselungsprotokoll.
-* Sicher. Alle Nachrichten sind lokal verschlüsselt. Sollte dein Telefon einmal verloren gehen oder gestohlen werden, sind deine Nachrichten geschützt.
-* Open Source. Silence ist kostenlos und Open Source, sodass jeder den Quellcode einsehen und dessen Sicherheit überprüfen kann.
+    <string name="Distribution_title">Silence</string>
+    <string name="Distribution_tagline">Verschlüsselte SMS/MMS-Konversation leicht gemacht!</string>
+    <string name="Distribution_description">Silence ist eine SMS/MMS-Anwendung zum Schutz Ihrer Privatsphäre bei der Kommunikation mit Ihren Freunden.</string>
+    <string name="Distribution_long_description">Silence ist eine SMS/MMS-Anwendung zum Schutz deiner Privatsphäre bei der Kommunikation mit Freunden. Mit Silence kannst du SMS-Nachrichten senden sowie Medien oder Anhänge teilen unter vollständiger Einhaltung deiner Privatsphäre.  Funktionen: * Einfach. Silence funktioniert wie jede andere SMS-Anwendung. Weder musst du dich irgendwo anmelden, noch müssen deine Freunde einem neuen Dienst beitreten. * Zuverlässig. Silence kommuniziert durch Verwendung verschlüsselter SMS-Nachrichten. Dadurch benötigt es weder Server noch eine Internetverbindung. * Vertraulich. Silence bietet Ende-zu-Ende-Verschlüsselung für deine Nachrichten und verwendet hierfür das mit großer Sorgfalt entwickelte Signal-Verschlüsselungsprotokoll. * Sicher. Alle Nachrichten sind lokal verschlüsselt. Sollte dein Telefon einmal verloren gehen oder gestohlen werden, sind deine Nachrichten geschützt. * Open Source. Silence ist kostenlos und Open Source, sodass jeder den Quellcode einsehen und dessen Sicherheit überprüfen kann.  Bitte melde Fehler, Probleme oder Funktionsanfragen an: https://github.com/SilenceIM/Silence/issues  Den Quellcode findest du unter: https://github.com/SilenceIM/Silence  Mehr Details: https://silence.im  Datenschutzvereinbarung: https://silence.im/privacy</string>
 
-Bitte melde Fehler, Probleme oder Funktionsanfragen an:
-https://github.com/SilenceIM/Silence/issues
-
-Den Quellcode findest du unter:
-https://github.com/SilenceIM/Silence
-
-Mehr Details:
-https://silence.im
-
-Datenschutzvereinbarung:
-https://silence.im/privacy</string>
 </resources>
