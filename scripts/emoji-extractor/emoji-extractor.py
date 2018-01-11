@@ -56,11 +56,11 @@ for element in ttx.find('CBDT').find('strikedata'):
     name = element.attrib['name'].lower().replace('uni', 'u')
     image_path = path / 'emoji_{}.png'.format(name)
     print('Extracting {}'.format(image_path.name))
-    emoji = open(image_path, "wb")
+    emoji = open(str(image_path), "wb")
     for char in data:
         hexChar = binascii.unhexlify(char)
         emoji.write(hexChar)
-    emoji.close
+    emoji.close()
 
 for ligature_set_xml in ttx.find('GSUB')\
         .find('LookupList')\
