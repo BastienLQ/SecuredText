@@ -26,7 +26,6 @@
     <org.smssecure.smssecure.components.SwitchPreferenceCompat
         android:key="pref_hide_unread_message_divider"
         android:title="@string/preferences__hide_unread_message_divider"
-        android:summary="@string/preferences__hide_unread_message_divider_in_conversation"
         android:defaultValue="false" />
 
     <org.smssecure.smssecure.components.SwitchPreferenceCompat
