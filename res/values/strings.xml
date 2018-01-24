@@ -739,7 +739,6 @@
     <string name="preferences__show_sent_time">Show sent time</string>
     <string name="preferences__show_sent_time_instead_of_received_time_in_conversations">Show sent time instead of received time for incoming messages</string>
     <string name="preferences__hide_unread_message_divider">Hide unread message divider</string>
-    <string name="preferences__hide_unread_message_divider_in_conversation">Hide the unread message divider in conversation</string>
     <string name="preferences_chats__mms">MMS</string>
     <string name="preferences__auto_retrieve">Auto-retrieve</string>
     <string name="preferences__automatically_retrieve_mms_messages">Automatically retrieve MMS messages</string>
