@@ -1,0 +1,7 @@
+TTF/OTF tables data
+
+name:							font metadata
+cmap.cmap_format_12:					name <-> unicode
+CBDT.strikedata.cbdt_format_18:				name <-> data
+CBLC.strike.eblc_index_sub_table_1:			id <-> name
+GSUB.LookupList.Lookup.LigatureSubst.LigatureSet:	name <-> components <-> glyph

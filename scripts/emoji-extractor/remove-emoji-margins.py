@@ -1,21 +1,29 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
-import os
 import argparse
-from PIL import Image, ImageChops
+from pathlib import Path
 
-parser = argparse.ArgumentParser(prog='emoji-extractor', description="""Resize extracted emojis to 128x128.""")
-parser.add_argument('-e', '--emojis', help='folder where emojis are stored', default='output/', required=False)
+from PIL import Image
+
+parser = argparse.ArgumentParser(
+    prog='emoji-extractor',
+    description="""Resize extracted emojis to 128x128.""")
+parser.add_argument(
+    '-e', '--emojis',
+    help='folder where emojis are stored',
+    default='output/',
+    required=False)
 args = parser.parse_args()
 
-for element in os.listdir(args.emojis):
-    imagePath = os.path.abspath(args.emojis + element)
+path = Path(args.emojis)
+
+for image_path in path.iterdir():
     try:
-        print 'Cropping ' + element + '...'
-        image = Image.open(imagePath)
+        print('Cropping {}...'.format(image_path.name))
+        image = Image.open(image_path)
         width, height = image.size
-        box = (4, 0, width-4, height)
+        box = (4, 0, width - 4, height)
         crop = image.crop(box)
-        crop.save(imagePath)
+        crop.save(image_path)
     except:
-        print 'Cannot crop emoji_' + name + '.png...'
+        print('Cannot crop {}...'.format(image_path.name))
