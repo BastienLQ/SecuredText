@@ -655,6 +655,7 @@ Réception d\'un message d\'échange de clés pour une version invalide du proto
   <string name="preferences_chats__message_trimming">Suppression de messages</string>
   <string name="preferences_advanced__use_system_emoji">Utiliser les émojis du système</string>
   <string name="preferences_advanced__disable_silences_built_in_emoji_support">Désactiver les émojis embarqués dans Silence</string>
+  <string name="preferences__hide_unread_message_divider">Masquer le séparateur pour les messages non lus</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
