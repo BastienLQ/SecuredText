@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
+import android.widget.Toast;
 
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.crypto.SessionBuilder;
@@ -95,11 +96,16 @@ public class KeyExchangeInitiator {
     SessionBuilder    sessionBuilder    = new SessionBuilder(sessionStore, preKeyStore, signedPreKeyStore,
                                                              identityKeyStore, new SignalProtocolAddress(recipient.getNumber(), 1));
 
-    KeyExchangeMessage         keyExchangeMessage = sessionBuilder.process();
-    String                     serializedMessage  = Base64.encodeBytesWithoutPadding(keyExchangeMessage.serialize());
-    OutgoingKeyExchangeMessage textMessage        = new OutgoingKeyExchangeMessage(recipients, serializedMessage, subscriptionId);
+    if (identityKeyStore.getIdentityKeyPair() != null) {
+      KeyExchangeMessage         keyExchangeMessage = sessionBuilder.process();
+      String                     serializedMessage  = Base64.encodeBytesWithoutPadding(keyExchangeMessage.serialize());
+      OutgoingKeyExchangeMessage textMessage        = new OutgoingKeyExchangeMessage(recipients, serializedMessage, subscriptionId);
 
-    MessageSender.send(context, masterSecret, textMessage, -1, false);
+      MessageSender.send(context, masterSecret, textMessage, -1, false);
+    } else {
+      Toast.makeText(context, R.string.VerifyIdentityActivity_you_do_not_have_an_identity_key,
+              Toast.LENGTH_LONG).show();
+    }
   }
 
   private static boolean hasInitiatedSession(Context context, MasterSecret masterSecret,
