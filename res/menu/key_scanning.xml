@@ -13,6 +13,9 @@
             <item android:title="@string/key_scanning__menu_display_your_qr_code"
                   android:id="@+id/menu_get_scanned"/>
 
+            <item android:title="@string/share_identity_fingerprint"
+                  android:id="@+id/menu_share_fingerprint"/>
+
         </menu>
 
     </item>

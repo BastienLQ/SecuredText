@@ -31,6 +31,7 @@ import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Dialogs;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicTheme;
+import org.smssecure.smssecure.util.Hex;
 import org.whispersystems.libsignal.IdentityKey;
 
 /**
@@ -76,8 +77,9 @@ public abstract class KeyScanningActivity extends PassphraseRequiredActionBarAct
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
-    case R.id.menu_scan:        initiateScan();    return true;
-    case R.id.menu_get_scanned: initiateDisplay(); return true;
+    case R.id.menu_scan:              initiateScan();    return true;
+    case R.id.menu_get_scanned:       initiateDisplay(); return true;
+    case R.id.menu_share_fingerprint: initiateShare(); return true;
     case android.R.id.home:     finish();          return true;
     }
 
@@ -119,6 +121,13 @@ public abstract class KeyScanningActivity extends PassphraseRequiredActionBarAct
   protected void initiateDisplay() {
     IntentIntegrator intentIntegrator = getIntentIntegrator();
     intentIntegrator.shareText(Base64.encodeBytes(getIdentityKeyToDisplay().serialize()));
+  }
+
+  protected void initiateShare() {
+    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    shareIntent.setType("text/plain");
+    shareIntent.putExtra(Intent.EXTRA_TEXT, Hex.toString(getIdentityKeyToDisplay().serialize()));
+    startActivity(shareIntent.createChooser(shareIntent, "Select an action"));
   }
 
   protected abstract String getScanString();
