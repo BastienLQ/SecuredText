@@ -39,7 +39,7 @@ public class NodeListImpl implements NodeList {
      * @param rootNode The root <code>Node</code> of the search.
      * @param tagName The tag name to be searched for. If null, all descendants
      *              will be returned.
-     * @param deep Limit the search to the direct children of rootNode if false,
+     * @param deepSearch Limit the search to the direct children of rootNode if false,
      *              to all descendants otherwise.
      */
     public NodeListImpl(Node rootNode, String tagName, boolean deepSearch) {
@@ -95,8 +95,7 @@ public class NodeListImpl implements NodeList {
      *   <li> Traverse children from left to right in preorder.
      * </ul>
      * This method fills the live node list.
-     * @param The root of preorder traversal
-     * @return The next match
+     * @param node The root of preorder traversal
      */
     private void fillList(Node node) {
         // (Re)-initialize the container if this is the start of the search.
