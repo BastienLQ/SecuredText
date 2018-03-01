@@ -1,20 +1,13 @@
 package org.smssecure.smssecure.preferences;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.provider.ContactsContract;
-import android.support.v4.preference.PreferenceFragment;
-import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationPreferencesActivity;
 import org.smssecure.smssecure.LogSubmitActivity;
 import org.smssecure.smssecure.R;
-import org.smssecure.smssecure.contacts.ContactAccessor;
-import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.util.SilencePreferences;
 
 public class AdvancedPreferenceFragment extends ListSummaryPreferenceFragment {

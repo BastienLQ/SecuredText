@@ -2,8 +2,6 @@ package org.smssecure.smssecure.jobs;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.util.Log;
 import android.util.Pair;
 
@@ -19,10 +17,7 @@ import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirement;
 import org.smssecure.smssecure.jobs.requirements.MediaNetworkRequirement;
 import org.smssecure.smssecure.mms.ApnUnavailableException;
 import org.smssecure.smssecure.mms.CompatMmsConnection;
-import org.smssecure.smssecure.mms.IncomingLollipopMmsConnection;
 import org.smssecure.smssecure.mms.IncomingMediaMessage;
-import org.smssecure.smssecure.mms.IncomingLegacyMmsConnection;
-import org.smssecure.smssecure.mms.IncomingMmsConnection;
 import org.smssecure.smssecure.mms.MmsRadioException;
 import org.smssecure.smssecure.mms.PartParser;
 import org.smssecure.smssecure.notifications.MessageNotifier;
@@ -47,11 +42,9 @@ import java.util.concurrent.TimeUnit;
 
 import ws.com.google.android.mms.MmsException;
 import ws.com.google.android.mms.pdu.EncodedStringValue;
-import ws.com.google.android.mms.pdu.MultimediaMessagePdu;
 import ws.com.google.android.mms.pdu.NotificationInd;
 import ws.com.google.android.mms.pdu.PduBody;
 import ws.com.google.android.mms.pdu.PduPart;
-import ws.com.google.android.mms.pdu.PduHeaders;
 import ws.com.google.android.mms.pdu.RetrieveConf;
 
 public class MmsDownloadJob extends MasterSecretJob {

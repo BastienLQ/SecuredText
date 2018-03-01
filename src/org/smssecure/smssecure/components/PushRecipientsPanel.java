@@ -19,17 +19,12 @@ package org.smssecure.smssecure.components;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.smssecure.smssecure.R;
-import org.smssecure.smssecure.contacts.ContactAccessor;
 import org.smssecure.smssecure.contacts.RecipientsAdapter;
 import org.smssecure.smssecure.contacts.RecipientsEditor;
 import org.smssecure.smssecure.recipients.Recipient;
@@ -38,11 +33,9 @@ import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.recipients.Recipients.RecipientsModifiedListener;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Panel component combining both an editable field with a button for

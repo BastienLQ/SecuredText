@@ -28,11 +28,8 @@ import android.util.Log;
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.jobs.SmsReceiveJob;
 import org.smssecure.smssecure.protocol.WirePrefix;
-import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.Util;
-
-import java.util.ArrayList;
 
 public class SmsListener extends BroadcastReceiver {
 

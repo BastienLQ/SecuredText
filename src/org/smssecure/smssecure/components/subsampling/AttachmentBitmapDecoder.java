@@ -4,7 +4,6 @@ package org.smssecure.smssecure.components.subsampling;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.net.Uri;
 
 import com.davemorrissey.labs.subscaleview.decoder.ImageDecoder;

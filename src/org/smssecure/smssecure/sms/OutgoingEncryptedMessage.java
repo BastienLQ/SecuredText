@@ -1,6 +1,5 @@
 package org.smssecure.smssecure.sms;
 
-import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 
 public class OutgoingEncryptedMessage extends OutgoingTextMessage {

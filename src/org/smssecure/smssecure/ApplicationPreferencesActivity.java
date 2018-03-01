@@ -16,23 +16,18 @@
  */
 package org.smssecure.smssecure;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
@@ -43,15 +38,9 @@ import org.smssecure.smssecure.preferences.NotificationsPreferenceFragment;
 import org.smssecure.smssecure.preferences.SmsMmsPreferenceFragment;
 import org.smssecure.smssecure.preferences.ChatsPreferenceFragment;
 import org.smssecure.smssecure.service.KeyCachingService;
-import org.smssecure.smssecure.util.Dialogs;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicTheme;
-import org.smssecure.smssecure.util.task.ProgressDialogAsyncTask;
-import org.smssecure.smssecure.util.ResUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
-import org.whispersystems.libsignal.util.guava.Optional;
-
-import java.io.IOException;
 
 /**
  * The Activity for application preference display and management.

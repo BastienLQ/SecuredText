@@ -28,9 +28,7 @@ import android.text.style.StyleSpan;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.database.MmsSmsColumns;
 import org.smssecure.smssecure.database.SmsDatabase;
-import org.smssecure.smssecure.database.ThreadDatabase;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.SilencePreferences;
 
 /**
  * The message record model which represents thread heading messages.

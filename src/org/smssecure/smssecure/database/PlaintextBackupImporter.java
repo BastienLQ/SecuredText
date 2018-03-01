@@ -9,7 +9,6 @@ import android.util.Log;
 import org.smssecure.smssecure.crypto.MasterCipher;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.recipients.RecipientFactory;
-import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.xmlpull.v1.XmlPullParserException;
 

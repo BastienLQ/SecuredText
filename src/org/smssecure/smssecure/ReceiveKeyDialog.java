@@ -52,7 +52,6 @@ import org.whispersystems.libsignal.InvalidVersionException;
 import org.whispersystems.libsignal.LegacyMessageException;
 import org.whispersystems.libsignal.protocol.PreKeySignalMessage;
 import org.whispersystems.libsignal.state.IdentityKeyStore;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
 

@@ -24,7 +24,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -54,7 +53,6 @@ import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.InvalidNumberException;
 import org.smssecure.smssecure.util.JsonUtils;
 import org.smssecure.smssecure.util.ServiceUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
@@ -72,9 +70,6 @@ import java.util.Set;
 import ws.com.google.android.mms.MmsException;
 import ws.com.google.android.mms.pdu.NotificationInd;
 import ws.com.google.android.mms.pdu.PduHeaders;
-
-import static org.smssecure.smssecure.util.Util.canonicalizeNumber;
-import static org.smssecure.smssecure.util.Util.canonicalizeNumber;
 
 public class MmsDatabase extends MessagingDatabase {
 

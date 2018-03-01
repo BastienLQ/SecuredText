@@ -32,8 +32,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import junit.framework.Assert;
-
 import org.smssecure.smssecure.MediaPreviewActivity;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.components.AudioView;
@@ -41,7 +39,6 @@ import org.smssecure.smssecure.components.RemovableMediaView;
 import org.smssecure.smssecure.components.ThumbnailView;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.providers.PersistentBlobProvider;
-import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.MediaUtil;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.smssecure.smssecure.util.concurrent.ListenableFuture.Listener;

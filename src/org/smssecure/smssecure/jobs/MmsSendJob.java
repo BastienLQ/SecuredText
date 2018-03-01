@@ -19,7 +19,6 @@ import org.smssecure.smssecure.mms.MmsSendResult;
 import org.smssecure.smssecure.mms.OutgoingMediaMessage;
 import org.smssecure.smssecure.mms.PartAuthority;
 import org.smssecure.smssecure.notifications.MessageNotifier;
-import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.transport.UndeliverableMessageException;

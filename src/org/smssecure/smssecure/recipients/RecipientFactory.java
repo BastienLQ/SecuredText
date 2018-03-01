@@ -20,7 +20,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import org.smssecure.smssecure.contacts.avatars.ContactPhotoFactory;
 import org.smssecure.smssecure.database.CanonicalAddressDatabase;
 import org.smssecure.smssecure.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;

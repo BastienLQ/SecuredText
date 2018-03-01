@@ -1,6 +1,5 @@
 package org.smssecure.smssecure.notifications;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;

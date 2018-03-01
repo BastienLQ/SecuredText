@@ -1,27 +1,20 @@
 package org.smssecure.smssecure.util.dualsim;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 import org.smssecure.smssecure.crypto.IdentityKeyUtil;
 import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.crypto.MasterSecretUtil;
 import org.smssecure.smssecure.crypto.storage.SilenceSessionStore;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.util.ServiceUtil;
-import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DualSimUtil {

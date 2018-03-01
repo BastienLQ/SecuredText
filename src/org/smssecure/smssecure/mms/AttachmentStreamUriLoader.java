@@ -10,10 +10,7 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
 
-import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.mms.AttachmentStreamUriLoader.AttachmentModel;
-import org.smssecure.smssecure.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.smssecure.smssecure.util.SaveAttachmentTask.Attachment;
 
 import java.io.File;
 import java.io.InputStream;

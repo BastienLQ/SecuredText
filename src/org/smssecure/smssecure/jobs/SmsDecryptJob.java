@@ -1,7 +1,6 @@
 package org.smssecure.smssecure.jobs;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.crypto.AsymmetricMasterCipher;
@@ -20,7 +19,6 @@ import org.smssecure.smssecure.jobs.requirements.MasterSecretRequirement;
 import org.smssecure.smssecure.notifications.MessageNotifier;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.sms.IncomingEncryptedMessage;
 import org.smssecure.smssecure.sms.IncomingEndSessionMessage;
 import org.smssecure.smssecure.sms.IncomingKeyExchangeMessage;
@@ -29,8 +27,6 @@ import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.IncomingXmppExchangeMessage;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingKeyExchangeMessage;
-import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
-import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.DuplicateMessageException;
@@ -40,10 +36,8 @@ import org.whispersystems.libsignal.LegacyMessageException;
 import org.whispersystems.libsignal.NoSessionException;
 import org.whispersystems.libsignal.StaleKeyExchangeException;
 import org.whispersystems.libsignal.UntrustedIdentityException;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
-import java.util.List;
 
 public class SmsDecryptJob extends MasterSecretJob {
 

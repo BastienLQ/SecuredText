@@ -35,12 +35,10 @@ import org.smssecure.smssecure.database.model.SmsMessageRecord;
 import org.smssecure.smssecure.jobs.TrimThreadJob;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
-import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.sms.IncomingKeyExchangeMessage;
 import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
-import org.smssecure.smssecure.util.InvalidNumberException;
 import org.smssecure.smssecure.util.JsonUtils;
 import org.whispersystems.jobqueue.JobManager;
 
@@ -48,8 +46,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import static org.smssecure.smssecure.util.Util.canonicalizeNumber;
 
 /**
  * Database for storage of SMS messages.

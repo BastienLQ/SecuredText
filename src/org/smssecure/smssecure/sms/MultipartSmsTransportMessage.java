@@ -6,14 +6,12 @@ import org.smssecure.smssecure.protocol.EndSessionWirePrefix;
 import org.smssecure.smssecure.protocol.KeyExchangeWirePrefix;
 import org.smssecure.smssecure.protocol.PrekeyBundleWirePrefix;
 import org.smssecure.smssecure.protocol.SecureMessageWirePrefix;
-import org.smssecure.smssecure.protocol.XmppExchangeWirePrefix;
 import org.smssecure.smssecure.protocol.WirePrefix;
 import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Conversions;
 
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
-import java.util.ArrayList;
 
 public class MultipartSmsTransportMessage {
   private static final String TAG = MultipartSmsTransportMessage.class.getName();

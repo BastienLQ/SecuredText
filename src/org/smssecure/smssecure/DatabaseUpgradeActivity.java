@@ -23,8 +23,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -38,7 +36,6 @@ import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.ParcelUtil;
 import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.VersionTracker;
-import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.jobqueue.EncryptionKeys;
 
 import java.util.List;

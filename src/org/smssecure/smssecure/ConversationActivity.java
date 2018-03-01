@@ -60,14 +60,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.protobuf.ByteString;
-
 import org.smssecure.smssecure.TransportOptions.OnTransportChangedListener;
 import org.smssecure.smssecure.audio.AudioSlidePlayer;
 import org.smssecure.smssecure.color.MaterialColor;
 import org.smssecure.smssecure.components.AnimatingToggle;
 import org.smssecure.smssecure.components.ComposeText;
-import org.smssecure.smssecure.components.KeyboardAwareLinearLayout;
 import org.smssecure.smssecure.components.KeyboardAwareLinearLayout.OnKeyboardShownListener;
 import org.smssecure.smssecure.components.SendButton;
 import org.smssecure.smssecure.components.InputAwareLayout;
@@ -92,7 +89,6 @@ import org.smssecure.smssecure.mms.AttachmentManager;
 import org.smssecure.smssecure.mms.AttachmentManager.MediaType;
 import org.smssecure.smssecure.mms.AttachmentTypeSelectorAdapter;
 import org.smssecure.smssecure.mms.MediaConstraints;
-import org.smssecure.smssecure.mms.MmsMediaConstraints;
 import org.smssecure.smssecure.mms.OutgoingMediaMessage;
 import org.smssecure.smssecure.mms.OutgoingSecureMediaMessage;
 import org.smssecure.smssecure.mms.Slide;
@@ -107,7 +103,6 @@ import org.smssecure.smssecure.service.KeyCachingService;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingEncryptedMessage;
 import org.smssecure.smssecure.sms.OutgoingTextMessage;
-import org.smssecure.smssecure.util.concurrent.AssertedSuccessListener;
 import org.smssecure.smssecure.util.CharacterCalculator.CharacterState;
 import org.smssecure.smssecure.util.Dialogs;
 import org.smssecure.smssecure.util.DynamicLanguage;
@@ -125,7 +120,6 @@ import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.util.guava.Optional;
 
-import java.io.IOException;
 import java.util.List;
 
 import ws.com.google.android.mms.ContentType;

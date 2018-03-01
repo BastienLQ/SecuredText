@@ -37,7 +37,6 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.widget.EditText;
 
-import org.smssecure.smssecure.BuildConfig;
 import org.smssecure.smssecure.mms.OutgoingLegacyMmsConnection;
 import org.smssecure.smssecure.util.InvalidNumberException;
 import org.smssecure.smssecure.util.PhoneNumberFormatter;
@@ -49,7 +48,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

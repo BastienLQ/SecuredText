@@ -21,7 +21,6 @@ import android.util.Log;
 import org.smssecure.smssecure.util.Base64;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MultipartSmsMessageHandler {

@@ -1,27 +1,14 @@
 package org.smssecure.smssecure.providers;
 
 import android.content.ContentUris;
-import android.content.Context;
-import android.content.UriMatcher;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import org.smssecure.smssecure.crypto.DecryptingPartInputStream;
-import org.smssecure.smssecure.crypto.EncryptingPartOutputStream;
-import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.Util;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

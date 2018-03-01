@@ -25,7 +25,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.color.MaterialColor;
 import org.smssecure.smssecure.contacts.avatars.ContactColors;
 import org.smssecure.smssecure.contacts.avatars.ContactPhoto;
@@ -38,7 +37,6 @@ import org.smssecure.smssecure.util.ListenableFutureTask;
 import org.smssecure.smssecure.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;

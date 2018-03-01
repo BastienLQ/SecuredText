@@ -1,7 +1,6 @@
 package org.smssecure.smssecure.util.dualsim;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 

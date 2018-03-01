@@ -18,28 +18,19 @@ package org.smssecure.smssecure.sms;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
 import org.smssecure.smssecure.ApplicationContext;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.DatabaseFactory;
 import org.smssecure.smssecure.database.EncryptingSmsDatabase;
 import org.smssecure.smssecure.database.MmsDatabase;
-import org.smssecure.smssecure.database.NotInDirectoryException;
 import org.smssecure.smssecure.database.ThreadDatabase;
 import org.smssecure.smssecure.database.model.MessageRecord;
 import org.smssecure.smssecure.jobs.MmsSendJob;
 import org.smssecure.smssecure.jobs.SmsSendJob;
 import org.smssecure.smssecure.mms.OutgoingMediaMessage;
-import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.InvalidNumberException;
-import org.smssecure.smssecure.util.SilencePreferences;
-import org.smssecure.smssecure.util.Util;
 import org.whispersystems.jobqueue.JobManager;
-import org.whispersystems.libsignal.util.guava.Optional;
-
-import java.io.IOException;
 
 import ws.com.google.android.mms.MmsException;
 

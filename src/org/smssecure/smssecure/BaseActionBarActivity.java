@@ -1,6 +1,5 @@
 package org.smssecure.smssecure;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 
 import org.smssecure.smssecure.util.SilencePreferences;
 
