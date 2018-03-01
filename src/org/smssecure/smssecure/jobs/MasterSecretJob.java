@@ -20,8 +20,7 @@ public abstract class MasterSecretJob extends ContextJob {
 
   @Override
   public boolean onShouldRetry(Exception exception) {
-    if (exception instanceof RequirementNotMetException) return true;
-    return onShouldRetryThrowable(exception);
+      return exception instanceof RequirementNotMetException || onShouldRetryThrowable(exception);
   }
 
   public abstract void onRun(MasterSecret masterSecret) throws Exception;

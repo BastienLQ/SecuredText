@@ -201,8 +201,7 @@ class RecipientProvider {
     }
 
     public boolean equals(Object other) {
-      if (other == null || !(other instanceof RecipientIds)) return false;
-      return Arrays.equals(this.ids, ((RecipientIds) other).ids);
+        return other != null && other instanceof RecipientIds && Arrays.equals(this.ids, ((RecipientIds) other).ids);
     }
 
     public int hashCode() {

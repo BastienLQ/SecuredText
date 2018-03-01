@@ -230,14 +230,13 @@ public class CanonicalAddressDatabase {
 
   @VisibleForTesting
   static boolean isNumberAddress(@NonNull String number) {
-    if (number.contains("@"))             return false;
+      if (number.contains("@")) return false;
 
-    final String networkNumber = PhoneNumberUtils.extractNetworkPortion(number);
+      final String networkNumber = PhoneNumberUtils.extractNetworkPortion(number);
 
-    if (TextUtils.isEmpty(networkNumber)) return false;
-    if (networkNumber.length() < 3)       return false;
+      if (TextUtils.isEmpty(networkNumber)) return false;
+      return networkNumber.length() >= 3 && PhoneNumberUtils.isWellFormedSmsAddress(number);
 
-    return PhoneNumberUtils.isWellFormedSmsAddress(number);
   }
 
   private static class DatabaseHelper extends SQLiteOpenHelper {
