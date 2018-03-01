@@ -233,9 +233,7 @@ public class GroupCreateActivity extends PassphraseRequiredActionBarActivity {
 
   private static <T> ArrayList<T> setToArrayList(Set<T> set) {
     ArrayList<T> arrayList = new ArrayList<T>(set.size());
-    for (T item : set) {
-      arrayList.add(item);
-    }
+      arrayList.addAll(set);
     return arrayList;
   }
 
