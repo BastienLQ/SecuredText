@@ -230,9 +230,8 @@ public class RecipientsEditor extends AppCompatMultiAutoCompleteTextView {
         }
 
         int line = layout.getLineForVertical(y);
-        int off = layout.getOffsetForHorizontal(line, x);
 
-        return off;
+        return layout.getOffsetForHorizontal(line, x);
     }
 
     @Override
