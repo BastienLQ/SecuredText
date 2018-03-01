@@ -56,6 +56,7 @@ public class ApplicationContext extends Application implements DependencyInjecto
 
   @Override
   public void onCreate() {
+    super.onCreate();
     initializeRandomNumberFix();
     initializeLogging();
     initializeJobManager();

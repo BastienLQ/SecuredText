@@ -66,6 +66,7 @@ public class MessageRecipientListItem extends RelativeLayout
 
   @Override
   protected void onFinishInflate() {
+    super.onFinishInflate();
     this.fromView          = (FromTextView)    findViewById(R.id.from);
     this.errorDescription  = (TextView)        findViewById(R.id.error_description);
     this.contactPhotoImage = (AvatarImageView) findViewById(R.id.contact_photo_image);

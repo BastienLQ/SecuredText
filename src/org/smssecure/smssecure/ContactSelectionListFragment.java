@@ -64,6 +64,7 @@ public class ContactSelectionListFragment extends    Fragment
 
   @Override
   public void onActivityCreated(Bundle icicle) {
+    super.onActivityCreated(icicle);
     super.onCreate(icicle);
     initializeCursor();
   }
