@@ -490,7 +490,7 @@ public class MessageNotifier {
   }
 
   private static void updateBadge(Context context, int count) {
-    BadgeWidgetProvider.getInstance(context, (Class) ConversationListActivity.class).updateBadge(count);
+    BadgeWidgetProvider.getInstance(context, ConversationListActivity.class).updateBadge(count);
   }
 
 }
