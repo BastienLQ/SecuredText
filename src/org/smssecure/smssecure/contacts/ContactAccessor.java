@@ -258,9 +258,9 @@ public class ContactAccessor {
 
     if (phone.length() > 0) {
       ArrayList result = new ArrayList();
-      result.add(Integer.valueOf(-1));                    // ID
-      result.add(Long.valueOf(-1));                       // CONTACT_ID
-      result.add(Integer.valueOf(Phone.TYPE_CUSTOM));     // TYPE
+      result.add(-1);                    // ID
+      result.add((long) -1);                       // CONTACT_ID
+      result.add(Phone.TYPE_CUSTOM);     // TYPE
       result.add(phone);                                  // NUMBER
 
     /*
