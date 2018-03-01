@@ -81,10 +81,8 @@ public class PushRecipientsPanel extends RelativeLayout implements RecipientsMod
 
   public void addRecipients(Recipients recipients) {
     List<Recipient> recipientList = recipients.getRecipientsList();
-    Iterator<Recipient> iterator = recipientList.iterator();
 
-    while (iterator.hasNext()) {
-      Recipient recipient = iterator.next();
+    for (Recipient recipient : recipientList) {
       addRecipient(recipient.getName(), recipient.getNumber());
     }
   }
