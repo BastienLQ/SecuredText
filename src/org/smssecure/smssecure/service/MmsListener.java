@@ -39,9 +39,6 @@ public class MmsListener extends BroadcastReceiver {
   private static final String TAG = MmsListener.class.getSimpleName();
 
   private boolean isRelevant(Context context, Intent intent) {
-    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.DONUT) {
-      return false;
-    }
 
     if (!ApplicationMigrationService.isDatabaseImported(context)) {
       return false;
