@@ -209,11 +209,11 @@ public class XmlBackup {
       StringBuffer st = new StringBuffer();
 
       while (matcher.find()) {
-        String escaped="";
+        StringBuilder escaped= new StringBuilder();
         for (char ch: matcher.group(0).toCharArray()) {
-          escaped += ("&#" + ((int) ch) + ";");
+          escaped.append("&#").append((int) ch).append(";");
         }
-        matcher.appendReplacement(st, escaped);
+        matcher.appendReplacement(st, escaped.toString());
       }
       matcher.appendTail(st);
       return st.toString();

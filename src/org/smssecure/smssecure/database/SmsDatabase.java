@@ -508,28 +508,28 @@ public class SmsDatabase extends MessagingDatabase {
 
   /*package*/void deleteMessagesInThreadBeforeDate(long threadId, long date) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    String where      = THREAD_ID + " = ? AND (CASE " + TYPE;
+    StringBuilder where      = new StringBuilder(THREAD_ID + " = ? AND (CASE " + TYPE);
 
     for (long outgoingType : Types.OUTGOING_MESSAGE_TYPES) {
-      where += " WHEN " + outgoingType + " THEN " + DATE_SENT + " < " + date;
+      where.append(" WHEN ").append(outgoingType).append(" THEN ").append(DATE_SENT).append(" < ").append(date);
     }
 
-    where += (" ELSE " + DATE_RECEIVED + " < " + date + " END)");
+    where.append(" ELSE " + DATE_RECEIVED + " < ").append(date).append(" END)");
 
-    db.delete(TABLE_NAME, where, new String[] {threadId + ""});
+    db.delete(TABLE_NAME, where.toString(), new String[] {threadId + ""});
   }
 
   /*package*/ void deleteThreads(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    String where      = "";
+    StringBuilder where      = new StringBuilder();
 
     for (long threadId : threadIds) {
-      where += THREAD_ID + " = '" + threadId + "' OR ";
+      where.append(THREAD_ID + " = '").append(threadId).append("' OR ");
     }
 
-    where = where.substring(0, where.length() - 4);
+    where = new StringBuilder(where.substring(0, where.length() - 4));
 
-    db.delete(TABLE_NAME, where, null);
+    db.delete(TABLE_NAME, where.toString(), null);
   }
 
   /*package */ void deleteAllThreads() {

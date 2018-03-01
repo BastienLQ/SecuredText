@@ -748,17 +748,17 @@ public class MmsDatabase extends MessagingDatabase {
 
   /*package*/ void deleteThreads(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    String where      = "";
+    StringBuilder where      = new StringBuilder();
     Cursor cursor     = null;
 
     for (long threadId : threadIds) {
-      where += THREAD_ID + " = '" + threadId + "' OR ";
+      where.append(THREAD_ID + " = '").append(threadId).append("' OR ");
     }
 
-    where = where.substring(0, where.length() - 4);
+    where = new StringBuilder(where.substring(0, where.length() - 4));
 
     try {
-      cursor = db.query(TABLE_NAME, new String[] {ID}, where, null, null, null, null);
+      cursor = db.query(TABLE_NAME, new String[] {ID}, where.toString(), null, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
         delete(cursor.getLong(0));
@@ -775,16 +775,16 @@ public class MmsDatabase extends MessagingDatabase {
 
     try {
       SQLiteDatabase db = databaseHelper.getReadableDatabase();
-      String where      = THREAD_ID + " = ? AND (CASE (" + MESSAGE_BOX + " & " + Types.BASE_TYPE_MASK + ") ";
+      StringBuilder where      = new StringBuilder(THREAD_ID + " = ? AND (CASE (" + MESSAGE_BOX + " & " + Types.BASE_TYPE_MASK + ") ");
 
       for (long outgoingType : Types.OUTGOING_MESSAGE_TYPES) {
-        where += " WHEN " + outgoingType + " THEN " + DATE_SENT + " < " + date;
+        where.append(" WHEN ").append(outgoingType).append(" THEN ").append(DATE_SENT).append(" < ").append(date);
       }
 
-      where += (" ELSE " + DATE_RECEIVED + " < " + date + " END)");
+      where.append(" ELSE " + DATE_RECEIVED + " < ").append(date).append(" END)");
 
       Log.w("MmsDatabase", "Executing trim query: " + where);
-      cursor = db.query(TABLE_NAME, new String[] {ID}, where, new String[] {threadId+""}, null, null, null);
+      cursor = db.query(TABLE_NAME, new String[] {ID}, where.toString(), new String[] {threadId+""}, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
         Log.w("MmsDatabase", "Trimming: " + cursor.getLong(0));

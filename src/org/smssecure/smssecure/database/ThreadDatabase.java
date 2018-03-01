@@ -175,15 +175,15 @@ public class ThreadDatabase extends Database {
 
   private void deleteThreads(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    String where      = "";
+    StringBuilder where      = new StringBuilder();
 
     for (long threadId : threadIds) {
-      where += ID + " = '" + threadId + "' OR ";
+      where.append(ID + " = '").append(threadId).append("' OR ");
     }
 
-    where = where.substring(0, where.length() - 4);
+    where = new StringBuilder(where.substring(0, where.length() - 4));
 
-    db.delete(TABLE_NAME, where, null);
+    db.delete(TABLE_NAME, where.toString(), null);
     notifyConversationListListeners();
   }
 
@@ -299,18 +299,18 @@ public class ThreadDatabase extends Database {
     List<Cursor>     cursors                 = new LinkedList<>();
 
     for (List<Long> recipientIds : partitionedRecipientIds) {
-      String   selection      = RECIPIENT_IDS + " = ?";
+      StringBuilder selection      = new StringBuilder(RECIPIENT_IDS + " = ?");
       String[] selectionArgs  = new String[recipientIds.size()];
 
       for (int i=0;i<recipientIds.size()-1;i++)
-        selection += (" OR " + RECIPIENT_IDS + " = ?");
+        selection.append(" OR " + RECIPIENT_IDS + " = ?");
 
       int i= 0;
       for (long id : recipientIds) {
         selectionArgs[i++] = String.valueOf(id);
       }
 
-      cursors.add(db.query(TABLE_NAME, null, selection, selectionArgs, null, null, DATE + " DESC"));
+      cursors.add(db.query(TABLE_NAME, null, selection.toString(), selectionArgs, null, null, DATE + " DESC"));
     }
 
     Cursor cursor = cursors.size() > 1 ? new MergeCursor(cursors.toArray(new Cursor[cursors.size()])) : cursors.get(0);

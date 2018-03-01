@@ -300,16 +300,16 @@ public class Recipients implements Iterable<Recipient>, RecipientModifiedListene
   }
 
   public String toShortString() {
-    String fromString = "";
+    StringBuilder fromString = new StringBuilder();
 
     for (int i=0;i<recipients.size();i++) {
-      fromString += recipients.get(i).toShortString();
+      fromString.append(recipients.get(i).toShortString());
 
       if (i != recipients.size() -1 )
-        fromString += ", ";
+        fromString.append(", ");
     }
 
-    return fromString;
+    return fromString.toString();
   }
 
   @Override

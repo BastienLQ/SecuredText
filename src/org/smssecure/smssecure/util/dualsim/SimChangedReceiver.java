@@ -75,11 +75,11 @@ public class SimChangedReceiver extends BroadcastReceiver {
   }
 
   private static String joinString(String[] string) {
-    String result = "";
+    StringBuilder result = new StringBuilder();
     for(int i=0; i<string.length; i++){
-      result = result + string[i];
-      if (i != string.length-1) result = result + ",";
+      result.append(string[i]);
+      if (i != string.length-1) result.append(",");
     }
-    return result;
+    return result.toString();
   }
 }
