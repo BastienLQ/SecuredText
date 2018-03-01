@@ -16,15 +16,12 @@ import java.util.List;
 public class GenerateKeysJob extends MasterSecretJob {
   private static final String TAG = GenerateKeysJob.class.getSimpleName();
 
-  private List<SubscriptionInfoCompat> activeSubscriptions;
-
   public GenerateKeysJob(Context context) {
     super(context, JobParameters.newBuilder()
                                 .withPersistence()
                                 .withRequirement(new MasterSecretRequirement(context))
                                 .create());
 
-    this.activeSubscriptions = activeSubscriptions;
   }
 
   @Override
