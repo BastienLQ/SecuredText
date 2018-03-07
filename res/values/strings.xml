@@ -857,6 +857,7 @@
     <string name="key_scanning__menu_compare">Compare</string>
     <string name="key_scanning__menu_display_your_qr_code">Display your QR code</string>
     <string name="key_scanning__menu_scan_contacts_qr_code">Scan contact\'s QR code</string>
+    <string name="share_identity_fingerprint">Share your identity fingerprint</string>
 
     <!-- text_secure_normal -->
     <string name="text_secure_normal__menu_new_message">New message</string>

@@ -17,7 +17,6 @@
 
 package org.smssecure.smssecure.notifications;
 
-
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;

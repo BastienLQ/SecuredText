@@ -24,8 +24,6 @@ public class GenerateKeysJob extends MasterSecretJob {
                                 .withRequirement(new MasterSecretRequirement(context))
                                 .create());
 
-
-    this.activeSubscriptions = activeSubscriptions;
   }
 
   @Override

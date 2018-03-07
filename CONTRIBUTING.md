@@ -8,7 +8,7 @@ Please submit your corrections there.
 
 1. Search our issues first to make sure this is not a duplicate.
 2. (Optional) Search [Signal's issues](https://github.com/WhisperSystems/Signal-Android/issues).
-3. Open an issue and follow the template carefully.
+3. Open an issue and follow the template carefully. If you can't get a debug log from Settings, you can use ADB to grab it: `adb logcat | grep $(adb shell ps | grep org.smssecure.smssecure | cut -c10-15)`.
 
 ## Submitting pull requests
 

@@ -29,6 +29,7 @@ import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.util.Dialogs;
 import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicTheme;
+import org.smssecure.smssecure.util.Hex;
 import org.whispersystems.libsignal.IdentityKey;
 
 /**
@@ -74,9 +75,10 @@ public abstract class KeyScanningActivity extends PassphraseRequiredActionBarAct
     super.onOptionsItemSelected(item);
 
     switch (item.getItemId()) {
-    case R.id.menu_scan:        initiateScan();    return true;
-    case R.id.menu_get_scanned: initiateDisplay(); return true;
-    case android.R.id.home:     finish();          return true;
+    case R.id.menu_scan:              initiateScan();    return true;
+    case R.id.menu_get_scanned:       initiateDisplay(); return true;
+    case R.id.menu_share_fingerprint: initiateShare();   return true;
+    case android.R.id.home:           finish();          return true;
     }
 
     return false;
@@ -123,6 +125,14 @@ public abstract class KeyScanningActivity extends PassphraseRequiredActionBarAct
       Toast.makeText(this, R.string.VerifyIdentityActivity_you_do_not_have_an_identity_key,
               Toast.LENGTH_LONG).show(); 
     } 
+
+  }
+
+  protected void initiateShare() {
+    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    shareIntent.setType("text/plain");
+    shareIntent.putExtra(Intent.EXTRA_TEXT, Hex.toString(getIdentityKeyToDisplay().serialize()));
+    startActivity(shareIntent.createChooser(shareIntent, getString(R.string.share_identity_fingerprint)));
   }
 
   protected abstract String getScanString();

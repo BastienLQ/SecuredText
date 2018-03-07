@@ -2,7 +2,6 @@ package org.smssecure.smssecure.util.dualsim;
 
 import android.content.Context;
 import android.os.Build;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -30,7 +29,6 @@ public class SubscriptionInfoCompat {
   {
     this.context              = context;
     this.deviceSubscriptionId = deviceSubscriptionId;
-
     this.displayName          = displayName;
     this.number               = number;
     this.iccId                = iccId;
