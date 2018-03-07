@@ -222,6 +222,7 @@ public class MessageDetailsActivity extends PassphraseRequiredActionBarActivity 
     toFrom.setText(toFromRes);
     conversationItem.bind(masterSecret, messageRecord, dynamicLanguage.getCurrentLocale(),
                          new HashSet<MessageRecord>(), recipients);
+    if (conversationItem != null) conversationItem.hideClickForDetails();
     recipientsList.setAdapter(new MessageDetailsRecipientAdapter(this, masterSecret, messageRecord,
                                                                  recipients));
   }

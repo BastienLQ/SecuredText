@@ -17,6 +17,8 @@
 
 package org.smssecure.smssecure.notifications;
 
+
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,6 +31,7 @@ import org.smssecure.smssecure.attachments.Attachment;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.crypto.SessionUtil;
 import org.smssecure.smssecure.database.DatabaseFactory;
+import org.smssecure.smssecure.database.MessagingDatabase;
 import org.smssecure.smssecure.database.RecipientPreferenceDatabase.RecipientsPreferences;
 import org.smssecure.smssecure.mms.OutgoingMediaMessage;
 import org.smssecure.smssecure.recipients.RecipientFactory;
@@ -39,6 +42,8 @@ import org.smssecure.smssecure.sms.OutgoingTextMessage;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * Get the response text from the Android Auto and sends an message as a reply

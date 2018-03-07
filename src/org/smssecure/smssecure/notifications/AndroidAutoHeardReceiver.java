@@ -27,6 +27,10 @@ import android.util.Log;
 import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.database.DatabaseFactory;
 
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Marks an Android Auto as read after the driver have listened to it
  */

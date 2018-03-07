@@ -115,8 +115,14 @@ public abstract class KeyScanningActivity extends PassphraseRequiredActionBarAct
   }
 
   protected void initiateDisplay() {
-    IntentIntegrator intentIntegrator = getIntentIntegrator();
-    intentIntegrator.shareText(Base64.encodeBytes(getIdentityKeyToDisplay().serialize()));
+    IdentityKey identityKey = getIdentityKeyToDisplay();
+    if (identityKey != null) {
+      IntentIntegrator intentIntegrator = getIntentIntegrator();
+      intentIntegrator.shareText(Base64.encodeBytes(identityKey.serialize()));
+    } else {
+      Toast.makeText(this, R.string.VerifyIdentityActivity_you_do_not_have_an_identity_key,
+              Toast.LENGTH_LONG).show(); 
+    } 
   }
 
   protected abstract String getScanString();

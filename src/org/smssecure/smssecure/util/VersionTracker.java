@@ -24,6 +24,7 @@ public class VersionTracker {
 
   public static boolean isDbUpdated(Context context) {
     try {
+
         PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         return packageInfo == null || SilencePreferences.getLastVersionCode(context) >= packageInfo.versionCode;
 

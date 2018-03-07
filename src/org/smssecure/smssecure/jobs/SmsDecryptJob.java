@@ -1,6 +1,7 @@
 package org.smssecure.smssecure.jobs;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import org.smssecure.smssecure.crypto.AsymmetricMasterCipher;
@@ -27,6 +28,8 @@ import org.smssecure.smssecure.sms.IncomingTextMessage;
 import org.smssecure.smssecure.sms.IncomingXmppExchangeMessage;
 import org.smssecure.smssecure.sms.MessageSender;
 import org.smssecure.smssecure.sms.OutgoingKeyExchangeMessage;
+import org.smssecure.smssecure.util.dualsim.SubscriptionInfoCompat;
+import org.smssecure.smssecure.util.dualsim.SubscriptionManagerCompat;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.whispersystems.jobqueue.JobParameters;
 import org.whispersystems.libsignal.DuplicateMessageException;
@@ -38,6 +41,7 @@ import org.whispersystems.libsignal.StaleKeyExchangeException;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SmsDecryptJob extends MasterSecretJob {
 

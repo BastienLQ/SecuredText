@@ -75,6 +75,7 @@ public class SimChangedReceiver extends BroadcastReceiver {
   }
 
   private static String joinString(String[] string) {
+
     StringBuilder result = new StringBuilder();
     for(int i=0; i<string.length; i++){
       result.append(string[i]);

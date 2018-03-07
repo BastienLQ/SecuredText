@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -74,6 +75,7 @@ import org.smssecure.smssecure.util.views.Stub;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -415,6 +417,10 @@ public class ConversationItem extends LinearLayout
         simInfoText.setVisibility(View.GONE);
       }
     }
+  }
+  
+  public void hideClickForDetails(){
+    indicatorText.setVisibility(View.GONE);
   }
 
   private void setFailedStatusIcons() {
