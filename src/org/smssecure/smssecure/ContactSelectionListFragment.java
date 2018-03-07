@@ -34,7 +34,6 @@ import org.smssecure.smssecure.contacts.ContactSelectionListAdapter;
 import org.smssecure.smssecure.contacts.ContactSelectionListItem;
 import org.smssecure.smssecure.contacts.ContactsCursorLoader;
 import org.smssecure.smssecure.database.CursorRecyclerViewAdapter;
-import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.StickyHeaderDecoration;
 import org.smssecure.smssecure.util.ViewUtil;
 
@@ -65,6 +64,7 @@ public class ContactSelectionListFragment extends    Fragment
 
   @Override
   public void onActivityCreated(Bundle icicle) {
+    super.onActivityCreated(icicle);
     super.onCreate(icicle);
     initializeCursor();
   }

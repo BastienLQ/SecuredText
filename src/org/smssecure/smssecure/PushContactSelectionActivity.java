@@ -19,16 +19,9 @@ package org.smssecure.smssecure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.util.DynamicLanguage;
-import org.smssecure.smssecure.util.DynamicNoActionBarTheme;
-import org.smssecure.smssecure.util.DynamicTheme;
-import org.smssecure.smssecure.util.SilencePreferences;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -34,8 +34,6 @@ import org.whispersystems.jobqueue.requirements.NetworkRequirementProvider;
 import org.whispersystems.libsignal.logging.SignalProtocolLoggerProvider;
 import org.whispersystems.libsignal.util.AndroidSignalProtocolLogger;
 
-import java.security.Security;
-
 import dagger.ObjectGraph;
 
 /**
@@ -60,6 +58,7 @@ public class ApplicationContext extends Application implements DependencyInjecto
 
   @Override
   public void onCreate() {
+    super.onCreate();
     initializeRandomNumberFix();
     initializeLogging();
     initializeJobManager();

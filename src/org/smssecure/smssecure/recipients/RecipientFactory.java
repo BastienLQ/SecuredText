@@ -20,7 +20,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import org.smssecure.smssecure.contacts.avatars.ContactPhotoFactory;
 import org.smssecure.smssecure.database.CanonicalAddressDatabase;
 import org.smssecure.smssecure.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -128,9 +127,8 @@ public class RecipientFactory {
   private static String parseBracketedNumber(String recipient) {
     int begin    = recipient.indexOf('<');
     int end      = recipient.indexOf('>', begin);
-    String value = recipient.substring(begin + 1, end);
 
-    return value;
+      return recipient.substring(begin + 1, end);
   }
 
   public static void clearCache() {

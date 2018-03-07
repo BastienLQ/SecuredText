@@ -16,7 +16,6 @@
  */
 package org.smssecure.smssecure.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,24 +26,11 @@ import android.util.Log;
 
 import org.smssecure.smssecure.DatabaseUpgradeActivity;
 import org.smssecure.smssecure.contacts.ContactsDatabase;
-import org.smssecure.smssecure.crypto.DecryptingPartInputStream;
-import org.smssecure.smssecure.crypto.MasterCipher;
 import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.crypto.MasterSecretUtil;
 import org.smssecure.smssecure.notifications.MessageNotifier;
-import org.smssecure.smssecure.util.Base64;
-import org.smssecure.smssecure.util.Util;
-import org.whispersystems.libsignal.IdentityKey;
-import org.whispersystems.libsignal.InvalidMessageException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import ws.com.google.android.mms.ContentType;
 
 public class DatabaseFactory {
   private static final String TAG = DatabaseFactory.class.getSimpleName();

@@ -39,42 +39,35 @@ public class MmsListener extends BroadcastReceiver {
   private static final String TAG = MmsListener.class.getSimpleName();
 
   private boolean isRelevant(Context context, Intent intent) {
-    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.DONUT) {
-      return false;
-    }
 
-    if (!ApplicationMigrationService.isDatabaseImported(context)) {
-      return false;
-    }
+      if (!ApplicationMigrationService.isDatabaseImported(context)) {
+          return false;
+      }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-        Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION.equals(intent.getAction()) &&
-        Util.isDefaultSmsProvider(context))
-    {
-      return false;
-    }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
+              Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION.equals(intent.getAction()) &&
+              Util.isDefaultSmsProvider(context)) {
+          return false;
+      }
 
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT &&
-        SilencePreferences.isInterceptAllMmsEnabled(context))
-    {
-      return true;
-    }
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT &&
+              SilencePreferences.isInterceptAllMmsEnabled(context)) {
+          return true;
+      }
 
-    byte[] mmsData   = intent.getByteArrayExtra("data");
-    PduParser parser = new PduParser(mmsData);
-    GenericPdu pdu   = parser.parse();
+      byte[] mmsData = intent.getByteArrayExtra("data");
+      PduParser parser = new PduParser(mmsData);
+      GenericPdu pdu = parser.parse();
 
-    if (pdu == null || pdu.getMessageType() != PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND) {
-      Log.w(TAG, "Received Invalid notification PDU");
-      return false;
-    }
+      if (pdu == null || pdu.getMessageType() != PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND) {
+          Log.w(TAG, "Received Invalid notification PDU");
+          return false;
+      }
 
-    NotificationInd notificationPdu = (NotificationInd)pdu;
+      NotificationInd notificationPdu = (NotificationInd) pdu;
 
-    if (notificationPdu.getSubject() == null)
-      return false;
+      return notificationPdu.getSubject() != null && WirePrefix.isEncryptedMmsSubject(notificationPdu.getSubject().getString());
 
-    return WirePrefix.isEncryptedMmsSubject(notificationPdu.getSubject().getString());
   }
 
   @Override

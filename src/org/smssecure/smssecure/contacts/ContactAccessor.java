@@ -25,13 +25,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.PhoneLookup;
 import android.telephony.PhoneNumberUtils;
 
-import org.smssecure.smssecure.database.DatabaseFactory;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -258,9 +254,9 @@ public class ContactAccessor {
 
     if (phone.length() > 0) {
       ArrayList result = new ArrayList();
-      result.add(Integer.valueOf(-1));                    // ID
-      result.add(Long.valueOf(-1));                       // CONTACT_ID
-      result.add(Integer.valueOf(Phone.TYPE_CUSTOM));     // TYPE
+      result.add(-1);                    // ID
+      result.add((long) -1);                       // CONTACT_ID
+      result.add(Phone.TYPE_CUSTOM);     // TYPE
       result.add(phone);                                  // NUMBER
 
     /*

@@ -76,12 +76,10 @@ public class SingleRecipientPanel extends RelativeLayout implements RecipientsMo
 
   public void addRecipients(Recipients recipients) {
     List<Recipient> recipientList = recipients.getRecipientsList();
-    Iterator<Recipient> iterator = recipientList.iterator();
 
-    while (iterator.hasNext()) {
-      Recipient recipient = iterator.next();
-      addRecipient(recipient.getName(), recipient.getNumber());
-    }
+      for (Recipient recipient : recipientList) {
+          addRecipient(recipient.getName(), recipient.getNumber());
+      }
   }
 
   public void addContacts(List<ContactAccessor.ContactData> contacts) {

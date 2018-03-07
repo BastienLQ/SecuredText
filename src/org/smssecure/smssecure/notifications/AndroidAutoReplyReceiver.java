@@ -43,6 +43,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
  * Get the response text from the Android Auto and sends an message as a reply
  */

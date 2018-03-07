@@ -10,10 +10,7 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
 
-import org.smssecure.smssecure.crypto.MasterSecret;
 import org.smssecure.smssecure.mms.AttachmentStreamUriLoader.AttachmentModel;
-import org.smssecure.smssecure.mms.DecryptableStreamUriLoader.DecryptableUri;
-import org.smssecure.smssecure.util.SaveAttachmentTask.Attachment;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,7 +18,7 @@ import java.io.InputStream;
 /**
  * A {@link ModelLoader} for translating uri models into {@link InputStream} data. Capable of handling 'http',
  * 'https', 'android.resource', 'content', and 'file' schemes. Unsupported schemes will throw an exception in
- * {@link #getResourceFetcher(Uri, int, int)}.
+ * {@link #getResourceFetcher(AttachmentModel, int, int)}.
  */
 public class AttachmentStreamUriLoader implements StreamModelLoader<AttachmentModel> {
   private final Context context;

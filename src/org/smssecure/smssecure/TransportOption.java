@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 
 import org.smssecure.smssecure.util.CharacterCalculator;
 import org.smssecure.smssecure.util.CharacterCalculator.CharacterState;
-import org.smssecure.smssecure.util.EncryptedSmsCharacterCalculator;
-import org.smssecure.smssecure.util.SmsCharacterCalculator;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 public class TransportOption {

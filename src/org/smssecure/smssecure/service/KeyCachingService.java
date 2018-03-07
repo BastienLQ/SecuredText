@@ -303,8 +303,7 @@ public class KeyCachingService extends Service {
   private PendingIntent buildLockIntent() {
     Intent intent = new Intent(this, KeyCachingService.class);
     intent.setAction(PASSPHRASE_EXPIRED_EVENT);
-    PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
-    return pendingIntent;
+    return PendingIntent.getService(getApplicationContext(), 0, intent, 0);
   }
 
   private PendingIntent buildLaunchIntent() {

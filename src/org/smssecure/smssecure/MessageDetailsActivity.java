@@ -43,7 +43,6 @@ import org.smssecure.smssecure.database.SmsDatabase;
 import org.smssecure.smssecure.database.loaders.MessageDetailsLoader;
 import org.smssecure.smssecure.database.model.MessageRecord;
 import org.smssecure.smssecure.notifications.MessageNotifier;
-import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.DateUtils;
@@ -52,12 +51,10 @@ import org.smssecure.smssecure.util.DynamicTheme;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.Util;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Locale;
 
 /**

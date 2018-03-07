@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import org.smssecure.smssecure.attachments.Attachment;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.Base64;
 
 import java.util.List;
 

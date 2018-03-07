@@ -99,9 +99,8 @@ public class MasterCipher {
       byte[] encryptedBody = verifyMacBody(mac, decodedBody);
 
       Cipher cipher        = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
-      byte[] encrypted     = getDecryptedBody(cipher, encryptedBody);
 
-      return encrypted;
+      return getDecryptedBody(cipher, encryptedBody);
     } catch (GeneralSecurityException ge) {
       throw new InvalidMessageException(ge);
     }
@@ -113,9 +112,8 @@ public class MasterCipher {
       Mac    mac                 = getMac(masterSecret.getMacKey());
 
       byte[] encryptedBody       = getEncryptedBody(cipher, body);
-      byte[] encryptedAndMacBody = getMacBody(mac, encryptedBody);
 
-      return encryptedAndMacBody;
+      return getMacBody(mac, encryptedBody);
     } catch (GeneralSecurityException ge) {
       Log.w("bodycipher", ge);
       return null;

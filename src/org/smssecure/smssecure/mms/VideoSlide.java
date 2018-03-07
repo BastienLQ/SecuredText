@@ -30,7 +30,6 @@ import org.smssecure.smssecure.util.ResUtil;
 import java.io.IOException;
 
 import ws.com.google.android.mms.ContentType;
-import ws.com.google.android.mms.pdu.PduPart;
 
 public class VideoSlide extends Slide {
 

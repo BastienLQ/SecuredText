@@ -1,20 +1,14 @@
 package org.smssecure.smssecure.mms;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.bumptech.glide.load.data.StreamLocalUriFetcher;
 
 import org.smssecure.smssecure.crypto.AttachmentCipherInputStream;
-import org.smssecure.smssecure.crypto.MasterSecret;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 

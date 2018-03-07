@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.telephony.SmsMessage;
 
-import org.whispersystems.libsignal.util.guava.Optional;
-
 import java.util.List;
 
 public class IncomingTextMessage implements Parcelable {

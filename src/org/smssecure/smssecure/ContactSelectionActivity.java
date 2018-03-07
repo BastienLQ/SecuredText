@@ -17,13 +17,11 @@
 package org.smssecure.smssecure;
 
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.EditText;
@@ -36,8 +34,6 @@ import org.smssecure.smssecure.util.DynamicLanguage;
 import org.smssecure.smssecure.util.DynamicNoActionBarTheme;
 import org.smssecure.smssecure.util.DynamicTheme;
 import org.smssecure.smssecure.util.ServiceUtil;
-
-import java.io.IOException;
 
 /**
  * Base activity container for selecting a list of contacts.

@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import org.smssecure.smssecure.recipients.Recipient;
-import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.Recipients;
 import org.smssecure.smssecure.util.InvalidNumberException;
 import org.smssecure.smssecure.util.SilencePreferences;

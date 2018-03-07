@@ -5,20 +5,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.support.v4.preference.PreferenceFragment;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.smssecure.smssecure.ApplicationPreferencesActivity;
 import org.smssecure.smssecure.R;
 import org.smssecure.smssecure.util.SilencePreferences;
 import org.smssecure.smssecure.util.Trimmer;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ChatsPreferenceFragment extends PreferenceFragment {
   private static final String TAG = ChatsPreferenceFragment.class.getSimpleName();

@@ -1,7 +1,5 @@
 package org.smssecure.smssecure.mms;
 
-import android.content.Context;
-
 import org.smssecure.smssecure.attachments.Attachment;
 import org.smssecure.smssecure.recipients.Recipients;
 

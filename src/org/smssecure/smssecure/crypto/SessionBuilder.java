@@ -74,7 +74,7 @@ public class SessionBuilder {
   /**
    * Build a new session from a received {@link PreKeySignalMessage}.
    *
-   * After a session is constructed in this way, the embedded {@link SignalMessage}
+   * After a session is constructed in this way, the embedded {@link PreKeySignalMessage}
    * can be decrypted.
    *
    * @param message The received {@link PreKeySignalMessage}.
@@ -200,7 +200,7 @@ public class SessionBuilder {
   }
 
   /**
-   * Build a new session from a {@link org.whispersystems.libsignal.protocol.KeyExchangeMessage}
+   * Build a new session from a {@link org.whispersystems.libsignal.protocol.SignalProtos.KeyExchangeMessage}
    * received from a remote client.
    *
    * @param message The received KeyExchangeMessage.

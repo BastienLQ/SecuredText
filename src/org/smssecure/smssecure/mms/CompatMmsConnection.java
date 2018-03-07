@@ -74,12 +74,8 @@ public class CompatMmsConnection implements OutgoingMmsConnection, IncomingMmsCo
       Log.w(TAG, "Receiving via Lollipop API");
       return new IncomingLollipopMmsConnection(context).retrieve(contentLocation, transactionId, subscriptionId);
     } else {
-      try {
-        Log.w(TAG, "Receiving via legacy connection");
-        return new IncomingLegacyMmsConnection(context).retrieve(contentLocation, transactionId, subscriptionId);
-      } catch (MmsRadioException | IOException | ApnUnavailableException e) {
-        throw e;
-      }
+      Log.w(TAG, "Receiving via legacy connection");
+      return new IncomingLegacyMmsConnection(context).retrieve(contentLocation, transactionId, subscriptionId);
     }
   }
 }

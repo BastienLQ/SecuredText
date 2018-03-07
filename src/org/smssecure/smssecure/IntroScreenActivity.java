@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -24,7 +23,6 @@ import com.nineoldandroids.animation.ArgbEvaluator;
 import org.smssecure.smssecure.IntroPagerAdapter.IntroPage;
 import org.smssecure.smssecure.util.ServiceUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
-import org.smssecure.smssecure.util.Util;
 import org.smssecure.smssecure.util.ViewUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 

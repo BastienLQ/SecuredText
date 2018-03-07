@@ -1,11 +1,7 @@
 package org.smssecure.smssecure.mms;
 
 import org.smssecure.smssecure.attachments.Attachment;
-import org.smssecure.smssecure.crypto.MasterCipher;
-import org.smssecure.smssecure.crypto.MasterSecret;
-import org.smssecure.smssecure.util.Base64;
 import org.smssecure.smssecure.database.MmsAddresses;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.LinkedList;
 import java.util.List;

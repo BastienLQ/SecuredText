@@ -57,8 +57,6 @@ import org.smssecure.smssecure.database.model.MediaMmsMessageRecord;
 import org.smssecure.smssecure.database.model.MessageRecord;
 import org.smssecure.smssecure.database.model.NotificationMmsMessageRecord;
 import org.smssecure.smssecure.jobs.MmsDownloadJob;
-import org.smssecure.smssecure.jobs.MmsSendJob;
-import org.smssecure.smssecure.jobs.SmsSendJob;
 import org.smssecure.smssecure.mms.PartAuthority;
 import org.smssecure.smssecure.mms.Slide;
 import org.smssecure.smssecure.mms.SlideClickListener;

@@ -55,14 +55,14 @@ public class CanonicalSessionMigrator {
 
     String[] files = rootDirectory.list();
 
-    for (int i=0;i<files.length;i++) {
-      File item = new File(rootDirectory.getAbsolutePath() + File.separatorChar + files[i]);
+      for (String file : files) {
+          File item = new File(rootDirectory.getAbsolutePath() + File.separatorChar + file);
 
-      if (!item.isDirectory() && files[i].matches("[0-9]+")) {
-        long canonicalAddress = canonicalDb.getCanonicalAddressId(files[i]);
-        migrateSession(item, sessionsDirectory, canonicalAddress);
+          if (!item.isDirectory() && file.matches("[0-9]+")) {
+              long canonicalAddress = canonicalDb.getCanonicalAddressId(file);
+              migrateSession(item, sessionsDirectory, canonicalAddress);
+          }
       }
-    }
 
     context.getSharedPreferences("SecureSMS", Context.MODE_PRIVATE).edit().putBoolean("canonicalized", true).apply();
   }

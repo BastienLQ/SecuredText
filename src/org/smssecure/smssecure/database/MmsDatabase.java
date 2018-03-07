@@ -24,7 +24,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -54,7 +53,6 @@ import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.RecipientFactory;
 import org.smssecure.smssecure.recipients.RecipientFormattingException;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.InvalidNumberException;
 import org.smssecure.smssecure.util.JsonUtils;
 import org.smssecure.smssecure.util.ServiceUtil;
 import org.smssecure.smssecure.util.SilencePreferences;
@@ -72,9 +70,6 @@ import java.util.Set;
 import ws.com.google.android.mms.MmsException;
 import ws.com.google.android.mms.pdu.NotificationInd;
 import ws.com.google.android.mms.pdu.PduHeaders;
-
-import static org.smssecure.smssecure.util.Util.canonicalizeNumber;
-import static org.smssecure.smssecure.util.Util.canonicalizeNumber;
 
 public class MmsDatabase extends MessagingDatabase {
 
@@ -753,17 +748,17 @@ public class MmsDatabase extends MessagingDatabase {
 
   /*package*/ void deleteThreads(Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    String where      = "";
+    StringBuilder where      = new StringBuilder();
     Cursor cursor     = null;
 
     for (long threadId : threadIds) {
-      where += THREAD_ID + " = '" + threadId + "' OR ";
+      where.append(THREAD_ID + " = '").append(threadId).append("' OR ");
     }
 
-    where = where.substring(0, where.length() - 4);
+    where = new StringBuilder(where.substring(0, where.length() - 4));
 
     try {
-      cursor = db.query(TABLE_NAME, new String[] {ID}, where, null, null, null, null);
+      cursor = db.query(TABLE_NAME, new String[] {ID}, where.toString(), null, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
         delete(cursor.getLong(0));
@@ -780,16 +775,16 @@ public class MmsDatabase extends MessagingDatabase {
 
     try {
       SQLiteDatabase db = databaseHelper.getReadableDatabase();
-      String where      = THREAD_ID + " = ? AND (CASE (" + MESSAGE_BOX + " & " + Types.BASE_TYPE_MASK + ") ";
+      StringBuilder where      = new StringBuilder(THREAD_ID + " = ? AND (CASE (" + MESSAGE_BOX + " & " + Types.BASE_TYPE_MASK + ") ");
 
       for (long outgoingType : Types.OUTGOING_MESSAGE_TYPES) {
-        where += " WHEN " + outgoingType + " THEN " + DATE_SENT + " < " + date;
+        where.append(" WHEN ").append(outgoingType).append(" THEN ").append(DATE_SENT).append(" < ").append(date);
       }
 
-      where += (" ELSE " + DATE_RECEIVED + " < " + date + " END)");
+      where.append(" ELSE " + DATE_RECEIVED + " < ").append(date).append(" END)");
 
       Log.w("MmsDatabase", "Executing trim query: " + where);
-      cursor = db.query(TABLE_NAME, new String[] {ID}, where, new String[] {threadId+""}, null, null, null);
+      cursor = db.query(TABLE_NAME, new String[] {ID}, where.toString(), new String[] {threadId+""}, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
         Log.w("MmsDatabase", "Trimming: " + cursor.getLong(0));

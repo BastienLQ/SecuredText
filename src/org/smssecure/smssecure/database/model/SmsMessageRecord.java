@@ -27,7 +27,6 @@ import org.smssecure.smssecure.database.documents.NetworkFailure;
 import org.smssecure.smssecure.database.documents.IdentityKeyMismatch;
 import org.smssecure.smssecure.recipients.Recipient;
 import org.smssecure.smssecure.recipients.Recipients;
-import org.smssecure.smssecure.util.SilencePreferences;
 
 import java.util.LinkedList;
 import java.util.List;

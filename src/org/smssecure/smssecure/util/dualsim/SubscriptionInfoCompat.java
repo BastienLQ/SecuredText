@@ -29,7 +29,6 @@ public class SubscriptionInfoCompat {
   {
     this.context              = context;
     this.deviceSubscriptionId = deviceSubscriptionId;
-    this.subscriptionId       = subscriptionId;
     this.displayName          = displayName;
     this.number               = number;
     this.iccId                = iccId;

@@ -33,7 +33,6 @@ import android.os.Build;
 import android.os.Looper;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -491,7 +490,7 @@ public class MessageNotifier {
   }
 
   private static void updateBadge(Context context, int count) {
-    BadgeWidgetProvider.getInstance(context, (Class) ConversationListActivity.class).updateBadge(count);
+    BadgeWidgetProvider.getInstance(context, ConversationListActivity.class).updateBadge(count);
   }
 
 }
